@@ -32,8 +32,13 @@ const Hero = () => {
   return (
     <section className="relative section-padding overflow-hidden flex items-center min-h-screen" data-cta-section>
       <div className="absolute inset-0 z-0">
-          <img alt="Home exterior beautifully lit with Christmas lights at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1664289342468-fa99588e60b8?w=1920&q=80&auto=format&fit=crop" />
-          <div className="absolute inset-0 bg-black/60" />
+          <ImageOptimizer
+            alt="Home exterior beautifully lit with Christmas lights at dusk"
+            className="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1664289342468-fa99588e60b8?w=1920&q=80&auto=format&fit=crop"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-black/50" />
       </div>
 
       <div className="container-max relative z-10">

@@ -7,6 +7,7 @@ import ImageOptimizer from '@/components/ImageOptimizer';
 import { Button } from '@/components/ui/button';
 import { useLightbox } from '@/context/LightboxContext.jsx';
 import { motion } from 'framer-motion';
+import QuoteCalculator from '@/components/QuoteCalculator';
 
 const investmentTiers = [
   {
@@ -139,6 +140,18 @@ const PricingPage = () => {
         </section>
 
         <section className="section-padding bg-background-alt border-t">
+            <div className="container-content">
+                <div className="text-center mb-12">
+                    <h2 className="h2 text-foreground mb-4">Build Your Estimate</h2>
+                    <p className="p-body text-muted-foreground max-w-xl mx-auto">Use our calculator to get a ballpark estimate, then request a free consultation for exact pricing.</p>
+                </div>
+                <div className="max-w-4xl mx-auto">
+                    <QuoteCalculator />
+                </div>
+            </div>
+        </section>
+
+        <section className="section-padding bg-background border-t">
             <div className="container-content text-center">
                 <h2 className="h2 text-foreground mb-4">Ready to Discuss Your Vision?</h2>
                 <p className="p-body text-muted-foreground mb-8 max-w-xl mx-auto">Let's create a holiday display that reflects the beauty and character of your home.</p>

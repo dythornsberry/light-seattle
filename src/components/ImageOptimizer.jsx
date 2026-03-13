@@ -90,7 +90,9 @@ const ImageOptimizer = ({
           alt={alt}
           className={className}
           loading={loading}
+          decoding="async"
           fetchPriority={fetchpriority}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           {...props}
         />
       </picture>
@@ -103,6 +105,7 @@ const ImageOptimizer = ({
         alt={alt}
         className={className}
         loading={loading}
+        decoding="async"
         fetchPriority={fetchpriority}
         {...props}
       />

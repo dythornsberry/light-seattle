@@ -82,8 +82,13 @@ function Header() {
                 </NavLink>
               ))}
             </nav>
-            
+
             <div className="hidden lg:flex items-center gap-4">
+              <div className="flex items-center gap-1.5 text-sm font-semibold text-foreground/80 border border-border rounded-full px-3 py-1">
+                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                <span>5.0</span>
+                <span className="text-muted-foreground font-normal">on Google</span>
+              </div>
               <Button as="a" href="tel:4254484998" variant="ghost" className="font-medium flex items-center gap-x-2 text-foreground/80 hover:text-primary">
                   <Phone size={16} />
                   <span>(425) 448-4998</span>

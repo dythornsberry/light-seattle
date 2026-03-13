@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import PageHeader from '@/components/PageHeader';
 import ImageOptimizer from '@/components/ImageOptimizer';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copyright } from 'lucide-react';
@@ -128,6 +129,23 @@ export default function GalleryPage() {
       />
       
       <StatisticsBar />
+
+      <section className="section-padding bg-background">
+        <div className="container-content text-center mb-10">
+          <h2 className="h2 text-foreground mb-4">See the Transformation</h2>
+          <p className="p-body text-muted-foreground max-w-2xl mx-auto">
+            Drag the slider to see the difference our installations make.
+          </p>
+        </div>
+        <div className="container-max max-w-5xl">
+          <BeforeAfterSlider
+            beforeSrc="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=80&auto=format&fit=crop"
+            afterSrc="https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/29ed3807d7952892033a68ec8781e744.jpg"
+            beforeAlt="Home exterior during the day without holiday lighting"
+            afterAlt="Same home beautifully lit with warm white Christmas lights at night"
+          />
+        </div>
+      </section>
 
       <section className="section-padding bg-background-alt">
         <div className="container-max">
