@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Star } from 'lucide-react';
+
+const LogoWordmark = ({ className = '' }) => (
+  <span className={`flex flex-col leading-none ${className}`} style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+    <span className="text-[10px] tracking-[0.3em] uppercase text-primary font-semibold">Seattle</span>
+    <span className="text-lg font-semibold text-foreground -mt-0.5">Christmas Lights</span>
+  </span>
+);
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -64,9 +71,8 @@ function Header() {
       <header className={`sticky top-0 transition-all duration-300 z-[50] ${isScrolled ? 'bg-background/80 shadow-md backdrop-blur-sm border-b border-border' : 'bg-transparent'}`}>
         <div className="container-max">
           <div className="flex items-center justify-between h-24">
-            <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground">
-              <Star className="w-5 h-5 text-primary" />
-              <span style={{ fontFamily: "'Playfair Display', serif" }}>Seattle Christmas Lights</span>
+            <Link to="/" className="flex items-center">
+              <LogoWordmark />
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8">
@@ -119,9 +125,8 @@ function Header() {
           >
             <div className="flex flex-col h-full bg-background">
                <div className="container-max flex items-center justify-between h-24 shrink-0">
-                 <Link to="/" onClick={closeMenu} className="flex items-center gap-2 text-xl font-bold text-foreground">
-                    <Star className="w-5 h-5 text-primary" />
-                    <span style={{ fontFamily: "'Playfair Display', serif" }}>Seattle Christmas Lights</span>
+                 <Link to="/" onClick={closeMenu} className="flex items-center">
+                    <LogoWordmark />
                  </Link>
                  <button onClick={closeMenu} aria-label="Close menu" className="text-foreground p-2 -mr-2">
                     <X size={28} />

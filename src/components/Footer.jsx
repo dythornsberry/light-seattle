@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, MapPin, Mail, Star } from 'lucide-react';
+import { Phone, MapPin, Mail } from 'lucide-react';
 
 function Footer({ serviceAreas }) {
 
@@ -9,9 +9,11 @@ function Footer({ serviceAreas }) {
       <div className="container-max section-padding pb-12">
         <div className="grid lg:grid-cols-4 gap-12">
           <div className="lg:col-span-1 space-y-4">
-             <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground">
-              <Star className="w-5 h-5 text-primary" />
-              <span style={{ fontFamily: "'Playfair Display', serif" }}>Seattle Christmas Lights</span>
+             <Link to="/" className="flex items-center">
+              <span className="flex flex-col leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <span className="text-[10px] tracking-[0.3em] uppercase text-primary font-semibold">Seattle</span>
+                <span className="text-lg font-semibold text-foreground -mt-0.5">Christmas Lights</span>
+              </span>
             </Link>
             <p className="p-body text-muted-foreground">Proudly serving Kenmore and the greater North Seattle area.</p>
           </div>
