@@ -32,7 +32,7 @@ const Hero = () => {
   return (
     <section className="relative section-padding overflow-hidden flex items-center min-h-screen" data-cta-section>
       <div className="absolute inset-0 z-0">
-          <img alt="Elegant home exterior with warm holiday lighting" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1614392998309-a5aecb677b9c" />
+          <img alt="Home exterior beautifully lit with Christmas lights at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1664289342468-fa99588e60b8?w=1920&q=80&auto=format&fit=crop" />
           <div className="absolute inset-0 bg-black/60" />
       </div>
 
@@ -50,7 +50,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="p-body text-xl md:text-2xl mb-8 text-gray-200">
-            Transform your home with designer holiday lighting, crafted with artistry and executed with white-glove service.
+            Professional Christmas light installation, maintenance, and storage. We handle everything so you don't have to.
           </motion.p>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,10 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button onClick={handleQuoteClick} className="btn-primary">
-              Get Your Custom Design
+              Get a Free Quote
+            </Button>
+            <Button as="a" href="tel:4254484998" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+              Call (425) 448-4998
             </Button>
           </motion.div>
         </div>
@@ -117,7 +120,7 @@ const OurProcess = () => {
   return (
     <section className="section-padding bg-background-alt border-y border-border">
       <div className="container-content text-center">
-        <h2 className="h2 mb-16">Our Signature Process</h2>
+        <h2 className="h2 mb-16">How It Works</h2>
         <div className="grid sm:grid-cols-3 gap-12 items-start">
           {steps.map((step, index) => (
             <div key={step.title} className="text-center relative">
@@ -151,9 +154,9 @@ const Portfolio = () => {
   return (
     <section id="portfolio-section" className="section-padding bg-background border-b border-border">
       <div className="container-content text-center">
-        <h2 className="h2 mb-6">A Glimpse of Our Artistry</h2>
+        <h2 className="h2 mb-6">Our Recent Work</h2>
         <p className="p-body text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Every design is a unique masterpiece, meticulously crafted to complement your home's distinct architecture and character.
+          Every home is different. Here are a few of our recent installations around the Seattle area.
         </p>
       </div>
       <div className="container-max">
@@ -184,11 +187,11 @@ const HomePageFAQ = () => {
   const faqs = [
     {
       question: "How far in advance should I book?",
-      answer: "Our calendar fills quickly, so we encourage clients to schedule their consultation as early as possible, ideally in late summer or early autumn. This ensures we have time to design, source materials, and install your bespoke display before the season begins."
+      answer: "Our calendar fills up fast, so we recommend reaching out in late summer or early fall. That gives us time to design your layout, source materials, and get everything installed before the season starts."
     },
     {
       question: "What's included in your service?",
-      answer: "Our white-glove service covers everything: consultation, professional installation, mid-season maintenance, prompt removal after the holidays, and safe off-season storage of your lights. You don't have to lift a finger."
+      answer: "We handle everything: consultation, professional installation, maintenance throughout the season, removal after the holidays, and off-season storage. You don't have to lift a finger."
     },
     {
       question: "What happens if a light goes out?",
@@ -225,8 +228,8 @@ const QuoteSection = () => (
   <section id="quote-form-section" className="section-padding bg-background-alt border-t border-border" data-cta-section>
     <div className="container-content">
       <div className="text-center mb-12">
-        <h2 className="h2">Begin Your Design Experience</h2>
-        <p className="p-body mt-4 text-muted-foreground">Custom lighting designs tailored to your home.</p>
+        <h2 className="h2">Get a Free Quote</h2>
+        <p className="p-body mt-4 text-muted-foreground">Tell us about your home and we'll put together a custom lighting plan.</p>
       </div>
       <div className="bg-background p-8 rounded-2xl shadow-lg border border-border">
         <ContactForm />
@@ -246,15 +249,45 @@ export default function HomePage() {
     <>
       <Helmet>
         <title>Seattle's Premier Holiday Lighting Designers | Seattle Christmas Lights</title>
-        <meta name="description" content="Elevate your estate with bespoke holiday lighting. We offer white-glove service from design through storage for Seattle's premier properties." />
+        <meta name="description" content="Professional Christmas light installation in Seattle. We handle design, installation, maintenance, and storage so you don't have to." />
         <link rel="canonical" href="https://lightseattle.com/" />
         <meta property="og:title" content="Seattle's Premier Holiday Lighting Designers | Seattle Christmas Lights" />
-        <meta property="og:description" content="White-glove service from design through storage. Schedule your complimentary design consultation today." />
+        <meta property="og:description" content="Professional Christmas light installation, maintenance, and storage in Seattle. Get a free quote today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://lightseattle.com/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://horizons-cdn.hostinger.com" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How far in advance should I book?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our calendar fills up fast, so we recommend reaching out in late summer or early fall. That gives us time to design your layout, source materials, and get everything installed before the season starts."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's included in your service?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We handle everything: consultation, professional installation, maintenance throughout the season, removal after the holidays, and off-season storage. You don't have to lift a finger."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens if a light goes out?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If any part of your display malfunctions, contact us and we'll schedule a service visit as quickly as possible, usually within 24 hours. Reliability is part of our guarantee; your display should look perfect throughout the season."
+              }
+            }
+          ]
+        })}</script>
       </Helmet>
       <LocalBusinessSchema />
       

@@ -25,7 +25,7 @@ const cityContent = {
     ]
   },
   'Kirkland': {
-    text: "Kirkland's vibrant waterfront and charming neighborhoods inspire beautiful holiday displays. We often install crisp roofline lighting on homes in Houghton and Bridle Trails. With our all-inclusive service, you don't have to worry about a thing—we even handle the takedown and storage after the season.",
+    text: "Kirkland's vibrant waterfront and charming neighborhoods inspire beautiful holiday displays. We often install crisp roofline lighting on homes in Houghton and Bridle Trails. With our all-inclusive service, you don't have to worry about a thing. We even handle the takedown and storage after the season.",
     images: [
       { src: 'https://images.unsplash.com/photo-1595872018818-97555653a011?q=80&w=800', alt: 'Classic Christmas roofline lights on a two-story home in Kirkland' },
       { src: 'https://images.unsplash.com/photo-1595013979794-3372ef305a8f?q=80&w=800', alt: 'Net lights covering bushes at a Kirkland residence for the holidays' },
@@ -89,7 +89,7 @@ const cityContent = {
     ]
   },
   'Mercer Island': {
-    text: "Mercer Island's luxury waterfront estates and tree-lined streets are the perfect setting for elegant holiday lighting. We design custom displays that complement the island's upscale architecture, from grand roofline installations to illuminated driveways and mature trees. Our white-glove service includes design, installation, maintenance, takedown, and storage.",
+    text: "Mercer Island's waterfront estates and tree-lined streets are the perfect setting for holiday lighting. We design custom displays that complement the island's architecture, from roofline installations to illuminated driveways and mature trees. Our full-service package includes design, installation, maintenance, takedown, and storage.",
     images: [
       { src: 'https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=800', alt: 'Luxury home on Mercer Island with elegant warm white holiday lights' },
       { src: 'https://images.unsplash.com/photo-1599472696777-95cab5e0f891?q=80&w=800', alt: 'Waterfront property on Mercer Island decorated with festive lighting' },
@@ -97,7 +97,7 @@ const cityContent = {
     ]
   },
   'Medina': {
-    text: "Home to some of the most impressive estates in the Pacific Northwest, Medina demands exceptional holiday lighting to match. Our team creates bespoke designs for large properties, incorporating architectural highlights, landscape features, and dramatic tree wraps. Every installation includes our full-service package with maintenance, takedown, and off-season storage.",
+    text: "Medina is home to some of the most impressive properties in the Pacific Northwest, and they deserve holiday lighting to match. Our team creates custom designs for large properties, incorporating architectural highlights, landscape features, and dramatic tree wraps. Every installation includes our full-service package with maintenance, takedown, and off-season storage.",
     images: [
       { src: 'https://images.unsplash.com/photo-1595872018818-97555653a011?q=80&w=800', alt: 'Grand estate in Medina with professionally installed Christmas lights' },
       { src: 'https://images.unsplash.com/photo-1595013979794-3372ef305a8f?q=80&w=800', alt: 'Elegant holiday lighting on a luxury Medina property' },
@@ -113,7 +113,7 @@ const cityContent = {
     ]
   },
   'Hunts Point': {
-    text: "As one of the most exclusive communities in Washington, Hunts Point properties deserve nothing less than premier holiday lighting. Our designers create custom installations that respect the grandeur of each estate while adding festive warmth. We handle everything from initial consultation to post-season storage, delivering a truly white-glove experience.",
+    text: "Hunts Point is one of the most exclusive communities in Washington, and our team creates custom installations that match. We design displays that highlight each property while adding festive warmth. We handle everything from initial consultation to post-season storage.",
     images: [
       { src: 'https://images.unsplash.com/photo-1595872018818-97555653a011?q=80&w=800', alt: 'Exclusive Hunts Point estate with designer holiday lighting' },
       { src: 'https://images.unsplash.com/photo-1595013979794-3372ef305a8f?q=80&w=800', alt: 'Waterfront estate in Hunts Point decorated for the holidays' },

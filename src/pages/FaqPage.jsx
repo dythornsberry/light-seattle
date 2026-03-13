@@ -26,7 +26,7 @@ const faqCategories = [
     items: [
       {
         q: "Do you offer custom designs for every home?",
-        a: "Absolutely. Every home receives a complimentary design consultation where we assess your architecture, landscape, and preferences. We custom-measure and cut all lighting to fit your specific features, no pre-packaged solutions. Your design is created specifically for your property."
+        a: "Absolutely. Every home receives a free design consultation where we assess your architecture, landscape, and preferences. We custom-measure and cut all lighting to fit your specific features, no pre-packaged solutions. Your design is created specifically for your property."
       },
       {
         q: "Are your products and installation methods safe for my home?",
@@ -39,7 +39,7 @@ const faqCategories = [
     items: [
        {
         q: "What’s included in your service?",
-        a: "Everything from start to finish: complimentary design consultation, commercial-grade materials, professional installation, smart timer programming, climate-controlled off-season storage, post-holiday removal, and our 48-hour service response guarantee. You also receive 20% off your next season when you store with us."
+        a: "Everything from start to finish: free design consultation, commercial-grade materials, professional installation, smart timer programming, climate-controlled off-season storage, post-holiday removal, and our 48-hour service response guarantee. You also receive 20% off your next season when you store with us."
       },
       {
         q: "What happens if a light goes out?",
@@ -52,7 +52,7 @@ const faqCategories = [
     items: [
        {
         q: "How is pricing determined?",
-        a: "Your investment reflects your home's unique characteristics: roofline complexity, property size, desired coverage, and special features like trees or architectural elements. Most homes fall between $1,500-$3,500 for our Signature Display package. We provide transparent, detailed quotes after your complimentary consultation, no pressure, no surprises."
+        a: "Your investment reflects your home's unique characteristics: roofline complexity, property size, desired coverage, and special features like trees or architectural elements. Most homes fall between $1,500-$3,500 for our Signature Display package. We provide transparent, detailed quotes after your free consultation. No pressure, no surprises."
       }
     ]
   }

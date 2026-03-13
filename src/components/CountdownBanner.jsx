@@ -21,7 +21,7 @@ const CountdownBanner = () => {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       if (diffDays > 0) {
-        setMessage(`🎄 Only ${diffDays} day${diffDays > 1 ? 's' : ''} until Christmas — Book your installation today!`);
+        setMessage(`🎄 Only ${diffDays} day${diffDays > 1 ? 's' : ''} until Christmas! Book your installation today!`);
       } else if (diffDays === 0) {
         setMessage('🎄 Merry Christmas! Thank you for a great season!');
       } else { // After Christmas Day

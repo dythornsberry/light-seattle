@@ -119,12 +119,12 @@ export default function GalleryPage() {
     <>
       <Helmet>
         <title>Our Work | Seattle Christmas Lights</title>
-        <meta name="description" content="Explore our portfolio of bespoke holiday lighting designs from across the Greater Seattle area." />
+        <meta name="description" content="Browse our recent Christmas light installations from across the Greater Seattle area." />
       </Helmet>
       
       <PageHeader
         title="Our Work"
-        subtitle="Explore our portfolio of bespoke holiday lighting designs from across the Greater Seattle area."
+        subtitle="Browse our recent Christmas light installations from across the Greater Seattle area."
       />
       
       <StatisticsBar />

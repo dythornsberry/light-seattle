@@ -18,7 +18,7 @@ const ContactPage = () => {
         <div className="container-content text-center py-12">
             <h1 className="h1 text-foreground mb-4">Transform Your Home This Holiday Season</h1>
             <p className="p-body text-muted-foreground max-w-3xl mx-auto">
-                Fill out the form below. We'll contact you within 2 hours to discuss your custom design—by phone or in-person, whatever works best for your property.
+                Fill out the form below. We'll contact you within 2 hours to discuss your custom design, by phone or in-person, whatever works best for your property.
             </p>
         </div>
       </div>

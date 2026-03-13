@@ -37,7 +37,7 @@ function FAQ() {
     },
     {
       question: "What’s included in your service?",
-      answer: "Everything from start to finish: complimentary design consultation, commercial-grade materials, professional installation, smart timer programming, climate-controlled off-season storage, post-holiday removal, and our 48-hour service response guarantee."
+      answer: "Everything from start to finish: free design consultation, commercial-grade materials, professional installation, smart timer programming, off-season storage, post-holiday removal, and our 48-hour service response guarantee."
     },
     {
       question: "Are your products and installation methods safe?",

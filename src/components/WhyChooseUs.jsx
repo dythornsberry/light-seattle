@@ -42,8 +42,8 @@ function WhyChooseUs() {
     },
     {
       icon: <Gift className="w-10 h-10 text-primary" />,
-      title: "First Light Kit & Pro Photo",
-      description: "Each client receives a complimentary 'First Light Kit' and a professional dusk photo of their decorated home."
+      title: "Full-Service, Start to Finish",
+      description: "We handle everything: design, installation, maintenance throughout the season, takedown, and off-season storage. You enjoy the lights, we do the work."
     }
   ];
 

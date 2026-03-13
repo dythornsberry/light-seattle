@@ -33,7 +33,7 @@ const investmentTiers = [
 ];
 
 const includedItems = [
-    "Complimentary design consultation",
+    "Free design consultation",
     "Commercial-grade LED lighting",
     "Custom measurements & cutting",
     "Professional, insured installation",
@@ -58,7 +58,7 @@ const PricingPage = () => {
     <>
       <Helmet>
         <title>Investment Guide | Seattle Christmas Lights</title>
-        <meta name="description" content="Explore investment ranges for our bespoke holiday lighting services. Pricing reflects your home's unique architecture and desired impact." />
+        <meta name="description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
       </Helmet>
       <PageHeader
         title="Investment Guide"

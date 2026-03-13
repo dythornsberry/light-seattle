@@ -24,8 +24,8 @@ const AboutPage = () => {
         },
         {
             icon: <Award className="w-8 h-8 text-primary" />,
-            title: "Premium Touches Included",
-            description: "Every client receives our signature First Light Kit (complete with cocoa, champagne, and a keepsake ornament), plus a professional dusk photo of their illuminated home."
+            title: "Attention to Detail",
+            description: "We go beyond just hanging lights. Every display is tested at dusk, cords are hidden, and timers are programmed so your home looks perfect every night of the season."
         },
         {
             icon: <Check className="w-8 h-8 text-primary" />,
@@ -55,15 +55,15 @@ const AboutPage = () => {
         <>
             <Helmet>
                 <title>About Us | Seattle Christmas Lights</title>
-                <meta name="description" content="We're not installers who hang lights. We're designers who craft unforgettable holiday experiences for homes in Greater Seattle." />
+                <meta name="description" content="Seattle Christmas Lights designs and installs custom holiday lighting for homes across Greater Seattle. Full-service from design to storage." />
             </Helmet>
 
             <motion.div initial="hidden" animate="visible" variants={{ visible: { staggerChildren: 0.1 } }}>
                 <motion.div variants={fadeIn}>
-                    <PageHeader 
-                        title="Designers of Unforgettable Holiday Moments"
-                        subtitle="Since 2022, we've been transforming Greater Seattle homes into neighborhood showcases, creating the kind of holiday magic that makes families slow down, neighbors ask questions, and memories that last."
-                        intro="We're not installers who hang lights. We're designers who craft experiences."
+                    <PageHeader
+                        title="About Seattle Christmas Lights"
+                        subtitle="Since 2022, we've been helping Greater Seattle homeowners make their holidays brighter. We design, install, maintain, and store Christmas lights so you can enjoy the season without the hassle."
+                        intro="More than just installers. We design custom displays for every home."
                     />
                 </motion.div>
 
@@ -119,9 +119,9 @@ const AboutPage = () => {
 
                 <motion.section variants={fadeIn} className="section-padding bg-background-alt border-y">
                     <div className="container-content text-center max-w-4xl mx-auto">
-                        <h2 className="h2 text-foreground">Serving Greater Seattle's Finest Homes</h2>
+                        <h2 className="h2 text-foreground">Serving Greater Seattle</h2>
                         <p className="p-body text-muted-foreground mt-4">
-                            Licensed, insured (SEATTPL783M6), and trusted in King and Snohomish counties. We understand Pacific Northwest weather, architectural diversity, and what it takes to create displays that stand out in Seattle's most discerning neighborhoods.
+                            Licensed, insured (SEATTPL783M6), and trusted across King and Snohomish counties. We know Pacific Northwest weather and what it takes to build displays that last the whole season.
                         </p>
                     </div>
                 </motion.section>

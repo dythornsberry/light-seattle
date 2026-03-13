@@ -7,7 +7,7 @@ const LocalBusinessSchema = () => {
     "@type": "LocalBusiness",
     "name": "Seattle Christmas Lights",
     "url": "https://lightseattle.com",
-    "description": "Seattle's premier holiday lighting designers. Professional Christmas light installation, maintenance, and storage with white-glove service.",
+    "description": "Professional Christmas light installation, maintenance, and storage in the Greater Seattle area. Design, install, maintain, remove, and store.",
     "image": "https://images.unsplash.com/photo-1541127066115-5500b56287ac",
     "telephone": "(425) 448-4998",
     "email": "christmaslightsnw@gmail.com",
