@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The @import is handled by the <link> in index.html for better performance */
+
+@layer base {
+  :root {
+    --background: 220 18% 12%; /* Deep, dark blue-gray */
+    --background-alt: 220 16% 16%; /* Slightly lighter dark blue-gray for cards */
+    --foreground: 210 20% 90%; /* Soft off-white */
+    
+    --primary: 45 66% 58%; /* Warm Gold */
+    --primary-foreground: 220 18% 12%;
+
+    --secondary: 210 20% 90%; /* Soft off-white for secondary text/elements */
+    --secondary-foreground: 220 18% 12%;
+
+    --accent: 45 66% 58%; /* Warm Gold */
+    --accent-foreground: 220 18% 12%;
+
+    --muted: 220 14% 25%;
+    --muted-foreground: 215.4 16.3% 55%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 14% 25%;
+    --input: 220 14% 25%;
+    --ring: 45 66% 58%;
+
+    --radius: 12px;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body.menu-open {
+    overflow: hidden !important;
+  }
+
+  body.menu-open main,
+  body.menu-open footer {
+    pointer-events: none;
+  }
+}
+
+@layer components {
+  .container-max {
+    @apply max-w-[1200px] mx-auto px-6;
+  }
+  .container-content {
+    @apply max-w-[840px] mx-auto px-6;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .h1 { @apply text-4xl md:text-6xl font-bold leading-tight text-foreground; }
+  .h2 { @apply text-3xl md:text-5xl font-bold leading-tight text-foreground; }
+  .h3 { @apply text-2xl md:text-3xl font-bold leading-tight text-primary; }
+  .p-body { @apply text-base md:text-lg leading-relaxed font-light; }
+  .p-small { @apply text-sm; }
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md px-8 py-3 font-medium text-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg;
+  }
+
+  .form-input {
+    @apply block w-full rounded-lg border border-input bg-background-alt px-4 py-3 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+  }
+  .form-label {
+    @apply block text-sm font-medium text-foreground/80 mb-2;
+  }
+  .form-error {
+    @apply text-sm text-destructive mt-1;
+  }
+  
+  .card {
+    @apply bg-background-alt border border-border rounded-2xl transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10;
+  }
+
+  .mobile-menu-overlay {
+    background-color: hsla(var(--background), 0.95) !important;
+    @apply backdrop-blur-sm;
+  }
+
+  .mobile-menu-link {
+    @apply block text-foreground text-3xl font-bold leading-loose text-center w-full transition-colors duration-200;
+    font-family: 'Playfair Display', serif;
+  }
+  .mobile-menu-link.active {
+    @apply text-primary;
+  }
+
+  /* Header Layout */
+  .header-cta {
+    @apply ml-auto flex items-center gap-x-4;
+  }
+
+}
