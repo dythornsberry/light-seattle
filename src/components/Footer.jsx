@@ -41,9 +41,9 @@ function Footer({ serviceAreas }) {
             <h4 className="font-bold text-primary mb-4 tracking-wider uppercase text-sm">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href="tel:4254063445" className="flex items-center gap-x-3 text-muted-foreground hover:text-primary transition-colors">
+                <a href="tel:4254484998" className="flex items-center gap-x-3 text-muted-foreground hover:text-primary transition-colors">
                   <Phone size={16} />
-                  <span>(425) 406-3445</span>
+                  <span>(425) 448-4998</span>
                 </a>
               </li>
                <li>
