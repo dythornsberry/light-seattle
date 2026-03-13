@@ -6,7 +6,7 @@ import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import ImageOptimizer from '@/components/ImageOptimizer';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
-import useExitIntent from '@/hooks/useExitIntent';
+
 import { Link } from 'react-router-dom';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import Testimonials from '@/components/Testimonials';
@@ -247,8 +247,11 @@ export default function HomePage() {
       <Helmet>
         <title>Seattle's Premier Holiday Lighting Designers | Seattle Christmas Lights</title>
         <meta name="description" content="Elevate your estate with bespoke holiday lighting. We offer white-glove service from design through storage for Seattle's premier properties." />
+        <link rel="canonical" href="https://lightseattle.com/" />
         <meta property="og:title" content="Seattle's Premier Holiday Lighting Designers | Seattle Christmas Lights" />
         <meta property="og:description" content="White-glove service from design through storage. Schedule your complimentary design consultation today." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://lightseattle.com/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://horizons-cdn.hostinger.com" />

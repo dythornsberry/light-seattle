@@ -6,14 +6,23 @@ const LocalBusinessSchema = () => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Seattle Christmas Lights",
+    "url": "https://lightseattle.com",
+    "description": "Seattle's premier holiday lighting designers. Professional Christmas light installation, maintenance, and storage with white-glove service.",
     "image": "https://images.unsplash.com/photo-1541127066115-5500b56287ac",
     "telephone": "(425) 448-4998",
+    "email": "christmaslightsnw@gmail.com",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Kenmore",
       "addressRegion": "WA",
+      "postalCode": "98028",
       "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 47.7565,
+      "longitude": -122.2440
     },
     "areaServed": [
       { "@type": "City", "name": "Seattle" },

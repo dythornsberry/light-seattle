@@ -87,6 +87,38 @@ const cityContent = {
       { src: 'https://images.unsplash.com/photo-1512167193254-2a65a3f2828b?q=80&w=800', alt: 'A house in a Shoreline neighborhood with a festive lighting display' },
       { src: 'https://images.unsplash.com/photo-1574538198188-39f99335f66b?q=80&w=800', alt: 'A decorated tree in front of a Shoreline home, lit for the holidays' }
     ]
+  },
+  'Mercer Island': {
+    text: "Mercer Island's luxury waterfront estates and tree-lined streets are the perfect setting for elegant holiday lighting. We design custom displays that complement the island's upscale architecture, from grand roofline installations to illuminated driveways and mature trees. Our white-glove service includes design, installation, maintenance, takedown, and storage.",
+    images: [
+      { src: 'https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=800', alt: 'Luxury home on Mercer Island with elegant warm white holiday lights' },
+      { src: 'https://images.unsplash.com/photo-1599472696777-95cab5e0f891?q=80&w=800', alt: 'Waterfront property on Mercer Island decorated with festive lighting' },
+      { src: 'https://images.unsplash.com/photo-1695634504151-d72065870aa6?q=80&w=800', alt: 'Tree-lined driveway on Mercer Island illuminated with Christmas lights' }
+    ]
+  },
+  'Medina': {
+    text: "Home to some of the most impressive estates in the Pacific Northwest, Medina demands exceptional holiday lighting to match. Our team creates bespoke designs for large properties, incorporating architectural highlights, landscape features, and dramatic tree wraps. Every installation includes our full-service package with maintenance, takedown, and off-season storage.",
+    images: [
+      { src: 'https://images.unsplash.com/photo-1595872018818-97555653a011?q=80&w=800', alt: 'Grand estate in Medina with professionally installed Christmas lights' },
+      { src: 'https://images.unsplash.com/photo-1595013979794-3372ef305a8f?q=80&w=800', alt: 'Elegant holiday lighting on a luxury Medina property' },
+      { src: 'https://images.unsplash.com/photo-1641413591043-146cbc34192c?q=80&w=800', alt: 'Warm white lights illuminating a Medina home and landscape' }
+    ]
+  },
+  'Clyde Hill': {
+    text: "Clyde Hill's stately homes and manicured landscapes are ideal for sophisticated holiday lighting designs. We work with homeowners to create displays that enhance their property's curb appeal while maintaining an elegant aesthetic. From clean roofline outlining to wrapped columnar trees, our all-inclusive service handles every detail including storage.",
+    images: [
+      { src: 'https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=800', alt: 'Stately Clyde Hill home with classic roofline Christmas lights' },
+      { src: 'https://images.unsplash.com/photo-1599472696777-95cab5e0f891?q=80&w=800', alt: 'Elegant holiday display on a Clyde Hill property' },
+      { src: 'https://images.unsplash.com/photo-1695634504151-d72065870aa6?q=80&w=800', alt: 'Professionally lit landscape at a Clyde Hill residence' }
+    ]
+  },
+  'Hunts Point': {
+    text: "As one of the most exclusive communities in Washington, Hunts Point properties deserve nothing less than premier holiday lighting. Our designers create custom installations that respect the grandeur of each estate while adding festive warmth. We handle everything from initial consultation to post-season storage, delivering a truly white-glove experience.",
+    images: [
+      { src: 'https://images.unsplash.com/photo-1595872018818-97555653a011?q=80&w=800', alt: 'Exclusive Hunts Point estate with designer holiday lighting' },
+      { src: 'https://images.unsplash.com/photo-1595013979794-3372ef305a8f?q=80&w=800', alt: 'Waterfront estate in Hunts Point decorated for the holidays' },
+      { src: 'https://images.unsplash.com/photo-1641413591043-146cbc34192c?q=80&w=800', alt: 'Grand entrance of a Hunts Point property with warm festive lights' }
+    ]
   }
 };
 

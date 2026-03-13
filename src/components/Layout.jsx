@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyMobileActions from '@/components/StickyMobileActions';
-import MobileLightbox from '@/components/MobileLightbox';
+
 import ScrollToTop from '@/components/ScrollToTop';
 import CountdownBanner from '@/components/CountdownBanner';
 import FloatingCallButton from '@/components/FloatingCallButton';
@@ -45,13 +45,12 @@ const Layout = ({ serviceAreas }) => {
       <ScrollToTop />
       <Header />
       <CountdownBanner />
-      <main ref={mainRef} className="flex-grow">
+      <main ref={mainRef} className="flex-grow pb-16 lg:pb-0">
         <Outlet />
       </main>
       <Footer serviceAreas={serviceAreas} />
       <FloatingCallButton />
       <StickyMobileActions />
-      <MobileLightbox />
     </div>
   );
 };

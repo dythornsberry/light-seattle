@@ -57,6 +57,7 @@ function ContactForm({ isMinimal = false }) {
     full_formatted_address: '',
     place_id: '',
   });
+  const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isZipReadOnly, setIsZipReadOnly] = useState(false);
@@ -183,6 +184,7 @@ function ContactForm({ isMinimal = false }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (honeypot) return;
     if (!validate()) {
       toast({
         variant: "destructive",
@@ -228,19 +230,23 @@ function ContactForm({ isMinimal = false }) {
 
   return (
     <form onSubmit={handleFormSubmit} className="space-y-4" noValidate>
+      <div className="absolute opacity-0 h-0 w-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+        <label htmlFor="website">Website</label>
+        <input id="website" type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
+      </div>
       <div>
         <label htmlFor="name" className="form-label">Full Name*</label>
-        <input id="name" type="text" value={formState.name} onChange={handleChange} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} />
+        <input id="name" type="text" value={formState.name} onChange={handleChange} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} autoComplete="name" />
         {errors.name && <p className="form-error">{errors.name}</p>}
       </div>
        <div>
         <label htmlFor="phone" className="form-label">Phone Number*</label>
-        <input id="phone" type="tel" value={formState.phone} onChange={handleChange} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} />
+        <input id="phone" type="tel" value={formState.phone} onChange={handleChange} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} autoComplete="tel" />
         {errors.phone && <p className="form-error">{errors.phone}</p>}
       </div>
       <div>
         <label htmlFor="email" className="form-label">Email Address*</label>
-        <input id="email" type="email" value={formState.email} onChange={handleChange} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} />
+        <input id="email" type="email" value={formState.email} onChange={handleChange} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} autoComplete="email" />
         {errors.email && <p className="form-error">{errors.email}</p>}
       </div>
       <div>
