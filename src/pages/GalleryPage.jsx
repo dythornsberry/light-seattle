@@ -139,10 +139,10 @@ export default function GalleryPage() {
         </div>
         <div className="container-max max-w-5xl">
           <BeforeAfterSlider
-            beforeSrc="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=80&auto=format&fit=crop"
-            afterSrc="https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/29ed3807d7952892033a68ec8781e744.jpg"
-            beforeAlt="Home exterior during the day without holiday lighting"
-            afterAlt="Same home beautifully lit with warm white Christmas lights at night"
+            beforeSrc="/images/before-snow-house.jpg"
+            afterSrc="https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/bc42009db4c2f40ba9ca749ecf441a40.webp"
+            beforeAlt="Dark snowy property at night without any holiday lighting"
+            afterAlt="Same property transformed with warm tree wraps and pathway lighting"
           />
         </div>
       </section>
