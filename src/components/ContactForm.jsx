@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -6,57 +6,8 @@ import { toast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Calendar, User } from 'lucide-react';
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0";
 const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24075201/udrmfac/";
-
-let googleMapsScriptLoaded = false;
-let googleMapsHasError = false;
-const scriptLoadCallbacks = [];
-
-function loadGoogleMapsScript(callback) {
-  // If we already know Maps API has an error, skip entirely
-  if (googleMapsHasError) return;
-
-  if (googleMapsScriptLoaded && window.google && window.google.maps) {
-    callback();
-    return;
-  }
-
-  scriptLoadCallbacks.push(callback);
-
-  const existingScript = document.getElementById('googleMapsScript');
-  if (!existingScript) {
-    // Listen for Google Maps auth errors before loading
-    window.gm_authFailure = () => {
-      console.warn("Google Maps API auth failed — address autocomplete disabled, manual entry works fine.");
-      googleMapsHasError = true;
-    };
-
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-    script.id = 'googleMapsScript';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-    script.onload = () => {
-      googleMapsScriptLoaded = true;
-      // Wait a tick to see if gm_authFailure fires
-      setTimeout(() => {
-        if (!googleMapsHasError) {
-          while(scriptLoadCallbacks.length > 0) {
-            scriptLoadCallbacks.shift()();
-          }
-        } else {
-          scriptLoadCallbacks.length = 0;
-        }
-      }, 500);
-    };
-    script.onerror = () => {
-        console.error("Google Maps script failed to load.");
-        googleMapsHasError = true;
-    };
-  }
-}
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0";
 
 const STEPS = [
   { label: "Property", icon: MapPin },
@@ -99,6 +50,77 @@ const slideVariants = {
   exit: (direction) => ({ x: direction < 0 ? 80 : -80, opacity: 0 }),
 };
 
+// Only load Google Maps on authorized domains (NOT localhost)
+// The Maps JS API hijacks inputs and disables them on auth failure!
+const AUTHORIZED_DOMAINS = ['lightseattle.com', 'www.lightseattle.com'];
+const isAuthorizedDomain = AUTHORIZED_DOMAINS.includes(window.location.hostname);
+
+let mapsLoadState = { loading: false, loaded: false, failed: false };
+
+async function ensurePlacesAPI() {
+  // Don't even try on unauthorized domains — Maps JS will hijack our inputs
+  if (!isAuthorizedDomain) return false;
+
+  // Already loaded successfully
+  if (mapsLoadState.loaded && window.google?.maps?.places?.AutocompleteSuggestion) {
+    return true;
+  }
+
+  // Already failed, don't retry
+  if (mapsLoadState.failed) return false;
+
+  // Already loading, wait for it
+  if (mapsLoadState.loading) {
+    return new Promise((resolve) => {
+      const check = setInterval(() => {
+        if (mapsLoadState.loaded) { clearInterval(check); resolve(true); }
+        if (mapsLoadState.failed) { clearInterval(check); resolve(false); }
+      }, 200);
+      setTimeout(() => { clearInterval(check); resolve(false); }, 8000);
+    });
+  }
+
+  mapsLoadState.loading = true;
+
+  try {
+    // Load the script if not already present
+    if (!window.google?.maps?.importLibrary) {
+      await new Promise((resolve, reject) => {
+        if (document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]')) {
+          const wait = setInterval(() => {
+            if (window.google?.maps) { clearInterval(wait); resolve(); }
+          }, 200);
+          setTimeout(() => { clearInterval(wait); reject(new Error('Timeout')); }, 8000);
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&loading=async`;
+        script.async = true;
+        script.onload = () => {
+          const wait = setInterval(() => {
+            if (window.google?.maps) { clearInterval(wait); resolve(); }
+          }, 100);
+          setTimeout(() => { clearInterval(wait); reject(new Error('Timeout')); }, 5000);
+        };
+        script.onerror = () => reject(new Error('Script load failed'));
+        document.head.appendChild(script);
+      });
+    }
+
+    await google.maps.importLibrary('places');
+
+    mapsLoadState.loaded = true;
+    mapsLoadState.loading = false;
+    return true;
+  } catch (err) {
+    console.warn('Google Places API failed to load:', err);
+    mapsLoadState.failed = true;
+    mapsLoadState.loading = false;
+    return false;
+  }
+}
+
 function ContactForm({ isMinimal = false }) {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -110,111 +132,164 @@ function ContactForm({ isMinimal = false }) {
     street_address: '',
     zip_code: '',
     timeline: '',
-    services: [],
-    city: '',
-    state: '',
-    full_formatted_address: '',
-    place_id: '',
   });
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isZipReadOnly, setIsZipReadOnly] = useState(false);
-  const addressInputRef = useRef(null);
-  const autocompleteRef = useRef(null);
 
+  // Google Places autocomplete state
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const sessionTokenRef = useRef(null);
+  const debounceRef = useRef(null);
+  const suggestionsListRef = useRef(null);
+  const placesLoadedRef = useRef(false);
+
+  // Clean up debounce on unmount
   useEffect(() => {
-    loadGoogleMapsScript(() => {
-      try {
-        if (addressInputRef.current && !autocompleteRef.current && !googleMapsHasError) {
-          autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
-            componentRestrictions: { country: "us" },
-            fields: ["address_components", "formatted_address", "place_id"],
-            types: ["address"],
-          });
-          autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
-        }
-      } catch (e) {
-        console.warn("Google Places Autocomplete failed to initialize:", e);
-        autocompleteRef.current = null;
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (suggestionsListRef.current && !suggestionsListRef.current.contains(e.target)) {
+        setShowSuggestions(false);
       }
-    });
-    // Sync ref value when returning to step 0
-    if (step === 0 && addressInputRef.current && formState.street_address) {
-      addressInputRef.current.value = formState.street_address;
-    }
-  }, [step]);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-  const handlePlaceSelect = () => {
-    if (!autocompleteRef.current) return;
-    const place = autocompleteRef.current.getPlace();
-
-    if (!place || !place.address_components) {
-        setErrors(prev => ({ ...prev, street_address: 'Please select a valid address from the list.' }));
-        return;
+  // Fetch autocomplete suggestions (lazy-loads Google Maps on first call)
+  const fetchSuggestions = useCallback(async (input) => {
+    if (!input || input.length < 3) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
     }
 
-    let streetNumber = '';
-    let route = '';
-    let city = '';
-    let state = '';
-    let postal_code = '';
+    // Lazy-load Places API on first real search
+    if (!placesLoadedRef.current) {
+      const ready = await ensurePlacesAPI();
+      if (!ready) return; // Silently fail — form still works as plain input
+      placesLoadedRef.current = true;
+    }
 
-    for (const component of place.address_components) {
-        const componentType = component.types[0];
-        switch (componentType) {
-            case 'street_number':
-                streetNumber = component.long_name;
-                break;
-            case 'route':
-                route = component.short_name;
-                break;
-            case 'locality':
-                city = component.long_name;
-                break;
-            case 'administrative_area_level_1':
-                state = component.short_name;
-                break;
-            case 'postal_code':
-                postal_code = component.long_name;
-                break;
-            default:
-                break;
+    try {
+      if (!sessionTokenRef.current) {
+        sessionTokenRef.current = new google.maps.places.AutocompleteSessionToken();
+      }
+
+      const { suggestions: results } = await google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions({
+        input,
+        sessionToken: sessionTokenRef.current,
+        includedPrimaryTypes: ['street_address', 'premise', 'subpremise'],
+        includedRegionCodes: ['us'],
+        language: 'en-US',
+      });
+
+      setSuggestions(results || []);
+      setShowSuggestions((results || []).length > 0);
+      setActiveSuggestionIndex(-1);
+    } catch (err) {
+      console.warn('Places autocomplete error:', err);
+      setSuggestions([]);
+    }
+  }, []);
+
+  // Handle selecting a suggestion
+  const handleSuggestionSelect = useCallback(async (suggestion) => {
+    try {
+      const place = suggestion.placePrediction.toPlace();
+      await place.fetchFields({
+        fields: ['formattedAddress', 'addressComponents'],
+        sessionToken: sessionTokenRef.current,
+      });
+
+      let streetNumber = '';
+      let route = '';
+      let zip = '';
+
+      if (place.addressComponents) {
+        for (const comp of place.addressComponents) {
+          const types = comp.types;
+          if (types.includes('street_number')) streetNumber = comp.longText;
+          if (types.includes('route')) route = comp.longText;
+          if (types.includes('postal_code')) zip = comp.longText;
         }
+      }
+
+      const street = [streetNumber, route].filter(Boolean).join(' ');
+
+      setFormState(prev => ({
+        ...prev,
+        street_address: street || place.formattedAddress || prev.street_address,
+        zip_code: zip || prev.zip_code,
+      }));
+
+      setErrors(prev => ({
+        ...prev,
+        street_address: '',
+        ...(zip ? { zip_code: '' } : {}),
+      }));
+    } catch (err) {
+      console.warn('Place details fetch error:', err);
+      const text = suggestion.placePrediction?.text?.text;
+      if (text) {
+        setFormState(prev => ({ ...prev, street_address: text }));
+      }
     }
 
-    const street_address = `${streetNumber} ${route}`.trim();
+    setSuggestions([]);
+    setShowSuggestions(false);
+    sessionTokenRef.current = null;
+  }, []);
 
-    // Update the uncontrolled input's display value
-    if (addressInputRef.current) {
-      addressInputRef.current.value = street_address;
+  // Address input change — updates state immediately, debounces autocomplete
+  const handleAddressChange = useCallback((e) => {
+    const { value } = e.target;
+    setFormState(prev => ({ ...prev, street_address: value }));
+    if (errors.street_address) {
+      setErrors(prev => ({ ...prev, street_address: '' }));
     }
 
-    setFormState(prevState => ({
-      ...prevState,
-      street_address: street_address,
-      zip_code: postal_code,
-      city: city,
-      state: state,
-      full_formatted_address: place.formatted_address,
-      place_id: place.place_id,
-    }));
+    // Debounce autocomplete (only triggers after 3+ chars, 300ms delay)
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      fetchSuggestions(value);
+    }, 300);
+  }, [fetchSuggestions, errors.street_address]);
 
-    setIsZipReadOnly(!!postal_code);
-    setErrors(prev => ({...prev, street_address: '', zip_code: ''}));
-  };
+  // Keyboard nav for suggestions
+  const handleAddressKeyDown = useCallback((e) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => prev < suggestions.length - 1 ? prev + 1 : 0);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveSuggestionIndex(prev => prev > 0 ? prev - 1 : suggestions.length - 1);
+    } else if (e.key === 'Enter' && activeSuggestionIndex >= 0) {
+      e.preventDefault();
+      handleSuggestionSelect(suggestions[activeSuggestionIndex]);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+      setActiveSuggestionIndex(-1);
+    }
+  }, [showSuggestions, suggestions, activeSuggestionIndex, handleSuggestionSelect]);
 
   const validateStep = (stepNum) => {
     const newErrors = {};
 
     if (stepNum === 0) {
-      // Sync the uncontrolled address ref to state before validating
-      const currentAddress = addressInputRef.current ? addressInputRef.current.value.trim() : formState.street_address;
-      // Always sync to state so submission has the latest value
-      setFormState(prev => ({...prev, street_address: currentAddress}));
-      if (!currentAddress) {
+      if (!formState.street_address.trim()) {
         newErrors.street_address = "Street Address is required.";
-      } else if (currentAddress.length < 5) {
+      } else if (formState.street_address.trim().length < 5) {
         newErrors.street_address = "Please enter a valid street address.";
       }
       if (!formState.zip_code) {
@@ -273,49 +348,16 @@ function ContactForm({ isMinimal = false }) {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormState(prevState => ({...prevState, [id]: value}));
-    if (id === 'street_address' && isZipReadOnly) {
-        setIsZipReadOnly(false);
-        setFormState(prevState => ({...prevState, zip_code: '', city: '', state: '', full_formatted_address: '', place_id: ''}));
-    }
+    setFormState(prev => ({...prev, [id]: value}));
     if (errors[id]) {
-        setErrors(prev => ({...prev, [id]: ''}));
-    }
-  };
-
-  // Separate handler for uncontrolled address input — syncs ref value to state
-  const handleAddressChange = (e) => {
-    const value = e.target.value;
-    if (isZipReadOnly) {
-      setIsZipReadOnly(false);
-      setFormState(prevState => ({...prevState, street_address: value, zip_code: '', city: '', state: '', full_formatted_address: '', place_id: ''}));
-    } else {
-      setFormState(prevState => ({...prevState, street_address: value}));
-    }
-    if (errors.street_address) {
-      setErrors(prev => ({...prev, street_address: ''}));
+      setErrors(prev => ({...prev, [id]: ''}));
     }
   };
 
   const handleRadioChange = (name, value) => {
-    setFormState(prevState => ({ ...prevState, [name]: value }));
+    setFormState(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
-        setErrors(prev => ({...prev, [name]: ''}));
-    }
-  };
-
-  const handleServiceToggle = (service) => {
-    setFormState(prevState => ({
-      ...prevState,
-      services: prevState.services.includes(service)
-        ? prevState.services.filter(s => s !== service)
-        : [...prevState.services, service]
-    }));
-  };
-
-  const handleZipFocus = () => {
-    if(isZipReadOnly) {
-        setIsZipReadOnly(false);
+      setErrors(prev => ({...prev, [name]: ''}));
     }
   };
 
@@ -335,11 +377,10 @@ function ContactForm({ isMinimal = false }) {
 
     const submissionData = {
       ...formState,
-      services: formState.services.join(', '),
       submitted_at: new Date().toISOString()
     };
 
-    // Fire backup email independently via Resend (never blocks or affects main flow)
+    // Fire backup email independently (never blocks main flow)
     fetch('/api/backup-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -349,53 +390,36 @@ function ContactForm({ isMinimal = false }) {
         lead_email: formState.email,
         lead_address: formState.street_address,
         lead_zip: formState.zip_code,
-        lead_city: formState.city,
-        lead_state: formState.state,
-        lead_full_address: formState.full_formatted_address,
         lead_timeline: formState.timeline,
         lead_submitted_at: submissionData.submitted_at,
       }),
-    }).catch(err => {
-      console.error("Backup email failed (non-critical):", err);
-    });
+    }).catch(() => {});
 
     try {
-        const response = await fetch(ZAPIER_WEBHOOK_URL, {
-            method: 'POST',
-            body: JSON.stringify(submissionData)
-        });
+      const response = await fetch(ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        body: JSON.stringify(submissionData)
+      });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
+      if (!response.ok) throw new Error('Network response was not ok.');
 
-        toast({
-            title: "Success!",
-            description: "Your quote request has been sent. We'll be in touch soon.",
-        });
+      toast({
+        title: "Success!",
+        description: "Your quote request has been sent. We'll be in touch soon.",
+      });
 
-        navigate('/thank-you', { state: { name: formState.name, property: 'home' } });
-
+      navigate('/thank-you', { state: { name: formState.name, property: 'home' } });
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-        toast({
-            variant: "destructive",
-            title: "Submission Failed",
-            description: "There was a problem sending your request. Please try again or contact us directly.",
-        });
+      console.error('Submission error:', error);
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: "There was a problem sending your request. Please try again or contact us directly.",
+      });
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
-
-  const serviceOptions = [
-    "Roofline Lighting",
-    "Tree Wraps",
-    "Bushes & Shrubs",
-    "Wreaths & Garlands",
-    "Pathway Lighting",
-    "Full Property Design",
-  ];
 
   return (
     <form onSubmit={handleFormSubmit} noValidate>
@@ -423,14 +447,79 @@ function ContactForm({ isMinimal = false }) {
                 <h3 className="text-lg font-semibold text-foreground">Where's your property?</h3>
                 <p className="text-sm text-muted-foreground">So we can check if you're in our service area</p>
               </div>
-              <div>
+              <div className="relative" ref={suggestionsListRef}>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
-                <input id="street_address" type="text" ref={addressInputRef} defaultValue={formState.street_address} required className="form-input" placeholder="Start typing your address..." disabled={isSubmitting} autoComplete="off" />
+                <input
+                  id="street_address"
+                  type="text"
+                  value={formState.street_address}
+                  onChange={handleAddressChange}
+                  onKeyDown={handleAddressKeyDown}
+                  onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                  required
+                  className="form-input"
+                  placeholder="123 Main Street"
+                  disabled={isSubmitting}
+                  autoComplete="off"
+                  role="combobox"
+                  aria-expanded={showSuggestions}
+                  aria-autocomplete="list"
+                  aria-controls="address-suggestions"
+                />
+                {showSuggestions && suggestions.length > 0 && (
+                  <ul
+                    id="address-suggestions"
+                    role="listbox"
+                    className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg max-h-52 overflow-auto"
+                  >
+                    {suggestions.map((suggestion, index) => {
+                      const prediction = suggestion.placePrediction;
+                      const mainText = prediction?.mainText?.text || '';
+                      const secondaryText = prediction?.secondaryText?.text || '';
+                      return (
+                        <li
+                          key={index}
+                          role="option"
+                          aria-selected={index === activeSuggestionIndex}
+                          className={`px-4 py-2.5 cursor-pointer transition-colors border-b border-border/50 last:border-b-0 ${
+                            index === activeSuggestionIndex
+                              ? 'bg-primary/10 text-foreground'
+                              : 'hover:bg-muted/50 text-foreground'
+                          }`}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            handleSuggestionSelect(suggestion);
+                          }}
+                          onMouseEnter={() => setActiveSuggestionIndex(index)}
+                        >
+                          <div className="text-sm font-medium">{mainText}</div>
+                          {secondaryText && (
+                            <div className="text-xs text-muted-foreground mt-0.5">{secondaryText}</div>
+                          )}
+                        </li>
+                      );
+                    })}
+                    <li className="px-4 py-1.5 text-[10px] text-muted-foreground/60 text-right">
+                      Powered by Google
+                    </li>
+                  </ul>
+                )}
                 {errors.street_address && <p className="form-error">{errors.street_address}</p>}
               </div>
               <div>
                 <label htmlFor="zip_code" className="form-label">ZIP Code*</label>
-                <input id="zip_code" type="text" value={formState.zip_code} onChange={handleChange} required className="form-input" placeholder="e.g., 98101" disabled={isSubmitting} readOnly={isZipReadOnly} onFocus={handleZipFocus} autoComplete="postal-code" />
+                <input
+                  id="zip_code"
+                  type="text"
+                  value={formState.zip_code}
+                  onChange={handleChange}
+                  required
+                  className="form-input"
+                  placeholder="e.g., 98101"
+                  disabled={isSubmitting}
+                  autoComplete="postal-code"
+                  maxLength={10}
+                />
                 {errors.zip_code && <p className="form-error">{errors.zip_code}</p>}
               </div>
               <button type="button" onClick={handleNext} className="btn-primary w-full text-lg py-3 flex items-center justify-center gap-2">
@@ -451,46 +540,29 @@ function ContactForm({ isMinimal = false }) {
               className="space-y-4"
             >
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">What are you looking for?</h3>
-                <p className="text-sm text-muted-foreground">Select all that apply (optional) and your preferred timing</p>
+                <h3 className="text-lg font-semibold text-foreground">When do you need your lights installed?</h3>
+                <p className="text-sm text-muted-foreground">Pick a preferred install window</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                {serviceOptions.map(service => (
-                  <button
-                    key={service}
-                    type="button"
-                    onClick={() => handleServiceToggle(service)}
-                    className={`px-3 py-2 rounded-lg border text-sm font-medium transition-all text-left ${
-                      formState.services.includes(service)
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border bg-background text-muted-foreground hover:border-primary/50'
-                    }`}
-                  >
-                    {formState.services.includes(service) ? '✓ ' : ''}{service}
-                  </button>
-                ))}
-              </div>
-
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2">
                 <label className="form-label">Preferred timing*</label>
                 <RadioGroup onValueChange={(value) => handleRadioChange('timeline', value)} value={formState.timeline} className="grid grid-cols-2 gap-2" disabled={isSubmitting}>
-                    <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                        <RadioGroupItem value="ASAP (1-2 weeks)" id="time-asap" />
-                        <Label htmlFor="time-asap" className="cursor-pointer text-sm">ASAP (1-2 weeks)</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                        <RadioGroupItem value="Early December" id="time-early-dec" />
-                        <Label htmlFor="time-early-dec" className="cursor-pointer text-sm">Early December</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                        <RadioGroupItem value="Mid-December" id="time-mid-dec" />
-                        <Label htmlFor="time-mid-dec" className="cursor-pointer text-sm">Mid-December</Label>
-                    </div>
-                    <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                        <RadioGroupItem value="Planning ahead" id="time-planning" />
-                        <Label htmlFor="time-planning" className="cursor-pointer text-sm">Planning ahead</Label>
-                    </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="ASAP" id="time-asap" />
+                    <Label htmlFor="time-asap" className="cursor-pointer text-sm">ASAP</Label>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="September" id="time-sept" />
+                    <Label htmlFor="time-sept" className="cursor-pointer text-sm">September</Label>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="October" id="time-oct" />
+                    <Label htmlFor="time-oct" className="cursor-pointer text-sm">October</Label>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="November" id="time-nov" />
+                    <Label htmlFor="time-nov" className="cursor-pointer text-sm">November</Label>
+                  </div>
                 </RadioGroup>
                 {errors.timeline && <p className="form-error">{errors.timeline}</p>}
               </div>
