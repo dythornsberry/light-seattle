@@ -190,12 +190,15 @@ function ContactForm({ isMinimal = false }) {
     const newErrors = {};
 
     if (stepNum === 0) {
-      // Sync the ref value to state before validating (uncontrolled input)
+      // Sync the uncontrolled address ref to state before validating
       const currentAddress = addressInputRef.current ? addressInputRef.current.value.trim() : formState.street_address;
-      if (currentAddress && currentAddress !== formState.street_address) {
-        setFormState(prev => ({...prev, street_address: currentAddress}));
+      // Always sync to state so submission has the latest value
+      setFormState(prev => ({...prev, street_address: currentAddress}));
+      if (!currentAddress) {
+        newErrors.street_address = "Street Address is required.";
+      } else if (currentAddress.length < 5) {
+        newErrors.street_address = "Please enter a valid street address.";
       }
-      if (!currentAddress) newErrors.street_address = "Street Address is required.";
       if (!formState.zip_code) {
         newErrors.zip_code = "ZIP Code is required.";
       } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
@@ -208,16 +211,29 @@ function ContactForm({ isMinimal = false }) {
     }
 
     if (stepNum === 2) {
-      if (!formState.name) newErrors.name = "Full Name is required.";
+      if (!formState.name) {
+        newErrors.name = "Full Name is required.";
+      } else if (formState.name.trim().length < 2) {
+        newErrors.name = "Please enter your full name.";
+      } else if (!/\s/.test(formState.name.trim())) {
+        newErrors.name = "Please enter your first and last name.";
+      }
       if (!formState.phone) {
         newErrors.phone = "Phone Number is required.";
-      } else if (!/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(formState.phone)) {
-        newErrors.phone = "Please enter a valid phone number.";
+      } else {
+        const digitsOnly = formState.phone.replace(/\D/g, '');
+        if (digitsOnly.length < 10 || digitsOnly.length > 11) {
+          newErrors.phone = "Please enter a valid 10-digit phone number.";
+        } else if (/^(\d)\1{9}$/.test(digitsOnly)) {
+          newErrors.phone = "Please enter a real phone number.";
+        }
       }
       if (!formState.email) {
         newErrors.email = "Email Address is required.";
-      } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formState.email)) {
         newErrors.email = "Please enter a valid email address.";
+      } else if (/(@example\.com|@test\.com|@fake\.com|@asdf\.)$/i.test(formState.email)) {
+        newErrors.email = "Please enter a real email address.";
       }
     }
 
@@ -391,7 +407,7 @@ function ContactForm({ isMinimal = false }) {
               </div>
               <div>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
-                <input id="street_address" type="text" ref={addressInputRef} defaultValue={formState.street_address} onChange={handleAddressChange} required className="form-input" placeholder="Start typing your address..." disabled={isSubmitting} autoComplete="off" />
+                <input id="street_address" type="text" ref={addressInputRef} defaultValue={formState.street_address} required className="form-input" placeholder="Start typing your address..." disabled={isSubmitting} autoComplete="off" />
                 {errors.street_address && <p className="form-error">{errors.street_address}</p>}
               </div>
               <div>
