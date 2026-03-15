@@ -10,9 +10,9 @@ const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || "https://h
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0";
 
 const STEPS = [
+  { label: "Contact", icon: User },
   { label: "Property", icon: MapPin },
   { label: "Details", icon: Calendar },
-  { label: "Contact", icon: User },
 ];
 
 const StepIndicator = ({ currentStep }) => (
@@ -291,27 +291,22 @@ function ContactForm({ isMinimal = false }) {
     }
   }, [showSuggestions, suggestions, activeSuggestionIndex, handleSuggestionSelect]);
 
+  // Format phone as (XXX) XXX-XXXX
+  const handlePhoneChange = (e) => {
+    const input = e.target.value;
+    const digits = input.replace(/\D/g, '').slice(0, 10);
+    let formatted = '';
+    if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
+    if (digits.length >= 3) formatted += ') ' + digits.slice(3, 6);
+    if (digits.length >= 6) formatted += '-' + digits.slice(6, 10);
+    setFormState(prev => ({ ...prev, phone: formatted }));
+    if (errors.phone) setErrors(prev => ({ ...prev, phone: '' }));
+  };
+
   const validateStep = (stepNum) => {
     const newErrors = {};
 
     if (stepNum === 0) {
-      if (!formState.street_address.trim()) {
-        newErrors.street_address = "Street Address is required.";
-      } else if (formState.street_address.trim().length < 5) {
-        newErrors.street_address = "Please enter a valid street address.";
-      }
-      if (!formState.zip_code) {
-        newErrors.zip_code = "ZIP Code is required.";
-      } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
-        newErrors.zip_code = "Please enter a valid US ZIP code.";
-      }
-    }
-
-    if (stepNum === 1) {
-      if (!formState.timeline) newErrors.timeline = "Please select a timeline.";
-    }
-
-    if (stepNum === 2) {
       if (!formState.name) {
         newErrors.name = "Full Name is required.";
       } else if (formState.name.trim().length < 2) {
@@ -323,7 +318,7 @@ function ContactForm({ isMinimal = false }) {
         newErrors.phone = "Phone Number is required.";
       } else {
         const digitsOnly = formState.phone.replace(/\D/g, '');
-        if (digitsOnly.length < 10 || digitsOnly.length > 11) {
+        if (digitsOnly.length < 10) {
           newErrors.phone = "Please enter a valid 10-digit phone number.";
         } else if (/^(\d)\1{9}$/.test(digitsOnly)) {
           newErrors.phone = "Please enter a real phone number.";
@@ -336,6 +331,23 @@ function ContactForm({ isMinimal = false }) {
       } else if (/(@example\.com|@test\.com|@fake\.com|@asdf\.)$/i.test(formState.email)) {
         newErrors.email = "Please enter a real email address.";
       }
+    }
+
+    if (stepNum === 1) {
+      if (!formState.street_address.trim()) {
+        newErrors.street_address = "Street Address is required.";
+      } else if (formState.street_address.trim().length < 5) {
+        newErrors.street_address = "Please enter a valid street address.";
+      }
+      if (!formState.zip_code) {
+        newErrors.zip_code = "ZIP Code is required.";
+      } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
+        newErrors.zip_code = "Please enter a valid US ZIP code.";
+      }
+    }
+
+    if (stepNum === 2) {
+      if (!formState.timeline) newErrors.timeline = "Please select a timeline.";
     }
 
     setErrors(newErrors);
@@ -372,7 +384,7 @@ function ContactForm({ isMinimal = false }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
-    if (!validateStep(2)) {
+    if (!validateStep(0) || !validateStep(1) || !validateStep(2)) {
       toast({
         variant: "destructive",
         title: "Please fix the errors",
@@ -443,6 +455,42 @@ function ContactForm({ isMinimal = false }) {
           {step === 0 && (
             <motion.div
               key="step-0"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.25 }}
+              className="space-y-4"
+            >
+              <div className="text-center mb-6">
+                <h3 className="text-lg font-semibold text-foreground">Let's get started — who are you?</h3>
+                <p className="text-sm text-muted-foreground">We'll send your custom quote within 24 hours</p>
+              </div>
+              <div>
+                <label htmlFor="name" className="form-label">Full Name*</label>
+                <input id="name" type="text" value={formState.name} onChange={handleChange} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} autoComplete="name" />
+                {errors.name && <p className="form-error">{errors.name}</p>}
+              </div>
+              <div>
+                <label htmlFor="phone" className="form-label">Phone Number*</label>
+                <input id="phone" type="tel" value={formState.phone} onChange={handlePhoneChange} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} autoComplete="tel" maxLength={14} />
+                {errors.phone && <p className="form-error">{errors.phone}</p>}
+              </div>
+              <div>
+                <label htmlFor="email" className="form-label">Email Address*</label>
+                <input id="email" type="email" value={formState.email} onChange={handleChange} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} autoComplete="email" />
+                {errors.email && <p className="form-error">{errors.email}</p>}
+              </div>
+              <button type="button" onClick={handleNext} className="btn-primary w-full text-lg py-3 flex items-center justify-center gap-2">
+                Next <ArrowRight className="w-5 h-5" />
+              </button>
+            </motion.div>
+          )}
+
+          {step === 1 && (
+            <motion.div
+              key="step-1"
               custom={direction}
               variants={slideVariants}
               initial="enter"
@@ -530,15 +578,20 @@ function ContactForm({ isMinimal = false }) {
                 />
                 {errors.zip_code && <p className="form-error">{errors.zip_code}</p>}
               </div>
-              <button type="button" onClick={handleNext} className="btn-primary w-full text-lg py-3 flex items-center justify-center gap-2">
-                Next <ArrowRight className="w-5 h-5" />
-              </button>
+              <div className="flex gap-3 pt-2">
+                <button type="button" onClick={handleBack} className="btn-primary-outline flex-1 py-3 flex items-center justify-center gap-2">
+                  <ArrowLeft className="w-5 h-5" /> Back
+                </button>
+                <button type="button" onClick={handleNext} className="btn-primary flex-1 py-3 flex items-center justify-center gap-2">
+                  Next <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
             </motion.div>
           )}
 
-          {step === 1 && (
+          {step === 2 && (
             <motion.div
-              key="step-1"
+              key="step-2"
               custom={direction}
               variants={slideVariants}
               initial="enter"
@@ -575,47 +628,6 @@ function ContactForm({ isMinimal = false }) {
                 {errors.timeline && <p className="form-error">{errors.timeline}</p>}
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <button type="button" onClick={handleBack} className="btn-primary-outline flex-1 py-3 flex items-center justify-center gap-2">
-                  <ArrowLeft className="w-5 h-5" /> Back
-                </button>
-                <button type="button" onClick={handleNext} className="btn-primary flex-1 py-3 flex items-center justify-center gap-2">
-                  Next <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {step === 2 && (
-            <motion.div
-              key="step-2"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-              className="space-y-4"
-            >
-              <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">Almost done! How can we reach you?</h3>
-                <p className="text-sm text-muted-foreground">We'll send your custom quote within 24 hours</p>
-              </div>
-              <div>
-                <label htmlFor="name" className="form-label">Full Name*</label>
-                <input id="name" type="text" value={formState.name} onChange={handleChange} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} autoComplete="name" />
-                {errors.name && <p className="form-error">{errors.name}</p>}
-              </div>
-              <div>
-                <label htmlFor="phone" className="form-label">Phone Number*</label>
-                <input id="phone" type="tel" value={formState.phone} onChange={handleChange} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} autoComplete="tel" />
-                {errors.phone && <p className="form-error">{errors.phone}</p>}
-              </div>
-              <div>
-                <label htmlFor="email" className="form-label">Email Address*</label>
-                <input id="email" type="email" value={formState.email} onChange={handleChange} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} autoComplete="email" />
-                {errors.email && <p className="form-error">{errors.email}</p>}
-              </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={handleBack} className="btn-primary-outline flex-1 py-3 flex items-center justify-center gap-2">
                   <ArrowLeft className="w-5 h-5" /> Back
