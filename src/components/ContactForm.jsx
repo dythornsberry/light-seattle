@@ -131,6 +131,8 @@ function ContactForm({ isMinimal = false }) {
     email: '',
     street_address: '',
     zip_code: '',
+    city: '',
+    state: '',
     timeline: '',
   });
   const [honeypot, setHoneypot] = useState('');
@@ -213,6 +215,8 @@ function ContactForm({ isMinimal = false }) {
       let streetNumber = '';
       let route = '';
       let zip = '';
+      let city = '';
+      let state = '';
 
       if (place.addressComponents) {
         for (const comp of place.addressComponents) {
@@ -220,6 +224,8 @@ function ContactForm({ isMinimal = false }) {
           if (types.includes('street_number')) streetNumber = comp.longText;
           if (types.includes('route')) route = comp.longText;
           if (types.includes('postal_code')) zip = comp.longText;
+          if (types.includes('locality')) city = comp.longText;
+          if (types.includes('administrative_area_level_1')) state = comp.shortText;
         }
       }
 
@@ -229,6 +235,8 @@ function ContactForm({ isMinimal = false }) {
         ...prev,
         street_address: street || place.formattedAddress || prev.street_address,
         zip_code: zip || prev.zip_code,
+        city: city || prev.city,
+        state: state || prev.state,
       }));
 
       setErrors(prev => ({
