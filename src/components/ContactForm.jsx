@@ -422,8 +422,14 @@ function ContactForm({ isMinimal = false }) {
     const phoneDigits = formState.phone.replace(/\D/g, '');
     const phoneE164 = '+1' + phoneDigits;
 
+    const fullAddress = [formState.street_address, formState.city, formState.state, formState.zip_code].filter(Boolean).join(', ');
+
     const submissionData = {
-      ...formState,
+      name: formState.name,
+      phone: formState.phone,
+      email: formState.email,
+      address: fullAddress,
+      timeline: formState.timeline,
       phone_e164: phoneE164,
       submitted_at: new Date().toISOString()
     };
@@ -437,16 +443,21 @@ function ContactForm({ isMinimal = false }) {
         lead_phone: formState.phone,
         lead_email: formState.email,
         lead_address: formState.street_address,
+        lead_city: formState.city,
+        lead_state: formState.state,
         lead_zip: formState.zip_code,
+        lead_full_address: [formState.street_address, formState.city, formState.state, formState.zip_code].filter(Boolean).join(', '),
         lead_timeline: formState.timeline,
         lead_submitted_at: submissionData.submitted_at,
       }),
     }).catch(() => {});
 
     try {
-      const response = await fetch(ZAPIER_WEBHOOK_URL, {
+      // Submit via server-side proxy to avoid CORS issues with Zapier
+      const response = await fetch('/api/submit-quote', {
         method: 'POST',
-        body: JSON.stringify(submissionData)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(submissionData),
       });
 
       if (!response.ok) throw new Error('Network response was not ok.');
