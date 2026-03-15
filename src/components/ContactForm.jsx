@@ -271,14 +271,36 @@ function ContactForm({ isMinimal = false }) {
 
     setIsSubmitting(true);
 
+    const submissionData = {
+      ...formState,
+      services: formState.services.join(', '),
+      submitted_at: new Date().toISOString()
+    };
+
+    // Fire backup email independently via Resend (never blocks or affects main flow)
+    fetch('/api/backup-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lead_name: formState.name,
+        lead_phone: formState.phone,
+        lead_email: formState.email,
+        lead_address: formState.street_address,
+        lead_zip: formState.zip_code,
+        lead_city: formState.city,
+        lead_state: formState.state,
+        lead_full_address: formState.full_formatted_address,
+        lead_timeline: formState.timeline,
+        lead_submitted_at: submissionData.submitted_at,
+      }),
+    }).catch(err => {
+      console.error("Backup email failed (non-critical):", err);
+    });
+
     try {
         const response = await fetch(ZAPIER_WEBHOOK_URL, {
             method: 'POST',
-            body: JSON.stringify({
-                ...formState,
-                services: formState.services.join(', '),
-                submitted_at: new Date().toISOString()
-            })
+            body: JSON.stringify(submissionData)
         });
 
         if (!response.ok) {
