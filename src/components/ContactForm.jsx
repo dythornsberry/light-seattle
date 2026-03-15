@@ -453,10 +453,8 @@ function ContactForm({ isMinimal = false }) {
     }).catch(() => {});
 
     try {
-      // Submit via server-side proxy to avoid CORS issues with Zapier
-      const response = await fetch('/api/submit-quote', {
+      const response = await fetch(ZAPIER_WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submissionData),
       });
 
