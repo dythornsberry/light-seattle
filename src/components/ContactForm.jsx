@@ -395,8 +395,13 @@ function ContactForm({ isMinimal = false }) {
 
     setIsSubmitting(true);
 
+    // Strip phone to E.164 for Twilio (+1XXXXXXXXXX)
+    const phoneDigits = formState.phone.replace(/\D/g, '');
+    const phoneE164 = '+1' + phoneDigits;
+
     const submissionData = {
       ...formState,
+      phone_e164: phoneE164,
       submitted_at: new Date().toISOString()
     };
 
