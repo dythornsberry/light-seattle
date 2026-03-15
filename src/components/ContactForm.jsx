@@ -4,15 +4,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { toast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, ArrowRight, ArrowLeft, MapPin, Calendar, User } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft, MapPin, User } from 'lucide-react';
 
 const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24075201/udrmfac/";
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0";
 
 const STEPS = [
   { label: "Contact", icon: User },
-  { label: "Property", icon: MapPin },
-  { label: "Details", icon: Calendar },
+  { label: "Property & Details", icon: MapPin },
 ];
 
 const StepIndicator = ({ currentStep }) => (
@@ -349,9 +348,6 @@ function ContactForm({ isMinimal = false }) {
       } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
         newErrors.zip_code = "Please enter a valid US ZIP code.";
       }
-    }
-
-    if (stepNum === 2) {
       if (!formState.timeline) newErrors.timeline = "Please select a timeline.";
     }
 
@@ -371,11 +367,11 @@ function ContactForm({ isMinimal = false }) {
     setStep(prev => prev - 1);
   };
 
-  // Press Enter on any input to advance to next step (or submit on last step)
+  // Press Enter on any input to advance to next step
   const handleInputKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (step < 2) {
+      if (step < 1) {
         handleNext();
       }
     }
@@ -411,7 +407,7 @@ function ContactForm({ isMinimal = false }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (honeypot) return;
-    if (!validateStep(0) || !validateStep(1) || !validateStep(2)) {
+    if (!validateStep(0) || !validateStep(1)) {
       toast({
         variant: "destructive",
         title: "Please fix the errors",
@@ -482,7 +478,7 @@ function ContactForm({ isMinimal = false }) {
 
       <StepIndicator currentStep={step} />
 
-      <div className="min-h-[280px] relative overflow-hidden">
+      <div className="min-h-[380px] relative overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
           {step === 0 && (
             <motion.div
@@ -532,8 +528,8 @@ function ContactForm({ isMinimal = false }) {
               className="space-y-4"
             >
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">Where's your property?</h3>
-                <p className="text-sm text-muted-foreground">So we can check if you're in our service area</p>
+                <h3 className="text-lg font-semibold text-foreground">Property & timing details</h3>
+                <p className="text-sm text-muted-foreground">So we can check your service area and schedule</p>
               </div>
               <div className="relative" ref={suggestionsListRef}>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
@@ -601,7 +597,6 @@ function ContactForm({ isMinimal = false }) {
                   type="text"
                   value={formState.zip_code}
                   onChange={handleChange}
-                  onKeyDown={handleInputKeyDown}
                   required
                   className="form-input"
                   placeholder="e.g., 98101"
@@ -611,35 +606,9 @@ function ContactForm({ isMinimal = false }) {
                 />
                 {errors.zip_code && <p className="form-error">{errors.zip_code}</p>}
               </div>
-              <div className="flex gap-3 pt-2">
-                <button type="button" onClick={handleBack} className="btn-primary-outline flex-1 py-3 flex items-center justify-center gap-2">
-                  <ArrowLeft className="w-5 h-5" /> Back
-                </button>
-                <button type="button" onClick={handleNext} className="btn-primary flex-1 py-3 flex items-center justify-center gap-2">
-                  Next <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {step === 2 && (
-            <motion.div
-              key="step-2"
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.25 }}
-              className="space-y-4"
-            >
-              <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">When do you need your lights installed?</h3>
-                <p className="text-sm text-muted-foreground">Pick a preferred install window</p>
-              </div>
 
               <div className="space-y-2">
-                <label className="form-label">Preferred timing*</label>
+                <label className="form-label">Preferred install timing*</label>
                 <RadioGroup onValueChange={(value) => handleRadioChange('timeline', value)} value={formState.timeline} className="grid grid-cols-2 gap-2" disabled={isSubmitting}>
                   <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
                     <RadioGroupItem value="ASAP" id="time-asap" />
