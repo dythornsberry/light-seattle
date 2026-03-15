@@ -470,7 +470,7 @@ function ContactForm({ isMinimal = false }) {
                   <ul
                     id="address-suggestions"
                     role="listbox"
-                    className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg max-h-52 overflow-auto"
+                    className="absolute z-50 w-full mt-1 bg-[#1a1a2e] border border-border rounded-lg shadow-2xl max-h-52 overflow-auto"
                   >
                     {suggestions.map((suggestion, index) => {
                       const prediction = suggestion.placePrediction;
@@ -483,8 +483,8 @@ function ContactForm({ isMinimal = false }) {
                           aria-selected={index === activeSuggestionIndex}
                           className={`px-4 py-2.5 cursor-pointer transition-colors border-b border-border/50 last:border-b-0 ${
                             index === activeSuggestionIndex
-                              ? 'bg-primary/10 text-foreground'
-                              : 'hover:bg-muted/50 text-foreground'
+                              ? 'bg-[#2a2a4a] text-foreground'
+                              : 'hover:bg-[#222240] text-foreground'
                           }`}
                           onMouseDown={(e) => {
                             e.preventDefault();
