@@ -272,23 +272,28 @@ function ContactForm({ isMinimal = false }) {
     }, 300);
   }, [fetchSuggestions, errors.street_address]);
 
-  // Keyboard nav for suggestions
-  const handleAddressKeyDown = useCallback((e) => {
-    if (!showSuggestions || suggestions.length === 0) return;
+  // Keyboard nav for suggestions (Enter to advance is handled separately after handleNext is defined)
+  const handleAddressKeyDownBase = useCallback((e) => {
+    if (!showSuggestions || suggestions.length === 0) return false;
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActiveSuggestionIndex(prev => prev < suggestions.length - 1 ? prev + 1 : 0);
+      return true;
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveSuggestionIndex(prev => prev > 0 ? prev - 1 : suggestions.length - 1);
+      return true;
     } else if (e.key === 'Enter' && activeSuggestionIndex >= 0) {
       e.preventDefault();
       handleSuggestionSelect(suggestions[activeSuggestionIndex]);
+      return true;
     } else if (e.key === 'Escape') {
       setShowSuggestions(false);
       setActiveSuggestionIndex(-1);
+      return true;
     }
+    return false;
   }, [showSuggestions, suggestions, activeSuggestionIndex, handleSuggestionSelect]);
 
   // Format phone as (XXX) XXX-XXXX
@@ -364,6 +369,28 @@ function ContactForm({ isMinimal = false }) {
   const handleBack = () => {
     setDirection(-1);
     setStep(prev => prev - 1);
+  };
+
+  // Press Enter on any input to advance to next step (or submit on last step)
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (step < 2) {
+        handleNext();
+      }
+    }
+  };
+
+  // Address field: keyboard nav for suggestions + Enter to advance
+  const handleAddressKeyDown = (e) => {
+    // Let the base handler deal with arrow keys and suggestion selection first
+    if (handleAddressKeyDownBase(e)) return;
+    // If Enter and no suggestion highlighted, advance step
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setShowSuggestions(false);
+      handleNext();
+    }
   };
 
   const handleChange = (e) => {
@@ -474,17 +501,17 @@ function ContactForm({ isMinimal = false }) {
               </div>
               <div>
                 <label htmlFor="name" className="form-label">Full Name*</label>
-                <input id="name" type="text" value={formState.name} onChange={handleChange} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} autoComplete="name" />
+                <input id="name" type="text" value={formState.name} onChange={handleChange} onKeyDown={handleInputKeyDown} required className="form-input" placeholder="Jane Doe" disabled={isSubmitting} autoComplete="name" />
                 {errors.name && <p className="form-error">{errors.name}</p>}
               </div>
               <div>
                 <label htmlFor="phone" className="form-label">Phone Number*</label>
-                <input id="phone" type="tel" value={formState.phone} onChange={handlePhoneChange} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} autoComplete="tel" maxLength={14} />
+                <input id="phone" type="tel" value={formState.phone} onChange={handlePhoneChange} onKeyDown={handleInputKeyDown} required className="form-input" placeholder="(206) 555-0123" disabled={isSubmitting} autoComplete="tel" maxLength={14} />
                 {errors.phone && <p className="form-error">{errors.phone}</p>}
               </div>
               <div>
                 <label htmlFor="email" className="form-label">Email Address*</label>
-                <input id="email" type="email" value={formState.email} onChange={handleChange} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} autoComplete="email" />
+                <input id="email" type="email" value={formState.email} onChange={handleChange} onKeyDown={handleInputKeyDown} required className="form-input" placeholder="jane@email.com" disabled={isSubmitting} autoComplete="email" />
                 {errors.email && <p className="form-error">{errors.email}</p>}
               </div>
               <button type="button" onClick={handleNext} className="btn-primary w-full text-lg py-3 flex items-center justify-center gap-2">
@@ -574,6 +601,7 @@ function ContactForm({ isMinimal = false }) {
                   type="text"
                   value={formState.zip_code}
                   onChange={handleChange}
+                  onKeyDown={handleInputKeyDown}
                   required
                   className="form-input"
                   placeholder="e.g., 98101"
