@@ -121,6 +121,10 @@ function ContactForm({ isMinimal = false }) {
         autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
       }
     });
+    // Sync ref value when returning to step 0
+    if (step === 0 && addressInputRef.current && formState.street_address) {
+      addressInputRef.current.value = formState.street_address;
+    }
   }, [step]);
 
   const handlePlaceSelect = () => {
@@ -163,6 +167,11 @@ function ContactForm({ isMinimal = false }) {
 
     const street_address = `${streetNumber} ${route}`.trim();
 
+    // Update the uncontrolled input's display value
+    if (addressInputRef.current) {
+      addressInputRef.current.value = street_address;
+    }
+
     setFormState(prevState => ({
       ...prevState,
       street_address: street_address,
@@ -181,7 +190,12 @@ function ContactForm({ isMinimal = false }) {
     const newErrors = {};
 
     if (stepNum === 0) {
-      if (!formState.street_address) newErrors.street_address = "Street Address is required.";
+      // Sync the ref value to state before validating (uncontrolled input)
+      const currentAddress = addressInputRef.current ? addressInputRef.current.value.trim() : formState.street_address;
+      if (currentAddress && currentAddress !== formState.street_address) {
+        setFormState(prev => ({...prev, street_address: currentAddress}));
+      }
+      if (!currentAddress) newErrors.street_address = "Street Address is required.";
       if (!formState.zip_code) {
         newErrors.zip_code = "ZIP Code is required.";
       } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
@@ -228,10 +242,24 @@ function ContactForm({ isMinimal = false }) {
     setFormState(prevState => ({...prevState, [id]: value}));
     if (id === 'street_address' && isZipReadOnly) {
         setIsZipReadOnly(false);
-        setFormState(prevState => ({...prevState, zip_code: ''}));
+        setFormState(prevState => ({...prevState, zip_code: '', city: '', state: '', full_formatted_address: '', place_id: ''}));
     }
     if (errors[id]) {
         setErrors(prev => ({...prev, [id]: ''}));
+    }
+  };
+
+  // Separate handler for uncontrolled address input — syncs ref value to state
+  const handleAddressChange = (e) => {
+    const value = e.target.value;
+    if (isZipReadOnly) {
+      setIsZipReadOnly(false);
+      setFormState(prevState => ({...prevState, street_address: value, zip_code: '', city: '', state: '', full_formatted_address: '', place_id: ''}));
+    } else {
+      setFormState(prevState => ({...prevState, street_address: value}));
+    }
+    if (errors.street_address) {
+      setErrors(prev => ({...prev, street_address: ''}));
     }
   };
 
@@ -363,7 +391,7 @@ function ContactForm({ isMinimal = false }) {
               </div>
               <div>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
-                <input id="street_address" type="text" ref={addressInputRef} value={formState.street_address} onChange={handleChange} required className="form-input" placeholder="Start typing your address..." disabled={isSubmitting} autoComplete="street-address" />
+                <input id="street_address" type="text" ref={addressInputRef} defaultValue={formState.street_address} onChange={handleAddressChange} required className="form-input" placeholder="Start typing your address..." disabled={isSubmitting} autoComplete="off" />
                 {errors.street_address && <p className="form-error">{errors.street_address}</p>}
               </div>
               <div>
