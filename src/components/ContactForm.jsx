@@ -10,9 +10,13 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyD
 const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24075201/udrmfac/";
 
 let googleMapsScriptLoaded = false;
+let googleMapsHasError = false;
 const scriptLoadCallbacks = [];
 
 function loadGoogleMapsScript(callback) {
+  // If we already know Maps API has an error, skip entirely
+  if (googleMapsHasError) return;
+
   if (googleMapsScriptLoaded && window.google && window.google.maps) {
     callback();
     return;
@@ -22,6 +26,12 @@ function loadGoogleMapsScript(callback) {
 
   const existingScript = document.getElementById('googleMapsScript');
   if (!existingScript) {
+    // Listen for Google Maps auth errors before loading
+    window.gm_authFailure = () => {
+      console.warn("Google Maps API auth failed — address autocomplete disabled, manual entry works fine.");
+      googleMapsHasError = true;
+    };
+
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
     script.id = 'googleMapsScript';
@@ -30,17 +40,20 @@ function loadGoogleMapsScript(callback) {
     document.body.appendChild(script);
     script.onload = () => {
       googleMapsScriptLoaded = true;
-      while(scriptLoadCallbacks.length > 0) {
-        scriptLoadCallbacks.shift()();
-      }
+      // Wait a tick to see if gm_authFailure fires
+      setTimeout(() => {
+        if (!googleMapsHasError) {
+          while(scriptLoadCallbacks.length > 0) {
+            scriptLoadCallbacks.shift()();
+          }
+        } else {
+          scriptLoadCallbacks.length = 0;
+        }
+      }, 500);
     };
     script.onerror = () => {
         console.error("Google Maps script failed to load.");
-        toast({
-          variant: "destructive",
-          title: "Address Search Unavailable",
-          description: "Could not load Google Maps. Please enter your address manually.",
-        });
+        googleMapsHasError = true;
     };
   }
 }
@@ -112,13 +125,18 @@ function ContactForm({ isMinimal = false }) {
 
   useEffect(() => {
     loadGoogleMapsScript(() => {
-      if (addressInputRef.current && !autocompleteRef.current) {
-        autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
-          componentRestrictions: { country: "us" },
-          fields: ["address_components", "formatted_address", "place_id"],
-          types: ["address"],
-        });
-        autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
+      try {
+        if (addressInputRef.current && !autocompleteRef.current && !googleMapsHasError) {
+          autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
+            componentRestrictions: { country: "us" },
+            fields: ["address_components", "formatted_address", "place_id"],
+            types: ["address"],
+          });
+          autocompleteRef.current.addListener("place_changed", handlePlaceSelect);
+        }
+      } catch (e) {
+        console.warn("Google Places Autocomplete failed to initialize:", e);
+        autocompleteRef.current = null;
       }
     });
     // Sync ref value when returning to step 0
