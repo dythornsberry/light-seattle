@@ -57,7 +57,8 @@ const slideVariants = {
 // Only load Google Maps on authorized domains (NOT localhost)
 // The Maps JS API hijacks inputs and disables them on auth failure!
 const AUTHORIZED_DOMAINS = ['lightseattle.com', 'www.lightseattle.com'];
-const isAuthorizedDomain = AUTHORIZED_DOMAINS.includes(window.location.hostname);
+const isAuthorizedDomain = AUTHORIZED_DOMAINS.includes(window.location.hostname)
+  || window.location.hostname.endsWith('.light-seattle.pages.dev');
 
 let mapsLoadState = { loading: false, loaded: false, failed: false };
 
