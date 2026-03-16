@@ -7,7 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, User } from 'lucide-react';
 
 const DEV_ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || '';
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
+// Keep a domain-restricted fallback so production autocomplete still works
+// even if the build env var is missing in Cloudflare Pages.
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0';
 const SUBMIT_QUOTE_ENDPOINT = '/api/submit-quote';
 
 const STEPS = [
