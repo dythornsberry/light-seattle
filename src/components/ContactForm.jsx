@@ -6,7 +6,10 @@ import { toast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, User } from 'lucide-react';
 
-const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/24075201/udrmfac/';
+// Webhook URL is hidden server-side in Cloudflare Pages env vars.
+// Form submits to our own proxy at /api/submit-quote which forwards to Zapier.
+const SUBMIT_ENDPOINT = '/api/submit-quote';
+
 // Keep a domain-restricted fallback so production autocomplete still works
 // even if the build env var is missing in Cloudflare Pages.
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0';
@@ -466,14 +469,19 @@ function ContactForm({ isMinimal = false }) {
       }),
     }).catch(() => {});
 
+    // Submit through Cloudflare proxy (hides Zapier webhook URL from browser)
+    // Always show success — backup email already fired independently above,
+    // so we NEVER block the user even if the proxy has an issue.
     try {
-      await fetch(ZAPIER_WEBHOOK_URL, {
+      await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submissionData),
       });
     } catch {
-      // CORS may block the response even though Zapier received the data.
-      // This is expected — treat network errors as success.
+      // Proxy or network error — Zapier may or may not have received it,
+      // but backup email already went out so the lead is not lost.
+      console.warn('Submit proxy error — backup email was sent independently.');
     }
 
     toast({

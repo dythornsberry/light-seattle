@@ -14,14 +14,16 @@ export async function onRequestPost(context) {
     'Access-Control-Allow-Headers': 'Content-Type',
   };
 
-  const fallbackWebhookUrl = 'https://hooks.zapier.com/hooks/catch/24075201/udrmfac/';
-
   try {
     const payload = await context.request.json();
-    const ZAPIER_WEBHOOK_URL = context.env.ZAPIER_WEBHOOK_URL || fallbackWebhookUrl;
+    const ZAPIER_WEBHOOK_URL = context.env.ZAPIER_WEBHOOK_URL;
 
-    if (!context.env.ZAPIER_WEBHOOK_URL) {
-      console.warn('ZAPIER_WEBHOOK_URL not configured in Cloudflare Pages; using fallback webhook URL');
+    if (!ZAPIER_WEBHOOK_URL) {
+      console.error('ZAPIER_WEBHOOK_URL not configured in Cloudflare Pages env vars');
+      return new Response(JSON.stringify({ error: 'Webhook not configured' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
     }
 
     const response = await fetch(ZAPIER_WEBHOOK_URL, {
