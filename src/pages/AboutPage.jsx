@@ -56,6 +56,15 @@ const AboutPage = () => {
             <Helmet>
                 <title>About Us | Seattle Christmas Lights</title>
                 <meta name="description" content="Seattle Christmas Lights designs and installs custom holiday lighting for homes across Greater Seattle. Full-service from design to storage." />
+                <link rel="canonical" href="https://lightseattle.com/about" />
+                <meta property="og:title" content="About Us | Seattle Christmas Lights" />
+                <meta property="og:description" content="Seattle Christmas Lights designs and installs custom holiday lighting for homes across Greater Seattle. Full-service from design to storage." />
+                <meta property="og:url" content="https://lightseattle.com/about" />
+                <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="About Us | Seattle Christmas Lights" />
+                <meta name="twitter:description" content="Seattle Christmas Lights designs and installs custom holiday lighting for homes across Greater Seattle. Full-service from design to storage." />
             </Helmet>
 
             <motion.div initial="hidden" animate="visible" variants={{ visible: { staggerChildren: 0.1 } }}>

@@ -12,6 +12,15 @@ const ContactPage = () => {
       <Helmet>
         <title>Contact Us | Seattle Christmas Lights</title>
         <meta name="description" content="Contact Seattle Christmas Lights for a free quote on professional holiday light installation. Call us or fill out our online form to get started." />
+        <link rel="canonical" href="https://lightseattle.com/contact" />
+        <meta property="og:title" content="Contact Us | Seattle Christmas Lights" />
+        <meta property="og:description" content="Contact Seattle Christmas Lights for a free quote on professional holiday light installation. Call us or fill out our online form to get started." />
+        <meta property="og:url" content="https://lightseattle.com/contact" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Us | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Contact Seattle Christmas Lights for a free quote on professional holiday light installation. Call us or fill out our online form to get started." />
       </Helmet>
       
       <div className="bg-background-alt border-b">

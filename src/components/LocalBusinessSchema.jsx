@@ -46,12 +46,63 @@ const LocalBusinessSchema = () => {
                 "Tuesday",
                 "Wednesday",
                 "Thursday",
-                "Friday"
+                "Friday",
+                "Saturday",
+                "Sunday"
             ],
-            "opens": "09:00",
-            "closes": "17:00"
+            "opens": "07:00",
+            "closes": "19:00"
         }
-    ]
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "47",
+      "bestRating": "5"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Christmas Light Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Christmas Light Installation",
+            "description": "Professional design and installation of custom Christmas light displays for residential properties."
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "800-3500",
+            "priceCurrency": "USD"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Permanent Lighting Installation",
+            "description": "Year-round permanent LED lighting systems with programmable color scenes for any occasion."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Seasonal Maintenance",
+            "description": "48-hour service response guarantee for any display issues throughout the holiday season."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Takedown and Storage",
+            "description": "Post-season removal and climate-controlled off-season storage of all lighting materials."
+          }
+        }
+      ]
+    }
   };
 
   return (

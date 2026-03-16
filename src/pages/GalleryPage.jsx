@@ -123,6 +123,15 @@ export default function GalleryPage() {
       <Helmet>
         <title>Our Work | Seattle Christmas Lights</title>
         <meta name="description" content="Browse our recent Christmas light installations from across the Greater Seattle area." />
+        <link rel="canonical" href="https://lightseattle.com/gallery" />
+        <meta property="og:title" content="Our Work | Seattle Christmas Lights" />
+        <meta property="og:description" content="Browse our recent Christmas light installations from across the Greater Seattle area." />
+        <meta property="og:url" content="https://lightseattle.com/gallery" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Our Work | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Browse our recent Christmas light installations from across the Greater Seattle area." />
       </Helmet>
       
       <PageHeader

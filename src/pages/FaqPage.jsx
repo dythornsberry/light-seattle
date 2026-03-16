@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import PageHeader from '@/components/PageHeader';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import * as Accordion from '@radix-ui/react-accordion';
@@ -66,11 +65,34 @@ const FaqPage = () => {
       <Helmet>
         <title>FAQ | Seattle Christmas Lights</title>
         <meta name="description" content="Everything you need to know about our premium holiday lighting service, from our service model to installation, maintenance, and investment." />
+        <link rel="canonical" href="https://lightseattle.com/faq" />
+        <meta property="og:title" content="FAQ | Seattle Christmas Lights" />
+        <meta property="og:description" content="Everything you need to know about our premium holiday lighting service, from our service model to installation, maintenance, and investment." />
+        <meta property="og:url" content="https://lightseattle.com/faq" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="FAQ | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Everything you need to know about our premium holiday lighting service, from our service model to installation, maintenance, and investment." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqCategories.flatMap(cat => cat.items.map(item => ({
+            "@type": "Question",
+            "name": item.q,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": item.a
+            }
+          })))
+        })}</script>
       </Helmet>
-      <PageHeader
-        title="Frequently Asked Questions"
-        subtitle="Everything you need to know about our premium holiday lighting service"
-      />
+      <div className="bg-background-alt border-b section-padding">
+        <div className="container-content text-center">
+          <h1 className="h1 mb-4">Frequently Asked Questions</h1>
+          <p className="p-body text-muted-foreground max-w-2xl mx-auto">Everything you need to know about our premium holiday lighting service</p>
+        </div>
+      </div>
       <div className="section-padding bg-background">
         <div className="container-content space-y-12">
           {faqCategories.map((category, catIndex) => (

@@ -260,6 +260,10 @@ export default function HomePage() {
         <meta property="og:description" content="Professional Christmas light installation, maintenance, and storage in Seattle. Get a free quote today." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://lightseattle.com/" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Seattle's Premier Holiday Lighting Designers | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Professional Christmas light installation, maintenance, and storage in Seattle. Get a free quote today." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://horizons-cdn.hostinger.com" />

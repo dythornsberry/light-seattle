@@ -60,6 +60,15 @@ const PricingPage = () => {
       <Helmet>
         <title>Investment Guide | Seattle Christmas Lights</title>
         <meta name="description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
+        <link rel="canonical" href="https://lightseattle.com/pricing" />
+        <meta property="og:title" content="Investment Guide | Seattle Christmas Lights" />
+        <meta property="og:description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
+        <meta property="og:url" content="https://lightseattle.com/pricing" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Investment Guide | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
       </Helmet>
       <PageHeader
         title="Investment Guide"

@@ -38,6 +38,15 @@ const ServiceAreasPage = () => {
       <Helmet>
         <title>Service Areas | Seattle Christmas Lights</title>
         <meta name="description" content="Proudly serving King and Snohomish counties with professional Christmas light installation." />
+        <link rel="canonical" href="https://lightseattle.com/service-areas" />
+        <meta property="og:title" content="Service Areas | Seattle Christmas Lights" />
+        <meta property="og:description" content="Proudly serving King and Snohomish counties with professional Christmas light installation." />
+        <meta property="og:url" content="https://lightseattle.com/service-areas" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Service Areas | Seattle Christmas Lights" />
+        <meta name="twitter:description" content="Proudly serving King and Snohomish counties with professional Christmas light installation." />
       </Helmet>
       <PageHeader
         title="Service Areas"

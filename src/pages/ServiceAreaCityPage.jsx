@@ -1,11 +1,61 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import PageHeader from '@/components/PageHeader';
-import { Phone, Edit, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Phone, Edit, CheckCircle, ArrowLeft, MapPin } from 'lucide-react';
 import ImageOptimizer from '@/components/ImageOptimizer';
 import { Button } from '@/components/ui/button';
 import useStickyCta from '@/hooks/useStickyCta';
+
+const cityNameToPath = {
+  'Seattle': 'seattle',
+  'Kenmore': 'kenmore',
+  'Kirkland': 'kirkland',
+  'Bellevue': 'bellevue',
+  'Woodinville': 'woodinville',
+  'Bothell': 'bothell',
+  'Lake Forest Park': 'lake-forest-park',
+  'Everett': 'everett',
+  'Lynnwood': 'lynnwood',
+  'Shoreline': 'shoreline',
+  'Mercer Island': 'mercer-island',
+  'Medina': 'medina',
+  'Clyde Hill': 'clyde-hill',
+  'Hunts Point': 'hunts-point',
+};
+
+const nearbyAreas = {
+  'Seattle': ['Shoreline', 'Mercer Island', 'Bellevue', 'Kirkland'],
+  'Kenmore': ['Bothell', 'Lake Forest Park', 'Kirkland', 'Woodinville'],
+  'Kirkland': ['Bellevue', 'Bothell', 'Kenmore', 'Woodinville'],
+  'Bellevue': ['Kirkland', 'Mercer Island', 'Medina', 'Clyde Hill'],
+  'Woodinville': ['Bothell', 'Kirkland', 'Kenmore', 'Redmond'],
+  'Bothell': ['Kenmore', 'Woodinville', 'Lake Forest Park', 'Lynnwood'],
+  'Lake Forest Park': ['Kenmore', 'Shoreline', 'Bothell', 'Seattle'],
+  'Everett': ['Lynnwood', 'Shoreline', 'Bothell'],
+  'Lynnwood': ['Shoreline', 'Everett', 'Bothell', 'Kenmore'],
+  'Shoreline': ['Seattle', 'Lake Forest Park', 'Lynnwood', 'Kenmore'],
+  'Mercer Island': ['Bellevue', 'Seattle', 'Kirkland'],
+  'Medina': ['Bellevue', 'Clyde Hill', 'Hunts Point', 'Kirkland'],
+  'Clyde Hill': ['Bellevue', 'Medina', 'Hunts Point', 'Kirkland'],
+  'Hunts Point': ['Medina', 'Clyde Hill', 'Bellevue', 'Kirkland'],
+};
+
+const cityMetaDescriptions = {
+  'Seattle': 'Professional Christmas light installation in Seattle, WA. Serving Capitol Hill, Queen Anne, Magnolia, Wallingford, West Seattle, and Laurelhurst. Custom designs, maintenance, and storage included.',
+  'Kenmore': 'Christmas light installation in Kenmore, WA -- our home base near Lake Washington. Serving Inglewood, Arrowhead Point, and the Kenmore waterfront. Full-service design, install, and storage.',
+  'Kirkland': 'Christmas light installation in Kirkland, WA. Serving Houghton, Bridle Trails, Juanita, and the Kirkland waterfront. Custom roofline and tree lighting with full-service maintenance and storage.',
+  'Bellevue': 'Christmas light installation in Bellevue, WA. From downtown condos to estates in Medina and Clyde Hill. Modern warm white LED designs with full-service installation and storage.',
+  'Woodinville': 'Christmas light installation in Woodinville, WA. Grand designs for wine country properties with illuminated driveways, wrapped trees, and rustic warm lighting. Full-service including storage.',
+  'Bothell': 'Christmas light installation in Bothell, WA. Serving Norway Hill, North Creek, Canyon Park, and historic downtown. Custom designs for both new and classic homes with full-service storage.',
+  'Lake Forest Park': 'Christmas light installation in Lake Forest Park, WA. Specializing in tree wraps for towering evergreens and nature-focused designs. Full-service from installation to off-season storage.',
+  'Everett': 'Christmas light installation in Everett, WA. Serving Bayside, Silver Firs, and neighborhoods across Snohomish County. Durable commercial-grade LEDs with full-service maintenance and storage.',
+  'Lynnwood': 'Christmas light installation in Lynnwood, WA. From elegant rooflines to elaborate yard displays near Alderwood Mall and Meadowdale. Complete service with maintenance and off-season storage.',
+  'Shoreline': 'Christmas light installation in Shoreline, WA. Serving The Highlands, Richmond Beach, and Ridgecrest with elegant warm white designs. Full-service installation, maintenance, and storage.',
+  'Mercer Island': 'Christmas light installation on Mercer Island, WA. Custom displays for waterfront estates and tree-lined streets. Rooflines, driveways, and mature tree wraps with full-service storage.',
+  'Medina': 'Christmas light installation in Medina, WA. Custom designs for large estates featuring architectural highlights, landscape lighting, and dramatic tree wraps. Full-service with off-season storage.',
+  'Clyde Hill': 'Christmas light installation in Clyde Hill, WA. Sophisticated designs for stately homes with clean roofline outlining and wrapped columnar trees. All-inclusive service with storage.',
+  'Hunts Point': 'Christmas light installation in Hunts Point, WA. Exclusive custom installations for waterfront estates. Full-service from consultation and design to takedown and off-season storage.',
+};
 
 const cityContent = {
   'Seattle': {
@@ -126,16 +176,56 @@ const cityContent = {
 const ServiceAreaCityPage = ({ city }) => {
   useStickyCta();
   const content = cityContent[city] || { text: `Learn about our services in ${city}.`, images: [] };
+  const cityPath = cityNameToPath[city] || city.toLowerCase().replace(/\s+/g, '-');
+  const metaDescription = cityMetaDescriptions[city] || `Professional, all-inclusive Christmas light installation in ${city}, WA. Custom designs, maintenance, takedown, and storage. Get your free quote today.`;
+  const pageTitle = `Christmas Light Installation in ${city}, WA | Seattle Christmas Lights`;
+  const pageUrl = `https://lightseattle.com/service-areas/${cityPath}`;
+  const nearby = (nearbyAreas[city] || []).filter(c => cityNameToPath[c]);
 
   return (
     <>
       <Helmet>
-        <title>{`Christmas Light Installation in ${city}, WA | Seattle Christmas Lights`}</title>
-        <meta name="description" content={`Professional, all-inclusive Christmas light installation in ${city}, WA. Custom designs, maintenance, takedown, and storage. Get your free quote today.`} />
+        <title>{pageTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://lightseattle.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Service Areas",
+              "item": "https://lightseattle.com/service-areas"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": city,
+              "item": pageUrl
+            }
+          ]
+        })}</script>
       </Helmet>
-      <PageHeader
-        title={`Christmas light installation in ${city}, WA`}
-      />
+      <div className="bg-background-alt border-b section-padding">
+        <div className="container-content text-center">
+          <h1 className="h1 mb-4">{`Christmas Light Installation in ${city}, WA`}</h1>
+        </div>
+      </div>
 
       <div className="section-padding">
         <div className="container-content">
@@ -190,6 +280,24 @@ const ServiceAreaCityPage = ({ city }) => {
               </Button>
             </div>
           </div>
+
+          {nearby.length > 0 && (
+            <div className="mt-16">
+              <h2 className="h2 text-foreground mb-8 text-center">Nearby Service Areas</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {nearby.map(nearbyCity => (
+                  <Link
+                    key={nearbyCity}
+                    to={`/service-areas/${cityNameToPath[nearbyCity]}`}
+                    className="card bg-background-alt border p-5 flex items-center gap-3 hover:border-primary transition-colors"
+                  >
+                    <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-semibold text-foreground">{nearbyCity}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
       </div>

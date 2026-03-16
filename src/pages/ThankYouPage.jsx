@@ -10,6 +10,8 @@ const ThankYouPage = () => {
             <Helmet>
                 <title>Thank You! | Seattle Christmas Lights</title>
                 <meta name="description" content="Thank you for your submission." />
+                <meta name="robots" content="noindex" />
+                <link rel="canonical" href="https://lightseattle.com/thank-you" />
             </Helmet>
             <div className="min-h-[60vh] flex items-center justify-center bg-background">
                 <div className="container-content text-center py-16">
