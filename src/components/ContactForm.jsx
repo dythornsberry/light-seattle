@@ -332,14 +332,26 @@ function ContactForm({ isMinimal = false }) {
   }, [showSuggestions, suggestions, activeSuggestionIndex, handleSuggestionSelect]);
 
   // Format phone as (XXX) XXX-XXXX
-  const handlePhoneChange = (e) => {
-    const input = e.target.value;
-    const digits = input.replace(/\D/g, '').slice(0, 10);
+  const formatPhone = (digits) => {
     let formatted = '';
     if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
     if (digits.length >= 3) formatted += ') ' + digits.slice(3, 6);
     if (digits.length >= 6) formatted += '-' + digits.slice(6, 10);
-    setFormState(prev => ({ ...prev, phone: formatted }));
+    return formatted;
+  };
+
+  const handlePhoneChange = (e) => {
+    const prevDigits = formState.phone.replace(/\D/g, '');
+    const newDigits = e.target.value.replace(/\D/g, '').slice(0, 10);
+
+    // Detect backspace: if the raw input shrank but digits didn't,
+    // the user deleted a formatting char — drop the last digit instead
+    const isBackspace = e.target.value.length < formState.phone.length;
+    const digits = (isBackspace && newDigits.length === prevDigits.length)
+      ? newDigits.slice(0, -1)
+      : newDigits;
+
+    setFormState(prev => ({ ...prev, phone: formatPhone(digits) }));
     if (errors.phone) setErrors(prev => ({ ...prev, phone: '' }));
   };
 
