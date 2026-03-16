@@ -6,7 +6,8 @@ import { toast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, User } from 'lucide-react';
 
-const DEV_ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || '';
+const FALLBACK_ZAPIER_WEBHOOK_URL =
+  import.meta.env.VITE_ZAPIER_WEBHOOK_URL || 'https://hooks.zapier.com/hooks/catch/24075201/udrmfac/';
 // Keep a domain-restricted fallback so production autocomplete still works
 // even if the build env var is missing in Cloudflare Pages.
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0';
@@ -133,16 +134,26 @@ async function submitQuoteRequest(submissionData) {
   try {
     const response = await fetch(SUBMIT_QUOTE_ENDPOINT, requestInit);
 
-    if (response.status !== 404 || !import.meta.env.DEV || !DEV_ZAPIER_WEBHOOK_URL) {
+    if (response.ok || !FALLBACK_ZAPIER_WEBHOOK_URL) {
+      return response;
+    }
+
+    const responseText = await response.clone().text();
+    const shouldFallback =
+      response.status === 404 ||
+      response.status >= 500 ||
+      responseText.includes('Webhook not configured');
+
+    if (!shouldFallback) {
       return response;
     }
   } catch (error) {
-    if (!import.meta.env.DEV || !DEV_ZAPIER_WEBHOOK_URL) {
+    if (!FALLBACK_ZAPIER_WEBHOOK_URL) {
       throw error;
     }
   }
 
-  return fetch(DEV_ZAPIER_WEBHOOK_URL, requestInit);
+  return fetch(FALLBACK_ZAPIER_WEBHOOK_URL, requestInit);
 }
 
 function ContactForm({ isMinimal = false }) {
