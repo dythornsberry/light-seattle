@@ -56,6 +56,11 @@
   body.menu-open footer {
     pointer-events: none;
   }
+
+  body.form-visible .sticky-mobile-cta,
+  body.sticky-cta-hidden .sticky-mobile-cta {
+    @apply translate-y-full opacity-0 pointer-events-none;
+  }
 }
 
 @layer components {
@@ -83,6 +88,16 @@
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-md px-8 py-3 font-medium text-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
     @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg;
+  }
+
+  .btn-primary-outline {
+    @apply inline-flex items-center justify-center rounded-md px-8 py-3 font-medium text-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+    @apply border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md px-6 py-3 font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+    @apply border border-primary/40 bg-background-alt text-foreground shadow-lg hover:border-primary hover:bg-primary/10 hover:text-primary;
   }
 
   .form-input {
@@ -118,6 +133,11 @@
   /* Header Layout */
   .header-cta {
     @apply ml-auto flex items-center gap-x-4;
+  }
+
+  .sticky-mobile-cta {
+    @apply transition-all duration-300 ease-out;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
   }
 
 }

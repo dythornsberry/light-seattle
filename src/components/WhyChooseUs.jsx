@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Package, PenTool, ShieldCheck, Gift, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 // Placeholder for custom animation hooks - assuming they exist or would be implemented if needed
@@ -103,7 +102,7 @@ function WhyChooseUs() {
           <p className="p-body text-foreground text-xl md:text-2xl font-semibold mb-6">
             Rated 5.0 stars on Google!
           </p>
-          <Button as={Link} to="https://g.page/r/CU8wR9N1y110EBM/review" target="_blank" rel="noopener noreferrer" className="btn-primary-outline text-lg">
+          <Button as="a" href="https://g.page/r/CU8wR9N1y110EBM/review" target="_blank" rel="noopener noreferrer" className="btn-primary-outline text-lg">
             Read Our Reviews
           </Button>
         </motion.div>

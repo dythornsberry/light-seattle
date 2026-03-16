@@ -10,27 +10,30 @@ const ImageOptimizer = ({
   fetchpriority = 'auto', 
   ...props 
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(() => !lqipSrc);
 
   useEffect(() => {
     if (!lqipSrc) {
-      // If no placeholder, assume it's loaded to show the main image directly
-      setIsLoaded(true);
-      return;
+      return undefined;
     }
-    
+
+    let isCancelled = false;
     const img = new Image();
     img.src = src;
     img.onload = () => {
-      setIsLoaded(true);
+      if (!isCancelled) {
+        setIsLoaded(true);
+      }
+    };
+
+    return () => {
+      isCancelled = true;
     };
   }, [src, lqipSrc]);
 
   if (!src) return null;
 
   const isUnsplash = src.includes('images.unsplash.com');
-  const isCdn = src.includes('horizons-cdn.hostinger.com');
-
   if (lqipSrc) {
     return (
       <div className={`relative ${className}`}>

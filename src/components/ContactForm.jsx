@@ -6,8 +6,9 @@ import { toast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ArrowRight, ArrowLeft, MapPin, User } from 'lucide-react';
 
-const ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24075201/udrmfac/";
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0";
+const DEV_ZAPIER_WEBHOOK_URL = import.meta.env.VITE_ZAPIER_WEBHOOK_URL || '';
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
+const SUBMIT_QUOTE_ENDPOINT = '/api/submit-quote';
 
 const STEPS = [
   { label: "Contact", icon: User },
@@ -58,7 +59,7 @@ let mapsLoadState = { loading: false, loaded: false, failed: false };
 
 async function ensurePlacesAPI() {
   // Don't even try on unauthorized domains — Maps JS will hijack our inputs
-  if (!isAuthorizedDomain) return false;
+  if (!isAuthorizedDomain || !GOOGLE_MAPS_API_KEY) return false;
 
   // Already loaded successfully
   if (mapsLoadState.loaded && window.google?.maps?.places?.AutocompleteSuggestion) {
@@ -107,7 +108,7 @@ async function ensurePlacesAPI() {
       });
     }
 
-    await google.maps.importLibrary('places');
+    await window.google.maps.importLibrary('places');
 
     mapsLoadState.loaded = true;
     mapsLoadState.loading = false;
@@ -118,6 +119,28 @@ async function ensurePlacesAPI() {
     mapsLoadState.loading = false;
     return false;
   }
+}
+
+async function submitQuoteRequest(submissionData) {
+  const requestInit = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(submissionData),
+  };
+
+  try {
+    const response = await fetch(SUBMIT_QUOTE_ENDPOINT, requestInit);
+
+    if (response.status !== 404 || !import.meta.env.DEV || !DEV_ZAPIER_WEBHOOK_URL) {
+      return response;
+    }
+  } catch (error) {
+    if (!import.meta.env.DEV || !DEV_ZAPIER_WEBHOOK_URL) {
+      throw error;
+    }
+  }
+
+  return fetch(DEV_ZAPIER_WEBHOOK_URL, requestInit);
 }
 
 function ContactForm({ isMinimal = false }) {
@@ -182,10 +205,10 @@ function ContactForm({ isMinimal = false }) {
 
     try {
       if (!sessionTokenRef.current) {
-        sessionTokenRef.current = new google.maps.places.AutocompleteSessionToken();
+        sessionTokenRef.current = new window.google.maps.places.AutocompleteSessionToken();
       }
 
-      const { suggestions: results } = await google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions({
+      const { suggestions: results } = await window.google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions({
         input,
         sessionToken: sessionTokenRef.current,
         includedPrimaryTypes: ['street_address', 'premise', 'subpremise'],
@@ -453,10 +476,7 @@ function ContactForm({ isMinimal = false }) {
     }).catch(() => {});
 
     try {
-      const response = await fetch(ZAPIER_WEBHOOK_URL, {
-        method: 'POST',
-        body: JSON.stringify(submissionData),
-      });
+      const response = await submitQuoteRequest(submissionData);
 
       if (!response.ok) throw new Error('Network response was not ok.');
 

@@ -180,7 +180,7 @@ const ServiceAreaCityPage = ({ city }) => {
               Ready to make your home shine? Contact us for a no-obligation estimate.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <Button as="a" to="/contact" className="btn-primary">
+              <Button as={Link} to="/contact" className="btn-primary">
                 <Edit className="w-5 h-5 mr-2" />
                 Get my free quote
               </Button>

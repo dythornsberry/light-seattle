@@ -60,7 +60,7 @@ const allGalleryItems = [
   { category: ['Full Property', 'Trees', 'Recent'], caption: 'Vibrant Multi-Colored Display', imgSrc: 'https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/2aa45986ebf4eaa1d02e563e38a54209.webp' },
 ];
 
-const filters = ['All', 'Recent', 'Rooflines', 'Trees', 'Full Property', 'Commercial'];
+const filters = ['All', 'Recent', 'Rooflines', 'Trees', 'Full Property'];
 
 const StatisticsBar = () => (
     <div className="bg-background-alt border-y">
@@ -93,12 +93,14 @@ const GalleryCard = ({ item }) => {
             className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
             loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute bottom-0 left-0 p-4 w-full transition-transform duration-300 translate-y-full group-hover:translate-y-0">
-            <p className="font-medium text-white text-base tracking-wide" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.7)' }}>{item.caption}</p>
-            <p className="text-sm text-primary font-semibold">{item.neighborhood}</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute bottom-0 left-0 p-3 md:p-4 w-full transition-transform duration-300 translate-y-0 md:translate-y-full md:group-hover:translate-y-0">
+            <p className="font-medium text-white text-sm md:text-base tracking-wide" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.7)' }}>{item.caption}</p>
+            {item.neighborhood && (
+              <p className="text-xs md:text-sm text-primary font-semibold">{item.neighborhood}</p>
+            )}
         </div>
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center text-white font-bold text-lg bg-black/40 p-2 rounded-lg">
                 <Copyright className="w-5 h-5 mr-2" />
                 <span>Seattle Christmas Lights</span>

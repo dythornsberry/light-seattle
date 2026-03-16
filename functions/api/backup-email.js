@@ -7,6 +7,15 @@
  *   RESEND_API_KEY — set in Cloudflare Pages dashboard (Settings > Environment Variables)
  */
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export async function onRequestPost(context) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -38,6 +47,23 @@ export async function onRequestPost(context) {
       });
     }
 
+    const safeLeadName = escapeHtml(lead_name || 'N/A');
+    const safeLeadPhone = escapeHtml(lead_phone || 'N/A');
+    const safeLeadEmail = escapeHtml(lead_email || 'N/A');
+    const safeLeadAddress = escapeHtml(lead_full_address || lead_address || 'N/A');
+    const safeLeadCityState = escapeHtml(
+      `${lead_city || ''}${lead_city && lead_state ? ', ' : ''}${lead_state || ''}` || 'N/A'
+    );
+    const safeLeadZip = escapeHtml(lead_zip || 'N/A');
+    const safeLeadTimeline = escapeHtml(lead_timeline || 'N/A');
+    const safeSubmittedAt = escapeHtml(
+      lead_submitted_at
+        ? new Date(lead_submitted_at).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+        : 'N/A'
+    );
+    const safePhoneHref = lead_phone ? escapeHtml(`tel:${lead_phone}`) : '';
+    const safeEmailHref = lead_email ? escapeHtml(`mailto:${lead_email}`) : '';
+
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #1a5276; border-bottom: 2px solid #2ecc71; padding-bottom: 10px;">
@@ -46,35 +72,35 @@ export async function onRequestPost(context) {
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold; width: 140px;">Name</td>
-            <td style="padding: 10px;">${lead_name || 'N/A'}</td>
+            <td style="padding: 10px;">${safeLeadName}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">Phone</td>
-            <td style="padding: 10px;"><a href="tel:${lead_phone}">${lead_phone || 'N/A'}</a></td>
+            <td style="padding: 10px;">${safePhoneHref ? `<a href="${safePhoneHref}">${safeLeadPhone}</a>` : safeLeadPhone}</td>
           </tr>
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold;">Email</td>
-            <td style="padding: 10px;"><a href="mailto:${lead_email}">${lead_email || 'N/A'}</a></td>
+            <td style="padding: 10px;">${safeEmailHref ? `<a href="${safeEmailHref}">${safeLeadEmail}</a>` : safeLeadEmail}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">Address</td>
-            <td style="padding: 10px;">${lead_full_address || lead_address || 'N/A'}</td>
+            <td style="padding: 10px;">${safeLeadAddress}</td>
           </tr>
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold;">City / State</td>
-            <td style="padding: 10px;">${lead_city || ''}${lead_city && lead_state ? ', ' : ''}${lead_state || ''}</td>
+            <td style="padding: 10px;">${safeLeadCityState}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">ZIP Code</td>
-            <td style="padding: 10px;">${lead_zip || 'N/A'}</td>
+            <td style="padding: 10px;">${safeLeadZip}</td>
           </tr>
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold;">Timeline</td>
-            <td style="padding: 10px;">${lead_timeline || 'N/A'}</td>
+            <td style="padding: 10px;">${safeLeadTimeline}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">Submitted</td>
-            <td style="padding: 10px;">${lead_submitted_at ? new Date(lead_submitted_at).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'N/A'}</td>
+            <td style="padding: 10px;">${safeSubmittedAt}</td>
           </tr>
         </table>
         <p style="margin-top: 20px; padding: 12px; background: #e8f8f5; border-radius: 6px; font-size: 14px;">

@@ -19,7 +19,7 @@ const NotFoundPage = () => {
       <div className="pb-16">
         <div className="container-content text-center">
             <AlertTriangle className="w-16 h-16 text-secondary mx-auto mb-6" />
-            <Button as="a" to="/" className="btn-primary">
+            <Button as={Link} to="/" className="btn-primary">
                 Return to Homepage
             </Button>
         </div>

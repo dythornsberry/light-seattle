@@ -1,32 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 const useStickyCta = () => {
-  const observerRef = useRef(null);
-
   useEffect(() => {
+    const ctaSections = Array.from(document.querySelectorAll('[data-cta-section]'));
+
+    if (ctaSections.length === 0) {
+      return undefined;
+    }
+
+    const syncStickyCtaVisibility = () => {
+      const shouldHideStickyCta = ctaSections.some((element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.top < window.innerHeight - 100 && rect.bottom > 0;
+      });
+
+      document.body.classList.toggle('sticky-cta-hidden', shouldHideStickyCta);
+    };
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            document.body.classList.add('sticky-cta-hidden');
-          } else {
-            document.body.classList.remove('sticky-cta-hidden');
-          }
-        });
-      },
+      () => syncStickyCtaVisibility(),
       {
         rootMargin: '0px 0px -100px 0px', 
         threshold: 0.1,
       }
     );
 
-    observerRef.current = observer;
-
-    const ctaElements = document.querySelectorAll('[data-cta-section]');
-    ctaElements.forEach((el) => observer.observe(el));
+    ctaSections.forEach((element) => observer.observe(element));
+    syncStickyCtaVisibility();
 
     return () => {
-      ctaElements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
       document.body.classList.remove('sticky-cta-hidden');
     };
   }, []);
