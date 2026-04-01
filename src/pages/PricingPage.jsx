@@ -77,7 +77,7 @@ const PricingPage = () => {
 
       <section className="section-padding bg-background">
         <div className="container-content text-center">
-            <h2 className="h3 text-foreground mb-4">Our Transparent Philosophy</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-4">Our Transparent Philosophy</h2>
             <p className="p-body max-w-3xl mx-auto text-muted-foreground">
                 Our transparent pricing includes everything: design consultation, commercial-grade materials, professional installation, seasonal maintenance, removal, and climate-controlled storage. No hidden fees, no surprises.
             </p>
