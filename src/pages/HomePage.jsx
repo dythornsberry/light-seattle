@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Star, ShieldCheck, Award, MessageSquare, CheckCircle, Palette, Zap, Wrench, ChevronDown, X, Layers, Smartphone, Sun, Droplets, Package, PenTool, Search } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
-import LocalBusinessSchema from '@/components/LocalBusinessSchema';
+
 import ImageOptimizer from '@/components/ImageOptimizer';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,6 +37,8 @@ const Hero = () => {
             className="w-full h-full object-cover"
             src="https://images.unsplash.com/photo-1664289342468-fa99588e60b8?w=1920&q=80&auto=format&fit=crop"
             loading="eager"
+            fetchpriority="high"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black/50" />
       </div>
@@ -298,8 +300,6 @@ export default function HomePage() {
           ]
         })}</script>
       </Helmet>
-      <LocalBusinessSchema />
-      
       <Hero />
       <TrustBar />
       <OurProcess />

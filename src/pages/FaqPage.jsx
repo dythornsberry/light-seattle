@@ -76,6 +76,14 @@ const FaqPage = () => {
         <meta name="twitter:description" content="Everything you need to know about our premium holiday lighting service, from our service model to installation, maintenance, and investment." />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://lightseattle.com/faq" }
+          ]
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": faqCategories.flatMap(cat => cat.items.map(item => ({
             "@type": "Question",

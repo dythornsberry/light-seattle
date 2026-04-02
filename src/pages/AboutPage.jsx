@@ -65,6 +65,14 @@ const AboutPage = () => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="About Us | Seattle Christmas Lights" />
                 <meta name="twitter:description" content="Seattle Christmas Lights designs and installs custom holiday lighting for homes across Greater Seattle. Full-service from design to storage." />
+                <script type="application/ld+json">{JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+                    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://lightseattle.com/about" }
+                  ]
+                })}</script>
             </Helmet>
 
             <motion.div initial="hidden" animate="visible" variants={{ visible: { staggerChildren: 0.1 } }}>
@@ -75,6 +83,21 @@ const AboutPage = () => {
                         intro="More than just installers. We design custom displays for every home."
                     />
                 </motion.div>
+
+                <motion.section variants={fadeIn} className="section-padding bg-background border-b">
+                    <div className="container-content max-w-3xl mx-auto">
+                        <h2 className="h2 text-foreground mb-6 text-center">Meet the Owner</h2>
+                        <p className="p-body text-muted-foreground mb-4">
+                            Seattle Christmas Lights was founded by Dylan Thornsberry in 2022. Based in Kenmore, WA, Dylan started the business after noticing how few companies in the Seattle area offered a true full-service experience for holiday lighting. Most installers just hang lights and leave. Dylan wanted to build something different: a service where homeowners get a custom design consultation, professional installation, season-long maintenance, and off-season storage all handled by the same team.
+                        </p>
+                        <p className="p-body text-muted-foreground mb-4">
+                            Growing up in the Pacific Northwest, Dylan understands the unique challenges our climate brings to outdoor lighting. Rain, wind, and occasional snow mean every connection needs to be weatherproofed, every clip needs to hold, and every timer needs to be programmed for Seattle's early sunsets. That hands-on knowledge of local conditions is baked into every installation.
+                        </p>
+                        <p className="p-body text-muted-foreground">
+                            Four years in, the business has served over 300 homes across King and Snohomish counties, maintains a perfect 5.0-star rating on Google with 47 reviews, and sees 85% of customers come back the following season. Dylan is personally involved in every project, from the initial design walk-through to the final timer check at dusk.
+                        </p>
+                    </div>
+                </motion.section>
 
                 <motion.section variants={fadeIn} className="section-padding bg-background">
                     <div className="container-content">

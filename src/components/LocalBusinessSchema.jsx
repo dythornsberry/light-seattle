@@ -4,14 +4,21 @@ import { Helmet } from 'react-helmet';
 const LocalBusinessSchema = () => {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "LandscapingBusiness",
+    "@id": "https://lightseattle.com/#business",
     "name": "Seattle Christmas Lights",
     "url": "https://lightseattle.com",
     "description": "Professional Christmas light installation, maintenance, and storage in the Greater Seattle area. Design, install, maintain, remove, and store.",
-    "image": "https://images.unsplash.com/photo-1541127066115-5500b56287ac",
-    "telephone": "(425) 448-4998",
+    "image": "https://lightseattle.com/images/og-image.jpg",
+    "telephone": "+14254484998",
     "email": "christmaslightsnw@gmail.com",
     "priceRange": "$$",
+    "foundingDate": "2022",
+    "founder": {
+      "@type": "Person",
+      "name": "Dylan Thornsberry",
+      "jobTitle": "Owner"
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Kenmore",
@@ -21,22 +28,31 @@ const LocalBusinessSchema = () => {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 47.7565,
-      "longitude": -122.2440
+      "latitude": 47.756500,
+      "longitude": -122.244000
     },
+    "sameAs": [
+      "https://g.page/r/CU8wR9N1y110EBM"
+    ],
     "areaServed": [
-      { "@type": "City", "name": "Seattle" },
-      { "@type": "City", "name": "Bellevue" },
-      { "@type": "City", "name": "Kirkland" },
-      { "@type": "City", "name": "Bothell" },
-      { "@type": "City", "name": "Kenmore" },
-      { "@type": "City", "name": "Woodinville" },
-      { "@type": "City", "name": "Lake Forest Park" },
-      { "@type": "City", "name": "Everett" },
-      { "@type": "City", "name": "Lynnwood" },
-      { "@type": "City", "name": "Shoreline" },
-      { "@type": "County", "name": "King County" },
-      { "@type": "County", "name": "Snohomish County" }
+      { "@type": "City", "name": "Seattle", "sameAs": "https://en.wikipedia.org/wiki/Seattle" },
+      { "@type": "City", "name": "Bellevue", "sameAs": "https://en.wikipedia.org/wiki/Bellevue,_Washington" },
+      { "@type": "City", "name": "Kirkland", "sameAs": "https://en.wikipedia.org/wiki/Kirkland,_Washington" },
+      { "@type": "City", "name": "Bothell", "sameAs": "https://en.wikipedia.org/wiki/Bothell,_Washington" },
+      { "@type": "City", "name": "Kenmore", "sameAs": "https://en.wikipedia.org/wiki/Kenmore,_Washington" },
+      { "@type": "City", "name": "Woodinville", "sameAs": "https://en.wikipedia.org/wiki/Woodinville,_Washington" },
+      { "@type": "City", "name": "Lake Forest Park", "sameAs": "https://en.wikipedia.org/wiki/Lake_Forest_Park,_Washington" },
+      { "@type": "City", "name": "Everett", "sameAs": "https://en.wikipedia.org/wiki/Everett,_Washington" },
+      { "@type": "City", "name": "Lynnwood", "sameAs": "https://en.wikipedia.org/wiki/Lynnwood,_Washington" },
+      { "@type": "City", "name": "Shoreline", "sameAs": "https://en.wikipedia.org/wiki/Shoreline,_Washington" },
+      { "@type": "City", "name": "Redmond", "sameAs": "https://en.wikipedia.org/wiki/Redmond,_Washington" },
+      { "@type": "City", "name": "Sammamish", "sameAs": "https://en.wikipedia.org/wiki/Sammamish,_Washington" },
+      { "@type": "City", "name": "Edmonds", "sameAs": "https://en.wikipedia.org/wiki/Edmonds,_Washington" },
+      { "@type": "City", "name": "Mercer Island", "sameAs": "https://en.wikipedia.org/wiki/Mercer_Island,_Washington" },
+      { "@type": "City", "name": "Clyde Hill", "sameAs": "https://en.wikipedia.org/wiki/Clyde_Hill,_Washington" },
+      { "@type": "City", "name": "Hunts Point", "sameAs": "https://en.wikipedia.org/wiki/Hunts_Point,_Washington" },
+      { "@type": "AdministrativeArea", "name": "King County", "sameAs": "https://en.wikipedia.org/wiki/King_County,_Washington" },
+      { "@type": "AdministrativeArea", "name": "Snohomish County", "sameAs": "https://en.wikipedia.org/wiki/Snohomish_County,_Washington" }
     ],
     "openingHoursSpecification": [
         {
@@ -58,7 +74,8 @@ const LocalBusinessSchema = () => {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
       "reviewCount": "47",
-      "bestRating": "5"
+      "bestRating": "5",
+      "worstRating": "1"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -73,7 +90,8 @@ const LocalBusinessSchema = () => {
           },
           "priceSpecification": {
             "@type": "PriceSpecification",
-            "price": "800-3500",
+            "minPrice": "800",
+            "maxPrice": "3500",
             "priceCurrency": "USD"
           }
         },

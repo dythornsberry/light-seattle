@@ -200,25 +200,23 @@ const ServiceAreaCityPage = ({ city }) => {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://lightseattle.com/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Service Areas",
-              "item": "https://lightseattle.com/service-areas"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": city,
-              "item": pageUrl
-            }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://lightseattle.com/service-areas" },
+            { "@type": "ListItem", "position": 3, "name": city, "item": pageUrl }
           ]
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": `Christmas Light Installation in ${city}, WA`,
+          "provider": { "@id": "https://lightseattle.com/#business" },
+          "areaServed": {
+            "@type": "City",
+            "name": city,
+            "sameAs": `https://en.wikipedia.org/wiki/${city.replace(/\s+/g, '_')},_Washington`
+          },
+          "description": `Professional Christmas light installation, maintenance, and storage in ${city}, WA. Custom designs for residential properties with full-service including takedown and storage.`,
+          "url": pageUrl
         })}</script>
       </Helmet>
       <div className="bg-background-alt border-b section-padding">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { PartyPopper } from 'lucide-react';
+import { PartyPopper, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const ThankYouPage = () => {
@@ -27,6 +27,28 @@ const ThankYouPage = () => {
                     <Button as={Link} to="/" size="lg" className="btn-primary">
                         Back to Home
                     </Button>
+
+                    <div className="mt-16 pt-8 border-t border-border max-w-md mx-auto">
+                        <div className="flex items-center justify-center gap-2 mb-3">
+                            <Star className="w-5 h-5 text-accent fill-accent" />
+                            <Star className="w-5 h-5 text-accent fill-accent" />
+                            <Star className="w-5 h-5 text-accent fill-accent" />
+                            <Star className="w-5 h-5 text-accent fill-accent" />
+                            <Star className="w-5 h-5 text-accent fill-accent" />
+                        </div>
+                        <p className="p-body text-muted-foreground mb-4">
+                            Already a customer? We'd love to hear about your experience!
+                        </p>
+                        <a
+                            href="https://g.page/r/CU8wR9N1y110EBM/review"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+                        >
+                            <Star className="w-4 h-4" />
+                            Leave us a Google Review
+                        </a>
+                    </div>
                 </div>
             </div>
         </>

@@ -132,6 +132,14 @@ export default function GalleryPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Our Work | Seattle Christmas Lights" />
         <meta name="twitter:description" content="Browse our recent Christmas light installations from across the Greater Seattle area." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Gallery", "item": "https://lightseattle.com/gallery" }
+          ]
+        })}</script>
       </Helmet>
       
       <PageHeader

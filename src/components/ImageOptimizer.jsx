@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const ImageOptimizer = ({ 
-  src, 
-  alt, 
-  className, 
+const ImageOptimizer = ({
+  src,
+  alt,
+  className,
   lqipSrc,
-  loading = 'lazy', 
-  fetchpriority = 'auto', 
-  ...props 
+  loading = 'lazy',
+  fetchpriority,
+  sizes,
+  ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(() => !lqipSrc);
 
@@ -34,6 +35,8 @@ const ImageOptimizer = ({
   if (!src) return null;
 
   const isUnsplash = src.includes('images.unsplash.com');
+  const defaultSizes = sizes || '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+
   if (lqipSrc) {
     return (
       <div className={`relative ${className}`}>
@@ -69,14 +72,14 @@ const ImageOptimizer = ({
   if (isUnsplash) {
     const url = new URL(src);
     const baseSrc = `${url.protocol}//${url.host}${url.pathname}`;
-    
+
     const srcset = `
       ${baseSrc}?w=400&q=75&fm=webp 400w,
       ${baseSrc}?w=800&q=75&fm=webp 800w,
       ${baseSrc}?w=1600&q=75&fm=webp 1600w,
       ${baseSrc}?w=1920&q=75&fm=webp 1920w
     `;
-    
+
     const fallbackSrcset = `
       ${baseSrc}?w=400&q=75&fm=jpg 400w,
       ${baseSrc}?w=800&q=75&fm=jpg 800w,
@@ -95,13 +98,13 @@ const ImageOptimizer = ({
           loading={loading}
           decoding="async"
           fetchPriority={fetchpriority}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes={defaultSizes}
           {...props}
         />
       </picture>
     );
   }
-  
+
   return (
       <img
         src={src}
@@ -110,6 +113,8 @@ const ImageOptimizer = ({
         loading={loading}
         decoding="async"
         fetchPriority={fetchpriority}
+        width="800"
+        height="600"
         {...props}
       />
   );

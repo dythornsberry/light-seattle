@@ -47,6 +47,14 @@ const ServiceAreasPage = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Service Areas | Seattle Christmas Lights" />
         <meta name="twitter:description" content="Proudly serving King and Snohomish counties with professional Christmas light installation." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://lightseattle.com/service-areas" }
+          ]
+        })}</script>
       </Helmet>
       <PageHeader
         title="Service Areas"

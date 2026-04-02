@@ -58,17 +58,57 @@ const PricingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Investment Guide | Seattle Christmas Lights</title>
+        <title>Christmas Light Installation Pricing | Seattle Christmas Lights</title>
         <meta name="description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
         <link rel="canonical" href="https://lightseattle.com/pricing" />
-        <meta property="og:title" content="Investment Guide | Seattle Christmas Lights" />
+        <meta property="og:title" content="Christmas Light Installation Pricing | Seattle Christmas Lights" />
         <meta property="og:description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
         <meta property="og:url" content="https://lightseattle.com/pricing" />
         <meta property="og:image" content="https://images.unsplash.com/photo-1541127066115-5500b56287ac" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Investment Guide | Seattle Christmas Lights" />
+        <meta name="twitter:title" content="Christmas Light Installation Pricing | Seattle Christmas Lights" />
         <meta name="twitter:description" content="Christmas light installation pricing for Seattle homes. Packages from $800 to $3,500+. Includes design, installation, maintenance, and storage." />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lightseattle.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://lightseattle.com/pricing" }
+          ]
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify([
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Classic Elegance Christmas Light Installation",
+            "provider": { "@id": "https://lightseattle.com/#business" },
+            "areaServed": { "@type": "State", "name": "Washington" },
+            "description": "Foundation roofline lighting that defines your home's architecture. Includes main roofline and select peaks.",
+            "offers": { "@type": "Offer", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "800", "maxPrice": "1500", "priceCurrency": "USD" } },
+            "url": "https://lightseattle.com/pricing"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Signature Display Christmas Light Installation",
+            "provider": { "@id": "https://lightseattle.com/#business" },
+            "areaServed": { "@type": "State", "name": "Washington" },
+            "description": "Full roofline coverage with entrance package including wreath, door garland, columns, and select dormers. Our most popular package.",
+            "offers": { "@type": "Offer", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1500", "maxPrice": "3500", "priceCurrency": "USD" } },
+            "url": "https://lightseattle.com/pricing"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Estate Collection Christmas Light Installation",
+            "provider": { "@id": "https://lightseattle.com/#business" },
+            "areaServed": { "@type": "State", "name": "Washington" },
+            "description": "Comprehensive property lighting including landscape lighting, statement trees, pathways, and custom architectural features.",
+            "offers": { "@type": "Offer", "priceSpecification": { "@type": "PriceSpecification", "minPrice": "3500", "priceCurrency": "USD" } },
+            "url": "https://lightseattle.com/pricing"
+          }
+        ])}</script>
       </Helmet>
       <PageHeader
         title="Investment Guide"

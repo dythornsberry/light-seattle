@@ -57,14 +57,28 @@ function Footer({ serviceAreas }) {
               <li>
                 <p className="flex items-center gap-x-3 text-muted-foreground">
                   <MapPin size={16} />
-                  <span>Kenmore, WA</span>
+                  <span>Kenmore, WA 98028</span>
                 </p>
+              </li>
+              <li className="pt-2">
+                <a
+                  href="https://g.page/r/CU8wR9N1y110EBM/review"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-primary font-semibold hover:underline text-sm"
+                >
+                  ⭐ Leave a Google Review
+                </a>
               </li>
             </ul>
           </div>
         </div>
         <div className="border-t border-border mt-16 pt-8 text-center">
-          <p className="p-small text-muted-foreground">&copy; {new Date().getFullYear()} Seattle Christmas Lights. All Rights Reserved. License: SEATTPL783M6</p>
+          <p className="p-small text-muted-foreground">
+            &copy; {new Date().getFullYear()} Seattle Christmas Lights. All Rights Reserved. License: SEATTPL783M6
+            {' '}&middot;{' '}
+            <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+          </p>
         </div>
       </div>
     </footer>
