@@ -94,7 +94,7 @@ const AboutPage = () => {
                             Growing up in the Pacific Northwest, Dylan understands the unique challenges our climate brings to outdoor lighting. Rain, wind, and occasional snow mean every connection needs to be weatherproofed, every clip needs to hold, and every timer needs to be programmed for Seattle's early sunsets. That hands-on knowledge of local conditions is baked into every installation.
                         </p>
                         <p className="p-body text-muted-foreground">
-                            Four years in, the business has served over 300 homes across King and Snohomish counties, maintains a perfect 5.0-star rating on Google with 47 reviews, and sees 85% of customers come back the following season. Dylan is personally involved in every project, from the initial design walk-through to the final timer check at dusk.
+                            Four years in, the business has served over 300 homes across King and Snohomish counties, maintains a perfect 5.0-star rating on Google with 12 reviews, and sees 85% of customers come back the following season. Dylan is personally involved in every project, from the initial design walk-through to the final timer check at dusk.
                         </p>
                     </div>
                 </motion.section>
