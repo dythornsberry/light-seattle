@@ -159,9 +159,9 @@ export default function GalleryPage() {
         <div className="container-max max-w-5xl">
           <BeforeAfterSlider
             beforeSrc="/images/before-snow-house.jpg"
-            afterSrc="https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/bc42009db4c2f40ba9ca749ecf441a40.webp"
+            afterSrc="https://horizons-cdn.hostinger.com/171f68ec-1f0f-4ba5-93d7-9cf020f2c5cd/235ceaa2084f6c3595a109b98d39821c.jpg"
             beforeAlt="Dark snowy property at night without any holiday lighting"
-            afterAlt="Same property transformed with warm tree wraps and pathway lighting"
+            afterAlt="Modern home in Sammamish beautifully lit with professional Christmas lights"
           />
         </div>
       </section>
