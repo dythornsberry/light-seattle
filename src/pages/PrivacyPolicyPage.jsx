@@ -30,7 +30,7 @@ const PrivacyPolicyPage = () => {
         <div className="container-content max-w-3xl mx-auto prose prose-invert">
           <h2 className="h2 text-foreground mb-4">Who We Are</h2>
           <p className="p-body text-muted-foreground mb-8">
-            Seattle Christmas Lights is a holiday and permanent lighting installation business based in Kenmore, WA, serving the Greater Seattle area. This website is operated at lightseattle.com.
+            Seattle Christmas Lights is a holiday lighting installation business based in Kenmore, WA, serving the Greater Seattle area. This website is operated at lightseattle.com.
           </p>
 
           <h2 className="h2 text-foreground mb-4">Information We Collect</h2>

@@ -42,8 +42,8 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -76,7 +76,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
   .h1 { @apply text-4xl md:text-6xl font-bold leading-tight text-foreground; }
@@ -124,7 +124,7 @@
 
   .mobile-menu-link {
     @apply block text-foreground text-3xl font-bold leading-loose text-center w-full transition-colors duration-200;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   .mobile-menu-link.active {
     @apply text-primary;

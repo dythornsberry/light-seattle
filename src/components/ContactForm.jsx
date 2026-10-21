@@ -517,8 +517,8 @@ function ContactForm({ isMinimal = false }) {
               className="space-y-4"
             >
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">Let's get started — who are you?</h3>
-                <p className="text-sm text-muted-foreground">We'll send your custom quote within 24 hours</p>
+                <h3 className="text-lg font-semibold text-foreground">Your contact info</h3>
+                <p className="text-sm text-muted-foreground">So we can send you a price</p>
               </div>
               <div>
                 <label htmlFor="name" className="form-label">Full Name*</label>
@@ -553,8 +553,8 @@ function ContactForm({ isMinimal = false }) {
               className="space-y-4"
             >
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-foreground">Property & timing details</h3>
-                <p className="text-sm text-muted-foreground">So we can check your service area and schedule</p>
+                <h3 className="text-lg font-semibold text-foreground">Your address</h3>
+                <p className="text-sm text-muted-foreground">And when you want lights up</p>
               </div>
               <div className="relative" ref={suggestionsListRef}>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
@@ -640,16 +640,16 @@ function ContactForm({ isMinimal = false }) {
                     <Label htmlFor="time-asap" className="cursor-pointer text-sm">ASAP</Label>
                   </div>
                   <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                    <RadioGroupItem value="September" id="time-sept" />
-                    <Label htmlFor="time-sept" className="cursor-pointer text-sm">September</Label>
-                  </div>
-                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
-                    <RadioGroupItem value="October" id="time-oct" />
-                    <Label htmlFor="time-oct" className="cursor-pointer text-sm">October</Label>
-                  </div>
-                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
                     <RadioGroupItem value="November" id="time-nov" />
                     <Label htmlFor="time-nov" className="cursor-pointer text-sm">November</Label>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="Early December" id="time-dec" />
+                    <Label htmlFor="time-dec" className="cursor-pointer text-sm">Early December</Label>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                    <RadioGroupItem value="Next year" id="time-next" />
+                    <Label htmlFor="time-next" className="cursor-pointer text-sm">Next year</Label>
                   </div>
                 </RadioGroup>
                 {errors.timeline && <p className="form-error">{errors.timeline}</p>}
@@ -660,7 +660,7 @@ function ContactForm({ isMinimal = false }) {
                   <ArrowLeft className="w-5 h-5" /> Back
                 </button>
                 <button type="submit" className="btn-primary flex-1 text-lg py-3" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting...' : 'Get My Quote'}
+                  {isSubmitting ? 'Submitting...' : 'Get my quote'}
                 </button>
               </div>
             </motion.div>

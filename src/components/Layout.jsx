@@ -1,60 +1,68 @@
-import React, { useEffect, useRef } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import StickyMobileActions from '@/components/StickyMobileActions';
-import LocalBusinessSchema from '@/components/LocalBusinessSchema';
-
+import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 import ScrollToTop from '@/components/ScrollToTop';
-import CountdownBanner from '@/components/CountdownBanner';
-import FloatingCallButton from '@/components/FloatingCallButton';
+import { PHONE_DISPLAY, PHONE_TEL, LICENSE, BUSINESS_NAME, cities } from '@/data/site';
 
-const Layout = ({ serviceAreas }) => {
-  const mainRef = useRef(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          document.body.classList.add('form-visible');
-        } else {
-          document.body.classList.remove('form-visible');
-        }
-      },
-      {
-        rootMargin: '-50% 0px -50% 0px',
-        threshold: 0
-      }
-    );
-
-    const quoteFormSection = document.getElementById('quote-form-section');
-    if (quoteFormSection) {
-      observer.observe(quoteFormSection);
-    }
-    
-    return () => {
-      if (quoteFormSection) {
-        observer.unobserve(quoteFormSection);
-      }
-       document.body.classList.remove('form-visible');
-    };
-  }, [location.pathname]);
-
-  return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <LocalBusinessSchema />
-      <ScrollToTop />
-      <Header />
-      <CountdownBanner />
-      <main ref={mainRef} className="flex-grow pb-16 lg:pb-0">
-        <Outlet />
-      </main>
-      <Footer serviceAreas={serviceAreas} />
-      <FloatingCallButton />
-      <StickyMobileActions />
+const Header = () => (
+  <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
+    <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <Link to="/" className="font-semibold text-base sm:text-lg text-foreground tracking-tight leading-tight">
+        {BUSINESS_NAME}
+      </Link>
+      <nav className="flex items-center gap-5 text-sm">
+        <a href="/#photos" className="hidden md:inline text-foreground/80 hover:text-foreground">Photos</a>
+        <a href="/#faq" className="hidden md:inline text-foreground/80 hover:text-foreground">FAQ</a>
+        <a href={`tel:${PHONE_TEL}`} className="hidden sm:inline-flex items-center gap-2 text-foreground/90 hover:text-foreground">
+          <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
+        </a>
+        <a href={`tel:${PHONE_TEL}`} aria-label="Call us" className="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-border">
+          <Phone className="w-4 h-4" />
+        </a>
+        <a href="/#quote" className="inline-flex items-center whitespace-nowrap rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground hover:brightness-110">
+          Free quote
+        </a>
+      </nav>
     </div>
-  );
-};
+  </header>
+);
+
+const Footer = () => (
+  <footer className="border-t border-border mt-0">
+    <div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 md:grid-cols-[1fr_2fr] text-sm">
+      <div className="space-y-2 text-foreground/80">
+        <p className="font-semibold text-foreground">{BUSINESS_NAME}</p>
+        <p>Kenmore, WA</p>
+        <p><a href={`tel:${PHONE_TEL}`} className="hover:text-foreground">{PHONE_DISPLAY}</a></p>
+        <p>WA License {LICENSE}</p>
+      </div>
+      <div>
+        <p className="font-semibold text-foreground mb-2">Areas we serve</p>
+        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-foreground/70">
+          {cities.map((c) => (
+            <li key={c.path}>
+              <Link to={`/service-areas/${c.path}`} className="hover:text-foreground">{c.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div className="max-w-6xl mx-auto px-4 pb-8 flex flex-wrap gap-4 justify-between text-xs text-foreground/50">
+      <p>&copy; {new Date().getFullYear()} {BUSINESS_NAME}</p>
+      <Link to="/privacy" className="hover:text-foreground">Privacy policy</Link>
+    </div>
+  </footer>
+);
+
+const Layout = () => (
+  <div className="min-h-screen flex flex-col">
+    <ScrollToTop />
+    <Header />
+    <main className="flex-1">
+      <Outlet />
+    </main>
+    <Footer />
+  </div>
+);
 
 export default Layout;

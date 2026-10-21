@@ -1,31 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { AlertTriangle } from 'lucide-react';
-import PageHeader from '@/components/PageHeader';
-import { Button } from '@/components/ui/button';
 
-const NotFoundPage = () => {
-  return (
-    <>
-      <Helmet>
-        <title>404 - Page Not Found | Seattle Christmas Lights</title>
-        <meta name="robots" content="noindex" />
-      </Helmet>
-      <PageHeader
-        title="404 - Page Not Found"
-        subtitle="Oops! It looks like the page you're searching for doesn't exist."
-      />
-      <div className="pb-16">
-        <div className="container-content text-center">
-            <AlertTriangle className="w-16 h-16 text-secondary mx-auto mb-6" />
-            <Button as={Link} to="/" className="btn-primary">
-                Return to Homepage
-            </Button>
-        </div>
-      </div>
-    </>
-  );
-};
+const NotFoundPage = () => (
+  <>
+    <Helmet>
+      <title>Page not found | Seattle Christmas Lights</title>
+      <meta name="robots" content="noindex" />
+    </Helmet>
+    <div className="max-w-2xl mx-auto px-4 py-24 text-center">
+      <h1 className="text-3xl font-semibold text-foreground mb-4">That page doesn't exist</h1>
+      <Link to="/" className="inline-flex items-center rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:brightness-110">
+        Go to the home page
+      </Link>
+    </div>
+  </>
+);
 
 export default NotFoundPage;
