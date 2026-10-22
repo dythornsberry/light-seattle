@@ -21,28 +21,28 @@ export const photos = [
 
 export const included = [
   {
-    title: 'Professional install',
-    body: 'Our crew handles the ladders and the roof. Lights get cut to fit the house so every line is clean.',
+    title: 'Clean professional install',
+    body: 'Straight, evenly spaced lines on every roofline. Nobody in the family has to touch a ladder.',
   },
   {
     title: 'Commercial grade lights',
-    body: 'Bright LED bulbs, evenly spaced, built to hold up to Seattle rain.',
+    body: 'Bright LED bulbs that look great every night and hold up to Seattle rain all season.',
   },
   {
     title: 'Free fixes all season',
-    body: 'If a section goes out, call or text and we come fix it at no charge.',
+    body: 'If a section ever goes out, we come fix it fast at no charge.',
   },
   {
     title: 'Takedown in January',
-    body: 'Everything comes down after the holidays.',
+    body: 'The lights come down after the holidays and the house is back to normal for the new year.',
   },
   {
     title: 'Storage included',
-    body: 'The lights get packed in a bin labeled for the house and stored until next Christmas.',
+    body: 'Nothing taking up space in the garage. Next Christmas it all goes right back up.',
   },
   {
     title: 'Leased for the season',
-    body: 'The lights are ours, so there is nothing to buy, untangle or keep in the garage.',
+    body: 'Durable commercial grade lights and equipment, leased for the season, so there is nothing to buy or worry about.',
   },
 ];
 
@@ -72,7 +72,7 @@ export const faqs = [
   },
   {
     q: 'Do I have to buy the lights?',
-    a: 'No. The lights are leased for the season. We hang them, take them down in January and store them for next Christmas.',
+    a: 'No. The durable commercial grade lights and equipment are leased for the season, so there is nothing to buy or worry about. They come down in January and get stored for next Christmas.',
   },
   {
     q: 'Do I need to be home?',
