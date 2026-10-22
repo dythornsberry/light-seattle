@@ -116,7 +116,11 @@ export const faqs = [
   },
   {
     q: 'When do I pay?',
-    a: 'Payment terms are listed on the quote, and the balance is invoiced after the lights are up.',
+    a: 'A deposit locks in the spot on the schedule, and the balance is invoiced after the lights are up.',
+  },
+  {
+    q: 'Is there a multi-year option?',
+    a: 'Yes. The 3-year agreement locks in the price for three seasons and saves 15%.',
   },
   {
     q: 'Are you licensed and insured?',
