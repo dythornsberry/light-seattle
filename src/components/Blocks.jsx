@@ -40,9 +40,12 @@ export const Hero = ({ title, sub }) => (
 export const Included = () => (
   <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {included.map((item) => (
-      <li key={item} className="flex gap-3 rounded-lg border border-border p-4 text-foreground/90">
+      <li key={item.title} className="flex gap-3 rounded-lg border border-border p-5">
         <Check className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
-        <span>{item}</span>
+        <div>
+          <h3 className="font-semibold text-foreground">{item.title}</h3>
+          <p className="mt-1 text-foreground/75">{item.body}</p>
+        </div>
       </li>
     ))}
   </ul>

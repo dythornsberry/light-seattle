@@ -18,7 +18,7 @@ const ServiceAreaCityPage = ({ city }) => {
         <title>{`Christmas Light Installation in ${city}, WA | Seattle Christmas Lights`}</title>
         <meta
           name="description"
-          content={`Christmas light installation in ${city}, WA. Lights, install, free fixes all season, takedown and storage included. Free quotes.`}
+          content={`We hang professional holiday lights in ${city}, WA, then take them down and store them when the season's over. Free quotes.`}
         />
         <link rel="canonical" href={url} />
         <meta property="og:title" content={`Christmas Light Installation in ${city}, WA`} />
@@ -28,11 +28,11 @@ const ServiceAreaCityPage = ({ city }) => {
       </Helmet>
 
       <Hero
-        title={`Christmas light installation in ${city}`}
-        sub={`We hang Christmas lights for homes and businesses in ${city} and nearby. Takedown and storage are included.`}
+        title={`We hang professional holiday lights in ${city}`}
+        sub="We install them, take them down and store them when the season's over."
       />
 
-      <Section title="What's included" intro="One flat price covers everything below.">
+      <Section title="What's included" intro="One flat price for the season.">
         <Included />
       </Section>
 

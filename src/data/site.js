@@ -5,26 +5,45 @@ export const BUSINESS_NAME = 'Seattle Christmas Lights';
 export const SITE_URL = 'https://lightseattle.com';
 
 export const photos = [
+  { src: '/images/work/white-c9-wreath.webp', alt: 'Two story home with warm white C9 roofline lights and a wreath' },
   { src: '/images/work/tree-wraps-columns.webp', alt: 'Wrapped trees, columns and roofline lit in warm white' },
+  { src: '/images/work/white-gables-garage.webp', alt: 'Every gable and the garage outlined in warm white lights' },
   { src: '/images/work/modern-roofline.webp', alt: 'Modern two story home with warm white roofline lights' },
   { src: '/images/work/porch-and-tree.webp', alt: 'Roofline, porch railing and wrapped tree in warm white' },
-  { src: '/images/work/driveway-trees.webp', alt: 'Driveway trees and arbor wrapped in warm white lights' },
-  { src: '/images/work/big-tree.webp', alt: 'Large tree fully wrapped in white lights' },
+  { src: '/images/work/white-craftsman.webp', alt: 'Craftsman home with warm white lights on every roofline' },
+  { src: '/images/work/big-tree.webp', alt: 'Large tree fully wrapped in warm white lights' },
   { src: '/images/work/roofline-wreath.webp', alt: 'Roofline lights with a lit wreath over the front door' },
-  { src: '/images/work/gables-white.webp', alt: 'Home with every gable outlined in white C9 bulbs' },
-  { src: '/images/work/driveway-home.webp', alt: 'Roofline lights on a home set back from a long driveway' },
-  { src: '/images/work/roofline-red-door.webp', alt: 'Two story roofline outlined in white C9 bulbs' },
-  { src: '/images/work/tree-and-roofline.webp', alt: 'Wrapped front yard tree and roofline lights' },
-  { src: '/images/work/garage-roofline.webp', alt: 'Garage and roofline lit with a wreath on the gable' },
-  { src: '/images/work/red-white-roofline.webp', alt: 'Roofline lit in white with red accents' },
+  { src: '/images/work/white-two-homes.webp', alt: 'Two story home with warm white roofline and gable lights' },
+  { src: '/images/work/roofline-red-door.webp', alt: 'Two story roofline outlined in warm white C9 bulbs' },
+  { src: '/images/work/tree-and-roofline.webp', alt: 'Wrapped front yard tree and warm white roofline lights' },
+  { src: '/images/work/driveway-home.webp', alt: 'Warm white roofline lights on a home set back from a long driveway' },
 ];
 
 export const included = [
-  'Commercial grade LED lights, warm white or color',
-  'Clean install on rooflines, trees, bushes and walkways',
-  'Free fixes if anything goes out during the season',
-  'Takedown in January',
-  'Storage until next year, in a bin labeled for your house',
+  {
+    title: 'Professional install',
+    body: 'Our crew handles the ladders and the roof. Lights get cut to fit the house so every line is clean.',
+  },
+  {
+    title: 'Commercial grade lights',
+    body: 'Bright LED bulbs, evenly spaced, built to hold up to Seattle rain.',
+  },
+  {
+    title: 'Free fixes all season',
+    body: 'If a section goes out, call or text and we come fix it at no charge.',
+  },
+  {
+    title: 'Takedown in January',
+    body: 'Everything comes down after the holidays.',
+  },
+  {
+    title: 'Storage included',
+    body: 'The lights get packed in a bin labeled for the house and stored until next Christmas.',
+  },
+  {
+    title: 'Leased for the season',
+    body: 'The lights are ours, so there is nothing to buy, untangle or keep in the garage.',
+  },
 ];
 
 export const steps = [
@@ -34,22 +53,26 @@ export const steps = [
   },
   {
     title: 'Approve your quote',
-    body: 'Pick what you want lit and how. You get one flat price.',
+    body: 'Pick what gets lit. One flat price for the season.',
   },
   {
-    title: 'We install',
-    body: 'We text you a heads up before we come. You do not need to be home.',
+    title: 'We hang the lights',
+    body: 'We text a heads up before we come. Nobody needs to be home.',
   },
 ];
 
 export const faqs = [
   {
     q: 'When do installs happen?',
-    a: 'Installs run from October through early December. Booking earlier gets you more date options.',
+    a: 'Installs run from October through early December. Booking earlier gets more date options.',
   },
   {
     q: 'When do the lights come down?',
-    a: 'Takedown starts after New Year\'s and wraps up in January.',
+    a: "Takedown starts after New Year's and wraps up in January.",
+  },
+  {
+    q: 'Do I have to buy the lights?',
+    a: 'No. The lights are leased for the season. We hang them, take them down in January and store them for next Christmas.',
   },
   {
     q: 'Do I need to be home?',
@@ -60,12 +83,8 @@ export const faqs = [
     a: 'Call or text and we will come fix it at no charge.',
   },
   {
-    q: 'Will the clips hurt my roof or gutters?',
-    a: 'No. Lights go up with plastic clips made for gutters and shingles.',
-  },
-  {
     q: 'Do you do businesses?',
-    a: 'Yes. We do holiday lighting for storefronts, offices and HOA entrances too.',
+    a: 'Yes. We hang holiday lights for storefronts, offices and HOA entrances too.',
   },
 ];
 
@@ -94,7 +113,7 @@ export const businessSchema = {
   url: SITE_URL,
   telephone: PHONE_TEL,
   image: `${SITE_URL}/images/og-image.jpg`,
-  description: 'Christmas light installation, takedown and storage for homes and businesses in the Seattle area.',
+  description: 'Professional holiday light installation for homes and businesses in the Seattle area. Takedown and storage included.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kenmore',

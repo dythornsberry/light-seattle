@@ -16,11 +16,11 @@ const faqSchema = {
 const HomePage = () => (
   <>
     <Helmet>
-      <title>Christmas Light Installation in Seattle | Seattle Christmas Lights</title>
-      <meta name="description" content="Christmas light installation for Seattle area homes and businesses. Lights, install, free fixes all season, takedown in January and storage included. Free quotes." />
+      <title>Professional Holiday Light Installation in Seattle | Seattle Christmas Lights</title>
+      <meta name="description" content="We hang professional holiday lights on Seattle area homes and businesses, then take them down and store them when the season's over. Free quotes." />
       <link rel="canonical" href={`${SITE_URL}/`} />
-      <meta property="og:title" content="Christmas Light Installation in Seattle" />
-      <meta property="og:description" content="Lights, install, free fixes all season, takedown and storage included." />
+      <meta property="og:title" content="We hang professional holiday lights" />
+      <meta property="og:description" content="We install them, take them down and store them when the season's over." />
       <meta property="og:url" content={`${SITE_URL}/`} />
       <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
       <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
@@ -28,11 +28,11 @@ const HomePage = () => (
     </Helmet>
 
     <Hero
-      title="Christmas light installation in Seattle"
-      sub="We bring the lights, hang them, keep them working all season, then take them down in January and store them for next year."
+      title="We hang professional holiday lights"
+      sub="We install them, take them down and store them when the season's over."
     />
 
-    <Section title="What's included" intro="One flat price covers everything below.">
+    <Section title="What's included" intro="One flat price for the season.">
       <Included />
     </Section>
 
