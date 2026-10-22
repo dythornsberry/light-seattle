@@ -16,7 +16,7 @@ const faqSchema = {
 const HomePage = () => (
   <>
     <Helmet>
-      <title>Professional Holiday Light Installation in Seattle | Seattle Christmas Lights</title>
+      <title>Christmas Light Installation in Seattle | Seattle Christmas Lights</title>
       <meta name="description" content="We hang professional holiday lights on Seattle area homes and businesses, then take them down and store them when the season's over. Free quotes." />
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:title" content="We hang professional holiday lights" />

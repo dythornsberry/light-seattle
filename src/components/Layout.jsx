@@ -48,7 +48,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="max-w-6xl mx-auto px-4 pb-8 flex flex-wrap gap-4 justify-between text-xs text-foreground/50">
-      <p>&copy; {new Date().getFullYear()} {BUSINESS_NAME}</p>
+      <p suppressHydrationWarning>&copy; {new Date().getFullYear()} {BUSINESS_NAME}</p>
       <Link to="/privacy" className="hover:text-foreground">Privacy policy</Link>
     </div>
   </footer>
