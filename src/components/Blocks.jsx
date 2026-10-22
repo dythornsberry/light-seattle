@@ -1,7 +1,8 @@
 import React from 'react';
-import { Check, Phone } from 'lucide-react';
+import { Check, Phone, MessageSquare, Star } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
-import { photos, included, steps, faqs, PHONE_DISPLAY, PHONE_TEL } from '@/data/site';
+import { Link } from 'react-router-dom';
+import { photos, included, steps, faqs, reviews, installDetails, cities, serviceAreas, REVIEWS_URL, PHONE_DISPLAY, PHONE_TEL } from '@/data/site';
 
 export const Section = ({ id, title, intro, children, alt = false }) => (
   <section id={id} className={`scroll-mt-16 py-16 md:py-20 ${alt ? 'bg-background-alt' : ''}`}>
@@ -33,7 +34,7 @@ export const Hero = ({ title, sub }) => (
           <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
         </a>
       </div>
-      <p className="mt-5 text-sm text-white/75">Same day quotes by text. Most homes lit up within a week of booking.</p>
+      <p className="mt-5 text-sm text-white/75">Licensed, bonded and insured. Same day quotes by text. Most homes lit up within a week of booking.</p>
     </div>
   </section>
 );
@@ -97,9 +98,74 @@ export const Faq = () => (
 );
 
 export const QuoteSection = ({ title = 'Get a free quote' }) => (
-  <Section id="quote" title={title} intro={`Traditional Christmas lights, installed for the season and taken down after the holidays. Installs start at $800. Or just call ${PHONE_DISPLAY}.`} alt>
+  <Section id="quote" title={title} intro={`Traditional Christmas lights, installed for the season and taken down after the holidays. Installs start at $800. Or call or text ${PHONE_DISPLAY}, we answer 24/7.`}>
     <div className="max-w-2xl rounded-xl border border-border bg-background p-6 md:p-8">
       <ContactForm />
     </div>
   </Section>
 );
+
+export const Reviews = () => (
+  <>
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {reviews.map((r) => (
+        <li key={r.name} className="flex flex-col gap-3 rounded-lg border border-border p-5">
+          <div className="flex gap-0.5 text-primary" aria-label="5 out of 5 stars">
+            {[0, 1, 2, 3, 4].map((i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+          </div>
+          <p className="text-foreground/85 flex-1">{r.text}</p>
+          <p className="text-sm font-semibold text-foreground">{r.name} <span className="font-normal text-foreground/60">on Google</span></p>
+        </li>
+      ))}
+    </ul>
+    <p className="mt-6">
+      <a href={REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Read all our reviews on Google</a>
+    </p>
+  </>
+);
+
+export const InstallDetails = () => (
+  <ul className="grid gap-3 sm:grid-cols-2 max-w-3xl">
+    {installDetails.map((d) => (
+      <li key={d} className="flex gap-3 text-foreground/85">
+        <Check className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
+        <span>{d}</span>
+      </li>
+    ))}
+  </ul>
+);
+
+export const MobileBar = () => (
+  <div className="sm:hidden fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <div className="grid grid-cols-3 gap-2 px-3 py-2">
+      <a href={`tel:${PHONE_TEL}`} className="flex items-center justify-center gap-1.5 rounded-md border border-border py-2.5 text-sm font-semibold text-foreground">
+        <Phone className="w-4 h-4" /> Call
+      </a>
+      <a href={`sms:${PHONE_TEL}`} className="flex items-center justify-center gap-1.5 rounded-md border border-border py-2.5 text-sm font-semibold text-foreground">
+        <MessageSquare className="w-4 h-4" /> Text
+      </a>
+      <a href="/#quote" className="flex items-center justify-center rounded-md bg-primary py-2.5 text-sm font-semibold text-primary-foreground">
+        Free quote
+      </a>
+    </div>
+  </div>
+);
+
+export const AreasList = () => {
+  const pages = Object.fromEntries(cities.map((c) => [c.name, c.path]));
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {serviceAreas.map((name) => (
+        <li key={name}>
+          {pages[name] ? (
+            <Link to={`/service-areas/${pages[name]}`} className="inline-block rounded-full border border-primary/60 px-4 py-1.5 text-sm text-foreground hover:border-primary">
+              {name}
+            </Link>
+          ) : (
+            <span className="inline-block rounded-full border border-border px-4 py-1.5 text-sm text-foreground/75">{name}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+};

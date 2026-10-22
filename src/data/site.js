@@ -1,6 +1,6 @@
 export const PHONE_DISPLAY = '(425) 448-4998';
 export const PHONE_TEL = '+14254484998';
-export const LICENSE = 'SEATTPL783M6';
+export const REVIEWS_URL = 'https://share.google/9yveRSMkc18JTK1QZ';
 export const BUSINESS_NAME = 'Seattle Christmas Lights';
 export const SITE_URL = 'https://lightseattle.com';
 
@@ -32,6 +32,22 @@ export const included = [
     title: 'Takedown and storage',
     body: 'Down in January, stored until next Christmas.',
   },
+];
+
+export const reviews = [
+  { name: 'Owen A.', text: 'Dylan and his team did a very good job on my lights, made me enjoy my Christmas a lot better and overall just are amazing workers, thanks guys!' },
+  { name: 'Lucas H.', text: 'Seattle Christmas Lights did a spectacular job making my home light up! Dylan and his crew were incredibly professional and the results blew me away. Highly recommend!!' },
+  { name: 'Kai C.', text: 'They did a great job, very efficient and reasonably priced. Thanks Dylan and the rest of the crew! You guys did a great job!' },
+  { name: 'Ajitesh S.', text: 'They did very good job Dylan and his crew had good service and super good prices. Definitely recommend.' },
+  { name: 'Daniel S.', text: 'Super happy with how the lights turned out. Looks great.' },
+  { name: 'Andrew B.', text: 'Great communication and my lights look fantastic!' },
+];
+
+export const installDetails = [
+  'C9 LED bulbs, evenly spaced along every line',
+  'Plastic clips made for gutters and shingles',
+  'Cords run and tucked away to the nearest outdoor outlet',
+  'A timer so the lights come on by themselves every night',
 ];
 
 export const steps = [
@@ -112,30 +128,44 @@ export const faqs = [
   },
   {
     q: 'Are you licensed and insured?',
-    a: 'Yes. Licensed, bonded and insured in Washington.',
-  },
-  {
-    q: 'Do you do businesses?',
-    a: 'Yes. We hang holiday lights for storefronts, offices and HOA entrances too.',
+    a: 'Yes. Licensed, bonded and insured.',
   },
 ];
 
 export const cities = [
-  { name: 'Seattle', path: 'seattle', nearby: ['shoreline', 'mercer-island', 'bellevue', 'kirkland'] },
-  { name: 'Bellevue', path: 'bellevue', nearby: ['kirkland', 'mercer-island', 'medina', 'clyde-hill'] },
-  { name: 'Kirkland', path: 'kirkland', nearby: ['bellevue', 'bothell', 'kenmore', 'woodinville'] },
-  { name: 'Bothell', path: 'bothell', nearby: ['kenmore', 'woodinville', 'lake-forest-park', 'lynnwood'] },
-  { name: 'Kenmore', path: 'kenmore', nearby: ['bothell', 'lake-forest-park', 'kirkland', 'woodinville'] },
-  { name: 'Woodinville', path: 'woodinville', nearby: ['bothell', 'kirkland', 'kenmore'] },
-  { name: 'Lake Forest Park', path: 'lake-forest-park', nearby: ['kenmore', 'shoreline', 'bothell', 'seattle'] },
-  { name: 'Everett', path: 'everett', nearby: ['lynnwood', 'shoreline', 'bothell'] },
-  { name: 'Lynnwood', path: 'lynnwood', nearby: ['shoreline', 'everett', 'bothell', 'kenmore'] },
-  { name: 'Shoreline', path: 'shoreline', nearby: ['seattle', 'lake-forest-park', 'lynnwood', 'kenmore'] },
-  { name: 'Mercer Island', path: 'mercer-island', nearby: ['bellevue', 'seattle', 'kirkland'] },
-  { name: 'Medina', path: 'medina', nearby: ['bellevue', 'clyde-hill', 'hunts-point', 'kirkland'] },
-  { name: 'Clyde Hill', path: 'clyde-hill', nearby: ['bellevue', 'medina', 'hunts-point', 'kirkland'] },
-  { name: 'Hunts Point', path: 'hunts-point', nearby: ['medina', 'clyde-hill', 'bellevue', 'kirkland'] },
+  {
+    name: 'Seattle',
+    path: 'seattle',
+    intro: 'We hang professional Christmas lights on homes all over Seattle, from craftsman bungalows to tall modern builds. Older Seattle homes often have steep roofs, detached garages and big trees out front, and every one of those gets measured and lit so the lines come out clean.',
+    areas: ['Wedgwood', 'Ravenna', 'View Ridge', 'Lake City', 'Northgate', 'Columbia City', 'Seward Park', 'Fremont', 'Wallingford', 'Greenwood', 'Queen Anne', 'Ballard', 'Madison Park', 'Capitol Hill', 'West Seattle'],
+    faqs: [
+      { q: 'Do you install in my Seattle neighborhood?', a: 'Yes. We install across all of Seattle, north end to West Seattle. Send the address and a quote comes back fast.' },
+      { q: 'Can you light a steep or three story roof?', a: 'Yes. Steep roofs and tall homes are common in Seattle and our crews light them every week of the season.' },
+    ],
+  },
+  {
+    name: 'Kirkland',
+    path: 'kirkland',
+    intro: 'Kirkland is one of the busiest areas we hang Christmas lights. A lot of Kirkland homes have long rooflines, multiple gables and big trees, which makes for a great display when every line is straight and evenly spaced.',
+    areas: ['Juanita', 'Totem Lake', 'Finn Hill', 'Rose Hill', 'Houghton', 'Bridle Trails', 'Market', 'Norkirk'],
+    faqs: [
+      { q: 'Do you install in all of Kirkland?', a: 'Yes. We cover all of Kirkland, plus nearby Bothell, Kenmore, Woodinville and Redmond.' },
+      { q: 'Can you wrap the big trees in my yard?', a: 'Yes. Wrapped trees and bushes can be added to any roofline install.' },
+    ],
+  },
+  {
+    name: 'Bellevue',
+    path: 'bellevue',
+    intro: 'We hang professional Christmas lights on homes across Bellevue and the neighborhoods around it. Bigger Bellevue homes look best with a full roofline, wrapped trees and a lit wreath at the entry, all on one flat price for the season.',
+    areas: ['Medina', 'Clyde Hill', 'Yarrow Point', 'Beaux Arts', 'Somerset', 'Newport', 'Bridle Trails', 'Woodridge', 'Lake Hills'],
+    faqs: [
+      { q: 'Do you install in Medina, Clyde Hill and Yarrow Point?', a: 'Yes. We install in Medina, Clyde Hill, Yarrow Point and Beaux Arts along with the rest of Bellevue.' },
+      { q: 'Do you work with HOA rules?', a: 'Yes. Lights go up with clips that come off clean, and they come down in January. If your HOA has dates, just let us know.' },
+    ],
+  },
 ];
+
+export const serviceAreas = ['Seattle', 'Kirkland', 'Bellevue', 'Bothell', 'Kenmore', 'Woodinville', 'Sammamish', 'Redmond', 'Issaquah', 'Mercer Island', 'Medina', 'Clyde Hill', 'Snohomish', 'Edmonds', 'Brier', 'Lynnwood', 'Shoreline', 'Lake Forest Park', 'Snoqualmie'];
 
 export const businessSchema = {
   '@context': 'https://schema.org',
@@ -145,12 +175,14 @@ export const businessSchema = {
   url: SITE_URL,
   telephone: PHONE_TEL,
   image: `${SITE_URL}/images/og-image.jpg`,
-  description: 'Professional holiday light installation for homes and businesses in the Seattle area. Takedown and storage included.',
+  description: 'Professional Christmas light installation for homes in Seattle and the Eastside. Free fixes, takedown and storage included.',
+  priceRange: '$800+',
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' }],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kenmore',
     addressRegion: 'WA',
     addressCountry: 'US',
   },
-  areaServed: cities.map((c) => ({ '@type': 'City', name: `${c.name}, WA` })),
+  areaServed: serviceAreas.map((c) => ({ '@type': 'City', name: `${c}, WA` })),
 };
