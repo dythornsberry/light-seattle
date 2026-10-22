@@ -17,7 +17,7 @@ const HomePage = () => (
   <>
     <Helmet>
       <title>Christmas Light Installation in Seattle | Seattle Christmas Lights</title>
-      <meta name="description" content="Christmas light installation for Seattle area homes and businesses. Lights, install, free fixes all season, takedown in January and storage included. Free quotes." />
+      <meta name="description" content="Christmas and holiday light installation for Seattle area homes and businesses. Install, free fixes all season, takedown in January and storage included. Free quotes." />
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:title" content="Christmas Light Installation in Seattle" />
       <meta property="og:description" content="Lights, install, free fixes all season, takedown and storage included." />

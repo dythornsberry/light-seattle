@@ -11,17 +11,16 @@ const ServiceAreaCityPage = ({ city }) => {
   const start = (index * 3) % photos.length;
   const cityPhotos = [0, 1, 2].map((i) => photos[(start + i) % photos.length]);
   const url = `${SITE_URL}/service-areas/${current.path}`;
+  const description = `Holiday and Christmas light installation in ${city}, WA. Install, free fixes all season, takedown and storage included. Free quotes.`;
 
   return (
     <>
       <Helmet>
         <title>{`Christmas Light Installation in ${city}, WA | Seattle Christmas Lights`}</title>
-        <meta
-          name="description"
-          content={`Christmas light installation in ${city}, WA. Lights, install, free fixes all season, takedown and storage included. Free quotes.`}
-        />
+        <meta name="description" content={description} />
         <link rel="canonical" href={url} />
         <meta property="og:title" content={`Christmas Light Installation in ${city}, WA`} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
         <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
