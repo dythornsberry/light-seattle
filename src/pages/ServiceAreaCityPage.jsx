@@ -29,7 +29,7 @@ const ServiceAreaCityPage = ({ city }) => {
 
       <Hero
         title={`We hang professional holiday lights in ${city}`}
-        sub="We install them, take them down and store them when the season's over."
+        sub="The best looking house on the street this Christmas."
       />
 
       <Section title="What's included" intro="One flat price for the season.">

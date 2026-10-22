@@ -20,7 +20,7 @@ const HomePage = () => (
       <meta name="description" content="We hang professional holiday lights on Seattle area homes and businesses, then take them down and store them when the season's over. Free quotes." />
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:title" content="We hang professional holiday lights" />
-      <meta property="og:description" content="We install them, take them down and store them when the season's over." />
+      <meta property="og:description" content="The best looking house on the street this Christmas." />
       <meta property="og:url" content={`${SITE_URL}/`} />
       <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
       <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
@@ -29,7 +29,7 @@ const HomePage = () => (
 
     <Hero
       title="We hang professional holiday lights"
-      sub="We install them, take them down and store them when the season's over."
+      sub="The best looking house on the street this Christmas."
     />
 
     <Section title="What's included" intro="One flat price for the season.">
