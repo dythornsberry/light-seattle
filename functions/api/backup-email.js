@@ -34,6 +34,7 @@ export async function onRequestPost(context) {
       lead_state,
       lead_full_address,
       lead_timeline,
+      lead_lighting,
       lead_submitted_at,
     } = await context.request.json();
 
@@ -56,6 +57,7 @@ export async function onRequestPost(context) {
     );
     const safeLeadZip = escapeHtml(lead_zip || 'N/A');
     const safeLeadTimeline = escapeHtml(lead_timeline || 'N/A');
+    const safeLeadLighting = escapeHtml(lead_lighting || 'Not specified');
     const safeSubmittedAt = escapeHtml(
       lead_submitted_at
         ? new Date(lead_submitted_at).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
@@ -97,6 +99,10 @@ export async function onRequestPost(context) {
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold;">Timeline</td>
             <td style="padding: 10px;">${safeLeadTimeline}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold;">Wants lit</td>
+            <td style="padding: 10px;">${safeLeadLighting}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">Submitted</td>

@@ -14,6 +14,8 @@ const SUBMIT_ENDPOINT = '/api/submit-quote';
 // even if the build env var is missing in Cloudflare Pages.
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0';
 
+const LIGHTING_OPTIONS = ['Roofline', 'Trees/Bushes', 'Wreath'];
+
 const STEPS = [
   { label: "Contact", icon: User },
   { label: "Property & Details", icon: MapPin },
@@ -139,6 +141,7 @@ function ContactForm({ isMinimal = false }) {
     city: '',
     state: '',
     timeline: '',
+    lighting: [],
   });
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState({});
@@ -415,6 +418,13 @@ function ContactForm({ isMinimal = false }) {
     }
   };
 
+  const toggleLighting = (value) => {
+    setFormState(prev => ({
+      ...prev,
+      lighting: prev.lighting.includes(value) ? prev.lighting.filter(v => v !== value) : [...prev.lighting, value],
+    }));
+  };
+
   const handleRadioChange = (name, value) => {
     setFormState(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -448,6 +458,7 @@ function ContactForm({ isMinimal = false }) {
       email: formState.email,
       address: fullAddress,
       timeline: formState.timeline,
+      lighting: formState.lighting.join(', ') || 'Not specified',
       phone_e164: phoneE164,
       submitted_at: new Date().toISOString()
     };
@@ -466,6 +477,7 @@ function ContactForm({ isMinimal = false }) {
         lead_zip: formState.zip_code,
         lead_full_address: [formState.street_address, formState.city, formState.state, formState.zip_code].filter(Boolean).join(', '),
         lead_timeline: formState.timeline,
+        lead_lighting: formState.lighting.join(', ') || 'Not specified',
         lead_submitted_at: submissionData.submitted_at,
       }),
     }).catch(() => {});
@@ -518,7 +530,7 @@ function ContactForm({ isMinimal = false }) {
             >
               <div className="text-center mb-6">
                 <h3 className="text-lg font-semibold text-foreground">Your contact info</h3>
-                <p className="text-sm text-muted-foreground">So we can send you a price</p>
+                <p className="text-sm text-muted-foreground">Most quotes go out the same day by text</p>
               </div>
               <div>
                 <label htmlFor="name" className="form-label">Full Name*</label>
@@ -554,7 +566,7 @@ function ContactForm({ isMinimal = false }) {
             >
               <div className="text-center mb-6">
                 <h3 className="text-lg font-semibold text-foreground">Your address</h3>
-                <p className="text-sm text-muted-foreground">And when you want lights up</p>
+                <p className="text-sm text-muted-foreground">Most homes get lit up within a week of booking</p>
               </div>
               <div className="relative" ref={suggestionsListRef}>
                 <label htmlFor="street_address" className="form-label">Street Address*</label>
@@ -633,6 +645,27 @@ function ContactForm({ isMinimal = false }) {
               </div>
 
               <div className="space-y-2">
+                <label className="form-label">What do you want lit? <span className="text-muted-foreground font-normal">(optional)</span></label>
+                <div className="grid grid-cols-3 gap-2">
+                  {LIGHTING_OPTIONS.map((opt) => {
+                    const on = formState.lighting.includes(opt);
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => toggleLighting(opt)}
+                        aria-pressed={on}
+                        disabled={isSubmitting}
+                        className={`rounded-lg border px-1 py-2 text-[13px] sm:text-sm whitespace-nowrap transition-colors ${on ? 'border-primary bg-primary/15 text-foreground' : 'border-border text-foreground/80 hover:border-primary/50'}`}
+                      >
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-2">
                 <label className="form-label">Preferred install timing*</label>
                 <RadioGroup onValueChange={(value) => handleRadioChange('timeline', value)} value={formState.timeline} className="grid grid-cols-2 gap-2" disabled={isSubmitting}>
                   <div className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
@@ -655,12 +688,12 @@ function ContactForm({ isMinimal = false }) {
                 {errors.timeline && <p className="form-error">{errors.timeline}</p>}
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <button type="button" onClick={handleBack} className="btn-primary-outline flex-1 py-3 flex items-center justify-center gap-2">
+              <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
+                <button type="button" onClick={handleBack} className="btn-primary-outline sm:flex-none !px-4 py-3 flex items-center justify-center gap-2">
                   <ArrowLeft className="w-5 h-5" /> Back
                 </button>
-                <button type="submit" className="btn-primary flex-1 text-lg py-3" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting...' : 'Get my quote'}
+                <button type="submit" className="btn-primary w-full sm:flex-1 !px-3 !text-base py-3" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Get my Christmas lights quote'}
                 </button>
               </div>
             </motion.div>

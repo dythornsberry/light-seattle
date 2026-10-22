@@ -33,6 +33,7 @@ export const Hero = ({ title, sub }) => (
           <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
         </a>
       </div>
+      <p className="mt-5 text-sm text-white/75">Same day quotes by text. Most homes lit up within a week of booking.</p>
     </div>
   </section>
 );
