@@ -58,7 +58,7 @@ const HomePage = () => (
 
     <Section title="Serving Seattle and the Eastside since 2022">
       <p className="text-foreground/80 max-w-2xl mb-6">
-        Seattle Christmas Lights hangs professional Christmas lights on homes across Seattle and the Eastside. Call or text anytime, we answer 24/7.
+        Seattle Christmas Lights hangs professional Christmas lights on homes across Seattle and the Eastside. Call or text 7am to 7pm, every day.
       </p>
       <AreasList />
     </Section>

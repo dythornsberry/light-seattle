@@ -35,7 +35,7 @@ const Footer = () => (
         <p className="font-semibold text-foreground">{BUSINESS_NAME}</p>
         <p>Kenmore, WA</p>
         <p><a href={`tel:${PHONE_TEL}`} className="hover:text-foreground">{PHONE_DISPLAY}</a></p>
-        <p>Call or text 24/7</p>
+        <p>Call or text 7am to 7pm, every day</p>
         <p>Licensed, bonded and insured</p>
       </div>
       <div>

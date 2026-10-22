@@ -177,7 +177,7 @@ export const businessSchema = {
   image: `${SITE_URL}/images/og-image.jpg`,
   description: 'Professional Christmas light installation for homes in Seattle and the Eastside. Free fixes, takedown and storage included.',
   priceRange: '$800+',
-  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' }],
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '07:00', closes: '19:00' }],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kenmore',
