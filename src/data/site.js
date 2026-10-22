@@ -63,24 +63,64 @@ export const steps = [
 
 export const faqs = [
   {
-    q: 'When do installs happen?',
-    a: 'Installs run from October through early December. Booking earlier gets more date options.',
+    q: 'When will my lights go up?',
+    a: 'Installs run October through early December and crews are routed by neighborhood. A heads up text with a two day window goes out the week before. Wreaths go up the first week of November.',
+  },
+  {
+    q: 'How does the quote work?',
+    a: 'Most quotes are done from Google Maps or a photo and sent by text, usually the same day. Bigger properties sometimes get a quick visit. The roofline is the base, and trees, bushes and wreaths are optional add-ons to check off.',
+  },
+  {
+    q: 'What if a section goes out?',
+    a: 'Call or text and it goes on the service list, usually fixed within a day or two at no charge. Nobody needs to be home.',
+  },
+  {
+    q: 'What colors are available?',
+    a: 'Warm white is the most popular. Red and white, red green and white, and multicolor are also available at the same price. Lights are commercial grade C9 LED bulbs.',
+  },
+  {
+    q: 'How much does it cost?',
+    a: 'Every house is different, so pricing is based on the roofline and whatever else gets lit. Send the address and a quote comes back fast, with one flat price for the whole season.',
   },
   {
     q: 'When do the lights come down?',
-    a: "Takedown starts after New Year's and wraps up in January.",
+    a: "Takedown starts after New Year's and runs through January, routed by neighborhood. Need them down by a certain date? Just let us know.",
+  },
+  {
+    q: 'Can you do trees, bushes and wreaths?',
+    a: 'Yes. Wrapped trees, bushes and lit wreaths can all be added to the roofline. Trees with leaves still on are no problem.',
   },
   {
     q: 'Do I have to buy the lights?',
     a: 'No. The durable commercial grade lights and equipment are leased for the season, so there is nothing to buy or worry about. They come down in January and get stored for next Christmas.',
   },
   {
-    q: 'Do I need to be home?',
-    a: 'No. We just need access to the outside of the house and an outdoor outlet.',
+    q: 'Can you put up lights I already own?',
+    a: 'We only install our own commercial grade lights. That keeps every display looking clean and lets us fix anything fast.',
   },
   {
-    q: 'What if a section goes out?',
-    a: 'Call or text and we will come fix it at no charge.',
+    q: 'Will it damage my roof or gutters?',
+    a: 'No. Lights go up with plastic clips made for gutters and shingles, and come off clean at takedown.',
+  },
+  {
+    q: 'How does the timer work?',
+    a: 'Every install comes with a timer. Most people run the lights from 5pm to midnight or dusk to dawn, and the setting can be changed anytime.',
+  },
+  {
+    q: 'My lights went up early. Do I need to plug them in?',
+    a: 'Early installs are left unplugged so the lights are ready whenever the season starts. Just plug them in when it feels like Christmas.',
+  },
+  {
+    q: 'Do I need to be home?',
+    a: 'No. Everything happens outside. Cords get run and hidden to the nearest outdoor outlet.',
+  },
+  {
+    q: 'When do I pay?',
+    a: 'Payment terms are listed on the quote, and the balance is invoiced after the lights are up.',
+  },
+  {
+    q: 'Are you licensed and insured?',
+    a: 'Yes. Licensed, bonded and insured in Washington.',
   },
   {
     q: 'Do you do businesses?',
