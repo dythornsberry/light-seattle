@@ -14,7 +14,7 @@ const SUBMIT_ENDPOINT = '/api/submit-quote';
 // even if the build env var is missing in Cloudflare Pages.
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDGwqAN4cRu6rBXnvC4fKQc79xD5nHxnq0';
 
-const LIGHTING_OPTIONS = ['Roofline', 'Trees/Bushes', 'Wreath'];
+const LIGHTING_OPTIONS = ['Roofline', 'Trees', 'Garage', 'Columns & railings', 'Bushes', 'Wreaths'];
 
 const STEPS = [
   { label: "Contact", icon: User },
@@ -141,7 +141,7 @@ function ContactForm({ isMinimal = false }) {
     city: '',
     state: '',
     timeline: '',
-    lighting: [],
+    lighting: ['Roofline'],
   });
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState({});
@@ -646,7 +646,7 @@ function ContactForm({ isMinimal = false }) {
 
               <div className="space-y-2">
                 <label className="form-label">What do you want lit? <span className="text-muted-foreground font-normal">(optional)</span></label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {LIGHTING_OPTIONS.map((opt) => {
                     const on = formState.lighting.includes(opt);
                     return (

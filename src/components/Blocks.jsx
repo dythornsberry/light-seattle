@@ -39,7 +39,7 @@ export const Hero = ({ title, sub }) => (
 );
 
 export const Included = () => (
-  <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <ul className="grid gap-4 md:grid-cols-3">
     {included.map((item) => (
       <li key={item.title} className="flex gap-3 rounded-lg border border-border p-5">
         <Check className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
@@ -97,7 +97,7 @@ export const Faq = () => (
 );
 
 export const QuoteSection = ({ title = 'Get a free quote' }) => (
-  <Section id="quote" title={title} intro={`Send your info and we will get back to you with a price. Or just call ${PHONE_DISPLAY}.`} alt>
+  <Section id="quote" title={title} intro={`Traditional Christmas lights, installed for the season and taken down after the holidays. Installs start at $800. Or just call ${PHONE_DISPLAY}.`} alt>
     <div className="max-w-2xl rounded-xl border border-border bg-background p-6 md:p-8">
       <ContactForm />
     </div>

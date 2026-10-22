@@ -21,35 +21,23 @@ export const photos = [
 
 export const included = [
   {
-    title: 'Clean professional install',
-    body: 'Straight, evenly spaced lines on every roofline. Nobody in the family has to touch a ladder.',
-  },
-  {
     title: 'Commercial grade lights',
-    body: 'Bright LED bulbs that look great every night and hold up to Seattle rain all season.',
+    body: 'Leased for the season. Nothing to buy.',
   },
   {
     title: 'Free fixes all season',
-    body: 'If a section ever goes out, we come fix it fast at no charge.',
+    body: 'If anything goes out, we fix it.',
   },
   {
-    title: 'Takedown in January',
-    body: 'The lights come down after the holidays and the house is back to normal for the new year.',
-  },
-  {
-    title: 'Storage included',
-    body: 'Nothing taking up space in the garage. Next Christmas it all goes right back up.',
-  },
-  {
-    title: 'Leased for the season',
-    body: 'Durable commercial grade lights and equipment, leased for the season, so there is nothing to buy or worry about.',
+    title: 'Takedown and storage',
+    body: 'Down in January, stored until next Christmas.',
   },
 ];
 
 export const steps = [
   {
-    title: 'Send your address',
-    body: 'Most quotes get done over the phone or by text. Bigger properties sometimes get a quick visit.',
+    title: 'Get a free quote',
+    body: 'Fill out the form or call (425) 448-4998.',
   },
   {
     title: 'Approve your quote',
@@ -80,7 +68,7 @@ export const faqs = [
   },
   {
     q: 'How much does it cost?',
-    a: 'Every house is different, so pricing is based on the roofline and whatever else gets lit. Send the address and a quote comes back fast, with one flat price for the whole season.',
+    a: 'Installs start at $800. Every house is different, so the price depends on the roofline and whatever else gets lit. Send the address and a quote comes back fast, with one flat price for the whole season.',
   },
   {
     q: 'When do the lights come down?',
