@@ -6,7 +6,7 @@ import { PHONE_DISPLAY, PHONE_TEL, SITE_URL } from '@/data/site';
 const ThankYouPage = () => (
   <>
     <Helmet>
-      <title>Thanks | Seattle Christmas Lights</title>
+      <title>Thanks | Seattle Christmas Light Installers</title>
       <meta name="robots" content="noindex" />
       <link rel="canonical" href={`${SITE_URL}/thank-you`} />
     </Helmet>

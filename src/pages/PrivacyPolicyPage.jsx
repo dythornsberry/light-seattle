@@ -6,8 +6,8 @@ const PrivacyPolicyPage = () => {
   return (
     <>
       <Helmet>
-        <title>Privacy Policy | Seattle Christmas Lights</title>
-        <meta name="description" content="Privacy policy for Seattle Christmas Lights. How we collect, use, and protect your personal information." />
+        <title>Privacy Policy | Seattle Christmas Light Installers</title>
+        <meta name="description" content="Privacy policy for Seattle Christmas Light Installers. How we collect, use, and protect your personal information." />
         <link rel="canonical" href="https://lightseattle.com/privacy" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
@@ -30,7 +30,7 @@ const PrivacyPolicyPage = () => {
         <div className="container-content max-w-3xl mx-auto prose prose-invert">
           <h2 className="h2 text-foreground mb-4">Who We Are</h2>
           <p className="p-body text-muted-foreground mb-8">
-            Seattle Christmas Lights is a holiday lighting installation business based in Kenmore, WA, serving the Greater Seattle area. This website is operated at lightseattle.com.
+            Seattle Christmas Light Installers is a holiday lighting installation business based in Kenmore, WA, serving the Greater Seattle area. This website is operated at lightseattle.com.
           </p>
 
           <h2 className="h2 text-foreground mb-4">Information We Collect</h2>

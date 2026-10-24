@@ -69,7 +69,7 @@ export async function onRequestPost(context) {
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #1a5276; border-bottom: 2px solid #2ecc71; padding-bottom: 10px;">
-          🎄 New Quote Request — Seattle Christmas Lights
+          🎄 New Quote Request — Seattle Christmas Light Installers
         </h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
           <tr style="background: #f8f9fa;">
@@ -125,7 +125,7 @@ export async function onRequestPost(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Seattle Christmas Lights <onboarding@resend.dev>',
+        from: 'Seattle Christmas Light Installers <onboarding@resend.dev>',
         to: ['dythornsberry@gmail.com'],
         subject: `🎄 New Quote Request from ${lead_name || 'Website Visitor'}`,
         html: emailHtml,

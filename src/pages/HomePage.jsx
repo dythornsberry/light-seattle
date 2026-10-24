@@ -16,7 +16,7 @@ const faqSchema = {
 const HomePage = () => (
   <>
     <Helmet>
-      <title>Christmas Light Installation in Seattle | Seattle Christmas Lights</title>
+      <title>Christmas Light Installation in Seattle | Seattle Christmas Light Installers</title>
       <meta name="description" content="We hang professional Christmas lights on homes across Seattle and the Eastside, then take them down and store them when the season's over. Installs start at $800." />
       <link rel="canonical" href={`${SITE_URL}/`} />
       <meta property="og:title" content="We hang professional Christmas lights" />
@@ -58,7 +58,7 @@ const HomePage = () => (
 
     <Section title="Serving Seattle and the Eastside since 2022">
       <p className="text-foreground/80 max-w-2xl mb-6">
-        Seattle Christmas Lights hangs professional Christmas lights on homes across Seattle and the Eastside. Call or text 7am to 7pm, every day.
+        Seattle Christmas Light Installers hangs professional Christmas lights on homes across Seattle and the Eastside. Call or text 7am to 7pm, every day.
       </p>
       <AreasList />
     </Section>

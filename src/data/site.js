@@ -1,7 +1,7 @@
 export const PHONE_DISPLAY = '(425) 448-4998';
 export const PHONE_TEL = '+14254484998';
 export const REVIEWS_URL = 'https://share.google/9yveRSMkc18JTK1QZ';
-export const BUSINESS_NAME = 'Seattle Christmas Lights';
+export const BUSINESS_NAME = 'Seattle Christmas Light Installers';
 export const SITE_URL = 'https://lightseattle.com';
 
 export const photos = [

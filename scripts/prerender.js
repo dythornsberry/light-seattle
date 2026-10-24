@@ -26,7 +26,7 @@ import { cities, SITE_URL } from '../src/data/site.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist');
-const BRAND = 'Seattle Christmas Lights';
+const BRAND = 'Seattle Christmas Light Installers';
 
 // Keep these in sync with the <Helmet> blocks in src/pages. Phase 2 replaces
 // them with whatever Helmet actually renders, so these only matter for the
@@ -47,7 +47,7 @@ const routes = [
   {
     path: '/privacy',
     title: `Privacy Policy | ${BRAND}`,
-    description: 'Privacy policy for Seattle Christmas Lights. How we collect, use, and protect your personal information.',
+    description: 'Privacy policy for Seattle Christmas Light Installers. How we collect, use, and protect your personal information.',
   },
   // Not in the sitemap (noindex), but prerendered so these pages don't get
   // the homepage HTML and hydrate against the wrong markup.
