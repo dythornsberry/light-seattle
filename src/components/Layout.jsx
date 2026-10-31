@@ -1,9 +1,10 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, Outlet } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 import ScrollToTop from '@/components/ScrollToTop';
 import { MobileBar } from '@/components/Blocks';
-import { PHONE_DISPLAY, PHONE_TEL, BUSINESS_NAME, cities, serviceAreas } from '@/data/site';
+import { PHONE_DISPLAY, PHONE_TEL, BUSINESS_NAME, businessSchema, cities, serviceAreas } from '@/data/site';
 
 const Header = () => (
   <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
@@ -61,6 +62,9 @@ const Footer = () => (
 
 const Layout = () => (
   <div className="min-h-screen flex flex-col">
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
+    </Helmet>
     <ScrollToTop />
     <Header />
     <main className="flex-1">

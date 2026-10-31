@@ -22,15 +22,15 @@ export const photos = [
 export const included = [
   {
     title: 'Commercial grade lights',
-    body: 'Leased for the season. Nothing to buy.',
+    body: 'Warm white or any color. Leased for the season, nothing to buy.',
   },
   {
     title: 'Free fixes all season',
     body: 'If anything goes out, we fix it.',
   },
   {
-    title: 'Takedown and storage',
-    body: 'Down in January, stored until next Christmas.',
+    title: 'Takedown included',
+    body: 'No extra charge when the season is over.',
   },
 ];
 
@@ -84,11 +84,11 @@ export const faqs = [
   },
   {
     q: 'How much does it cost?',
-    a: 'Installs start at $800. Every house is different, so the price depends on the roofline and whatever else gets lit. Send the address and a quote comes back fast, with one flat price for the whole season.',
+    a: 'Installs start at $800. Every house is different, so the price depends on the roofline and whatever else gets lit. Fill out the form or call and a quote comes back fast, with one flat price for the whole season.',
   },
   {
     q: 'When do the lights come down?',
-    a: "Takedown starts after New Year's and runs through January, routed by neighborhood. Need them down by a certain date? Just let us know.",
+    a: 'Takedown is included and starts right after the holidays, routed by neighborhood. Need them down by a certain date? Just let us know.',
   },
   {
     q: 'Can you do trees, bushes and wreaths?',
@@ -96,7 +96,7 @@ export const faqs = [
   },
   {
     q: 'Do I have to buy the lights?',
-    a: 'No. The durable commercial grade lights and equipment are leased for the season, so there is nothing to buy or worry about. They come down in January and get stored for next Christmas.',
+    a: 'No. The durable commercial grade lights and equipment are leased for the season, so there is nothing to buy or worry about. Takedown is included.',
   },
   {
     q: 'Can you put up lights I already own?',
@@ -120,11 +120,7 @@ export const faqs = [
   },
   {
     q: 'When do I pay?',
-    a: 'A deposit locks in the spot on the schedule, and the balance is invoiced after the lights are up.',
-  },
-  {
-    q: 'Is there a multi-year option?',
-    a: 'Yes. The 3-year agreement locks in the price for three seasons and saves 15%.',
+    a: 'New customers pay a 50% deposit to hold an install date. The balance is invoiced after the lights are up.',
   },
   {
     q: 'Are you licensed and insured?',
@@ -139,7 +135,7 @@ export const cities = [
     intro: 'We hang professional Christmas lights on homes all over Seattle, from craftsman bungalows to tall modern builds. Older Seattle homes often have steep roofs, detached garages and big trees out front, and every one of those gets measured and lit so the lines come out clean.',
     areas: ['Wedgwood', 'Ravenna', 'View Ridge', 'Lake City', 'Northgate', 'Columbia City', 'Seward Park', 'Fremont', 'Wallingford', 'Greenwood', 'Queen Anne', 'Ballard', 'Madison Park', 'Capitol Hill', 'West Seattle'],
     faqs: [
-      { q: 'Do you install in my Seattle neighborhood?', a: 'Yes. We install across all of Seattle, north end to West Seattle. Send the address and a quote comes back fast.' },
+      { q: 'Do you install in my Seattle neighborhood?', a: 'Yes. We install across all of Seattle, north end to West Seattle. Fill out the form and a quote comes back fast.' },
       { q: 'Can you light a steep or three story roof?', a: 'Yes. Steep roofs and tall homes are common in Seattle and our crews light them every week of the season.' },
     ],
   },
@@ -160,7 +156,7 @@ export const cities = [
     areas: ['Medina', 'Clyde Hill', 'Yarrow Point', 'Beaux Arts', 'Somerset', 'Newport', 'Bridle Trails', 'Woodridge', 'Lake Hills'],
     faqs: [
       { q: 'Do you install in Medina, Clyde Hill and Yarrow Point?', a: 'Yes. We install in Medina, Clyde Hill, Yarrow Point and Beaux Arts along with the rest of Bellevue.' },
-      { q: 'Do you work with HOA rules?', a: 'Yes. Lights go up with clips that come off clean, and they come down in January. If your HOA has dates, just let us know.' },
+      { q: 'Do you work with HOA rules?', a: 'Yes. Lights go up with clips that come off clean at takedown. If your HOA has dates, just let us know.' },
     ],
   },
 ];
@@ -172,10 +168,11 @@ export const businessSchema = {
   '@type': 'HomeAndConstructionBusiness',
   '@id': `${SITE_URL}/#business`,
   name: BUSINESS_NAME,
+  alternateName: 'Seattle Christmas Lights',
   url: SITE_URL,
   telephone: PHONE_TEL,
   image: `${SITE_URL}/images/og-image.jpg`,
-  description: 'Professional Christmas light installation for homes in Seattle and the Eastside. Free fixes, takedown and storage included.',
+  description: 'Professional Christmas and holiday light installation for homes in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included.',
   priceRange: '$800+',
   openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '07:00', closes: '19:00' }],
   address: {
@@ -186,3 +183,19 @@ export const businessSchema = {
   },
   areaServed: serviceAreas.map((c) => ({ '@type': 'City', name: `${c}, WA` })),
 };
+
+// Every page links its Service to the one business entity above by @id.
+export const serviceSchema = ({ name, url, areaServed }) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  serviceType: 'Christmas light installation',
+  url,
+  provider: { '@id': businessSchema['@id'] },
+  areaServed: areaServed.map((c) => ({ '@type': 'City', name: `${c}, WA` })),
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: 800, priceCurrency: 'USD' },
+  },
+});

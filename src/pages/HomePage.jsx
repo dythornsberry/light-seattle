@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Hero, Section, Included, PhotoGrid, Steps, Faq, QuoteSection, Reviews, InstallDetails, AreasList } from '@/components/Blocks';
-import { businessSchema, faqs, SITE_URL } from '@/data/site';
+import { faqs, serviceAreas, serviceSchema, SITE_URL } from '@/data/site';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -13,17 +13,25 @@ const faqSchema = {
   })),
 };
 
+const homeServiceSchema = serviceSchema({
+  name: 'Christmas light installation in Seattle and the Eastside',
+  url: `${SITE_URL}/`,
+  areaServed: serviceAreas,
+});
+
+const description = 'Christmas and holiday light installation in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included. Installs from $800.';
+
 const HomePage = () => (
   <>
     <Helmet>
       <title>Christmas Light Installation in Seattle | Seattle Christmas Light Installers</title>
-      <meta name="description" content="We hang professional Christmas lights on homes across Seattle and the Eastside, then take them down and store them when the season's over. Installs start at $800." />
+      <meta name="description" content={description} />
       <link rel="canonical" href={`${SITE_URL}/`} />
-      <meta property="og:title" content="We hang professional Christmas lights" />
-      <meta property="og:description" content="The best looking house on the street this Christmas." />
+      <meta property="og:title" content="Christmas Light Installation in Seattle" />
+      <meta property="og:description" content={description} />
       <meta property="og:url" content={`${SITE_URL}/`} />
       <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
-      <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(homeServiceSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
 

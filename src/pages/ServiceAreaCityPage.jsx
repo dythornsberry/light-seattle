@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Hero, Section, Included, PhotoGrid, QuoteSection, Reviews } from '@/components/Blocks';
-import { businessSchema, cities, photos, SITE_URL } from '@/data/site';
+import { cities, photos, serviceSchema, SITE_URL } from '@/data/site';
 
 const ServiceAreaCityPage = ({ city }) => {
   const index = Math.max(0, cities.findIndex((c) => c.name === city));
@@ -11,7 +11,16 @@ const ServiceAreaCityPage = ({ city }) => {
   const start = (index * 4) % photos.length;
   const cityPhotos = [0, 1, 2].map((i) => photos[(start + i) % photos.length]);
   const url = `${SITE_URL}/service-areas/${current.path}`;
-  const description = `Christmas light installation in ${city}, WA. We hang professional Christmas lights, then take them down and store them when the season's over. Installs start at $800.`;
+  const description = `Christmas light hanging service in ${city}, WA. We install commercial grade holiday lights, fix anything that goes out and handle takedown. Installs from $800.`;
+  const cityServiceSchema = serviceSchema({ name: `Christmas light installation in ${city}, WA`, url, areaServed: [city] });
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: `Christmas lights in ${city}`, item: url },
+    ],
+  };
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -28,8 +37,9 @@ const ServiceAreaCityPage = ({ city }) => {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
-        <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(cityServiceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <Hero
