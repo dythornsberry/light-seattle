@@ -98,7 +98,7 @@ export const Faq = () => (
 );
 
 export const QuoteSection = ({ title = 'Get a free quote' }) => (
-  <Section id="quote" title={title} intro={`Traditional Christmas lights, installed for the season and taken down after the holidays. Installs start at $800. Or call or text ${PHONE_DISPLAY}, 7am to 7pm every day.`}>
+  <Section id="quote" title={title} intro={`We hang the lights, keep them working all season and take them down when it's over. Installs start at $800. Fill out the form, or call or text ${PHONE_DISPLAY}, 7am to 7pm every day.`}>
     <div className="max-w-2xl rounded-xl border border-border bg-background p-6 md:p-8">
       <ContactForm />
     </div>

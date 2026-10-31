@@ -34,13 +34,13 @@ const BRAND = 'Seattle Christmas Light Installers';
 const routes = [
   {
     path: '/',
-    title: `Christmas Light Installation in Seattle | ${BRAND}`,
+    title: 'Christmas Light Installation in Seattle and the Eastside',
     description: 'Christmas and holiday light installation in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included. Installs from $800.',
-    ogTitle: 'Christmas Light Installation in Seattle',
+    ogTitle: 'Christmas Light Installation in Seattle and the Eastside',
   },
   ...cities.map((c) => ({
     path: `/service-areas/${c.path}`,
-    title: `Christmas Light Installation in ${c.name}, WA | ${BRAND}`,
+    title: `Christmas Light Installation in ${c.name}, WA`,
     description: `Christmas light hanging service in ${c.name}, WA. We install commercial grade holiday lights, fix anything that goes out and handle takedown. Installs from $800.`,
     ogTitle: `Christmas Light Installation in ${c.name}, WA`,
   })),

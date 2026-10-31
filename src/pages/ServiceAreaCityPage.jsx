@@ -30,7 +30,7 @@ const ServiceAreaCityPage = ({ city }) => {
   return (
     <>
       <Helmet>
-        <title>{`Christmas Light Installation in ${city}, WA | Seattle Christmas Light Installers`}</title>
+        <title>{`Christmas Light Installation in ${city}, WA`}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={url} />
         <meta property="og:title" content={`Christmas Light Installation in ${city}, WA`} />

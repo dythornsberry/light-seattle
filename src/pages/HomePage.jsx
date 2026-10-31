@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Hero, Section, Included, PhotoGrid, Steps, Faq, QuoteSection, Reviews, InstallDetails, AreasList } from '@/components/Blocks';
-import { faqs, serviceAreas, serviceSchema, SITE_URL } from '@/data/site';
+import { BUSINESS_NAME, faqs, serviceAreas, serviceSchema, SITE_URL } from '@/data/site';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -19,24 +19,34 @@ const homeServiceSchema = serviceSchema({
   areaServed: serviceAreas,
 });
 
+// Titles no longer carry the brand, so tell Google the site name directly.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: BUSINESS_NAME,
+  alternateName: 'Seattle Christmas Lights',
+  url: `${SITE_URL}/`,
+};
+
 const description = 'Christmas and holiday light installation in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included. Installs from $800.';
 
 const HomePage = () => (
   <>
     <Helmet>
-      <title>Christmas Light Installation in Seattle | Seattle Christmas Light Installers</title>
+      <title>Christmas Light Installation in Seattle and the Eastside</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={`${SITE_URL}/`} />
-      <meta property="og:title" content="Christmas Light Installation in Seattle" />
+      <meta property="og:title" content="Christmas Light Installation in Seattle and the Eastside" />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={`${SITE_URL}/`} />
       <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
+      <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(homeServiceSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </Helmet>
 
     <Hero
-      title="We hang professional Christmas lights"
+      title="Christmas light installation in Seattle and the Eastside"
       sub="The best looking house on the street this Christmas."
     />
 

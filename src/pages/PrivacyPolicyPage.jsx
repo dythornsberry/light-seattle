@@ -76,12 +76,11 @@ const PrivacyPolicyPage = () => {
             If you have questions about this privacy policy or wish to request deletion of your data, contact us:
           </p>
           <ul className="list-none mb-8 space-y-2 text-muted-foreground">
-            <li className="p-body">Phone: <a href="tel:4254484998" className="text-primary hover:underline">(425) 448-4998</a></li>
-            <li className="p-body">Email: <a href="mailto:christmaslightsnw@gmail.com" className="text-primary hover:underline">christmaslightsnw@gmail.com</a></li>
+            <li className="p-body">Call or text: <a href="tel:+14254484998" className="text-primary hover:underline">(425) 448-4998</a>, 7am to 7pm every day</li>
           </ul>
 
           <p className="p-body text-muted-foreground">
-            <Link to="/contact" className="text-primary hover:underline">Back to Contact</Link>
+            <Link to="/#quote" className="text-primary hover:underline">Get a free quote</Link>
           </p>
         </div>
       </div>
