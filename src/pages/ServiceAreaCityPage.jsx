@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Hero, Section, Included, PhotoGrid, QuoteSection, Reviews } from '@/components/Blocks';
-import { cities, photos, serviceSchema, SITE_URL } from '@/data/site';
+import { cities, photos, reviews, serviceSchema, SITE_URL } from '@/data/site';
 
 const ServiceAreaCityPage = ({ city }) => {
   const index = Math.max(0, cities.findIndex((c) => c.name === city));
@@ -10,6 +10,8 @@ const ServiceAreaCityPage = ({ city }) => {
   const others = cities.filter((c) => c.path !== current.path);
   const start = (index * 4) % photos.length;
   const cityPhotos = [0, 1, 2].map((i) => photos[(start + i) % photos.length]);
+  // A different three reviews on each city page
+  const cityReviews = current.reviewPicks.map((i) => reviews[i]);
   const url = `${SITE_URL}/service-areas/${current.path}`;
   const description = `Christmas light hanging service in ${city}, WA. We install commercial grade holiday lights, fix anything that goes out and handle takedown. Installs from $800.`;
   const cityServiceSchema = serviceSchema({ name: `Christmas light installation in ${city}, WA`, url, areaServed: [city] });
@@ -44,11 +46,12 @@ const ServiceAreaCityPage = ({ city }) => {
 
       <Hero
         title={`We hang professional Christmas lights in ${city}`}
-        sub="The best looking house on the street this Christmas."
+        sub={current.sub}
       />
 
       <Section title={`Christmas lights in ${city}`}>
         <p className="text-foreground/80 max-w-2xl">{current.intro}</p>
+        <p className="mt-4 text-foreground/80 max-w-2xl">{current.local}</p>
         <h3 className="mt-8 mb-3 font-semibold text-foreground">Neighborhoods we cover</h3>
         <p className="text-foreground/75 max-w-2xl">{current.areas.join(', ')} and the rest of {city}.</p>
       </Section>
@@ -65,7 +68,7 @@ const ServiceAreaCityPage = ({ city }) => {
       </Section>
 
       <Section title="What clients say" alt>
-        <Reviews />
+        <Reviews items={cityReviews} />
       </Section>
 
       <QuoteSection title={`Get a free quote in ${city}`} />

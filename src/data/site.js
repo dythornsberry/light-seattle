@@ -1,6 +1,8 @@
 export const PHONE_DISPLAY = '(425) 448-4998';
 export const PHONE_TEL = '+14254484998';
 export const REVIEWS_URL = 'https://share.google/9yveRSMkc18JTK1QZ';
+// The Google Business Profile, by its CID. Ties the site to the profile in schema.
+export const GOOGLE_PROFILE_URL = 'https://www.google.com/maps?cid=5099775362467888010';
 export const BUSINESS_NAME = 'Seattle Christmas Light Installers';
 export const SITE_URL = 'https://lightseattle.com';
 
@@ -133,6 +135,9 @@ export const cities = [
     name: 'Seattle',
     path: 'seattle',
     intro: 'We hang professional Christmas lights on homes all over Seattle, from craftsman bungalows to tall modern builds. Older Seattle homes often have steep roofs, detached garages and big trees out front, and every one of those gets measured and lit so the lines come out clean.',
+    sub: 'Older homes, steep roofs and a lot of roofline detail. We light all of it.',
+    local: 'A lot of the Seattle homes we do are older, with more roofline detail than a newer build: dormers, porches, layered gables and trim lines. Those take longer to measure and hang, but they are also the houses that look the best lit up. We run lights along every line you want lit, not just the gutter.',
+    reviewPicks: [1, 3, 5],
     areas: ['Wedgwood', 'Ravenna', 'View Ridge', 'Lake City', 'Northgate', 'Columbia City', 'Seward Park', 'Fremont', 'Wallingford', 'Greenwood', 'Queen Anne', 'Ballard', 'Madison Park', 'Capitol Hill', 'West Seattle'],
     faqs: [
       { q: 'Do you install in my Seattle neighborhood?', a: 'Yes. We install across all of Seattle, north end to West Seattle. Fill out the form and a quote comes back fast.' },
@@ -143,6 +148,9 @@ export const cities = [
     name: 'Kirkland',
     path: 'kirkland',
     intro: 'Kirkland is one of the busiest areas we hang Christmas lights. A lot of Kirkland homes have long rooflines, multiple gables and big trees, which makes for a great display when every line is straight and evenly spaced.',
+    sub: 'Close to home for our crews, so Kirkland gets fast installs and fast fixes.',
+    local: 'Our crews are based right next to Kirkland, so it is one of the quickest places for us to get to. That matters most in the middle of the season: if a section goes out, it usually gets fixed within a day or two, and nobody needs to be home for it.',
+    reviewPicks: [0, 2, 4],
     areas: ['Juanita', 'Totem Lake', 'Finn Hill', 'Rose Hill', 'Houghton', 'Bridle Trails', 'Market', 'Norkirk'],
     faqs: [
       { q: 'Do you install in all of Kirkland?', a: 'Yes. We cover all of Kirkland, plus nearby Bothell, Kenmore, Woodinville and Redmond.' },
@@ -153,6 +161,9 @@ export const cities = [
     name: 'Bellevue',
     path: 'bellevue',
     intro: 'We hang professional Christmas lights on homes across Bellevue and the neighborhoods around it. Bigger Bellevue homes look best with a full roofline, wrapped trees and a lit wreath at the entry, all on one flat price for the season.',
+    sub: 'Big homes, long rooflines and wrapped trees, on one flat price for the season.',
+    local: 'We light a handful of homes in Somerset, along with homes around the rest of Bellevue. A lot of them are bigger houses with long rooflines and tall trees, so the quote covers exactly what you want lit and nothing you do not. You pick the lines, we send one price.',
+    reviewPicks: [2, 5, 1],
     areas: ['Medina', 'Clyde Hill', 'Yarrow Point', 'Beaux Arts', 'Somerset', 'Newport', 'Bridle Trails', 'Woodridge', 'Lake Hills'],
     faqs: [
       { q: 'Do you install in Medina, Clyde Hill and Yarrow Point?', a: 'Yes. We install in Medina, Clyde Hill, Yarrow Point and Beaux Arts along with the rest of Bellevue.' },
@@ -182,6 +193,8 @@ export const businessSchema = {
     addressCountry: 'US',
   },
   areaServed: serviceAreas.map((c) => ({ '@type': 'City', name: `${c}, WA` })),
+  hasMap: GOOGLE_PROFILE_URL,
+  sameAs: [GOOGLE_PROFILE_URL],
 };
 
 // Every page links its Service to the one business entity above by @id.

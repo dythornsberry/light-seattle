@@ -105,10 +105,10 @@ export const QuoteSection = ({ title = 'Get a free quote' }) => (
   </Section>
 );
 
-export const Reviews = () => (
+export const Reviews = ({ items = reviews }) => (
   <>
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {reviews.map((r) => (
+      {items.map((r) => (
         <li key={r.name} className="flex flex-col gap-3 rounded-lg border border-border p-5">
           <div className="flex gap-0.5 text-primary" aria-label="5 out of 5 stars">
             {[0, 1, 2, 3, 4].map((i) => <Star key={i} className="w-4 h-4 fill-current" />)}
