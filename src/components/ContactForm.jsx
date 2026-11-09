@@ -130,7 +130,7 @@ async function ensurePlacesAPI() {
 
 // Price ranges for the required budget question; the value is what Zapier and the backup email receive
 const BUDGET_OPTIONS = [
-  { value: '$700 to $1,200', detail: 'Front rooflines' },
+  { value: '$800 to $1,200', detail: 'Front rooflines' },
   { value: '$1,200 to $2,500', detail: 'Rooflines plus sides and accents' },
   { value: '$2,500 to $5,000', detail: 'Rooflines, sides, accents, bushes and landscaping' },
   { value: '$5,000 to $10,000', detail: 'Trees and bigger displays' },
