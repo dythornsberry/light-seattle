@@ -128,6 +128,15 @@ async function ensurePlacesAPI() {
   }
 }
 
+// Price ranges for the required budget question; the value is what Zapier and the backup email receive
+const BUDGET_OPTIONS = [
+  { value: '$700 to $1,200', detail: 'Front rooflines' },
+  { value: '$1,200 to $2,500', detail: 'Rooflines plus sides and accents' },
+  { value: '$2,500 to $5,000', detail: 'Rooflines, sides, accents, bushes and landscaping' },
+  { value: '$5,000 to $10,000', detail: 'Trees and bigger displays' },
+  { value: '$10,000+', detail: 'Commercial or large home displays' },
+];
+
 function ContactForm({ isMinimal = false }) {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -141,6 +150,7 @@ function ContactForm({ isMinimal = false }) {
     city: '',
     state: '',
     timeline: '',
+    budget: '',
     lighting: ['Roofline'],
   });
   const [honeypot, setHoneypot] = useState('');
@@ -369,6 +379,7 @@ function ContactForm({ isMinimal = false }) {
       } else if (!/^\d{5}(-\d{4})?$/.test(formState.zip_code)) {
         newErrors.zip_code = "Please enter a valid US ZIP code.";
       }
+      if (!formState.budget) newErrors.budget = "Please pick a budget range.";
       if (!formState.timeline) newErrors.timeline = "Please select a timeline.";
     }
 
@@ -458,6 +469,7 @@ function ContactForm({ isMinimal = false }) {
       email: formState.email,
       address: fullAddress,
       timeline: formState.timeline,
+      budget: formState.budget,
       lighting: formState.lighting.join(', ') || 'Not specified',
       phone_e164: phoneE164,
       submitted_at: new Date().toISOString()
@@ -477,6 +489,7 @@ function ContactForm({ isMinimal = false }) {
         lead_zip: formState.zip_code,
         lead_full_address: [formState.street_address, formState.city, formState.state, formState.zip_code].filter(Boolean).join(', '),
         lead_timeline: formState.timeline,
+        lead_budget: formState.budget,
         lead_lighting: formState.lighting.join(', ') || 'Not specified',
         lead_submitted_at: submissionData.submitted_at,
       }),
@@ -663,6 +676,21 @@ function ContactForm({ isMinimal = false }) {
                     );
                   })}
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="form-label">Budget range*</label>
+                <RadioGroup onValueChange={(value) => handleRadioChange('budget', value)} value={formState.budget} className="grid grid-cols-1 gap-2" disabled={isSubmitting}>
+                  {BUDGET_OPTIONS.map((opt, i) => (
+                    <div key={opt.value} className="flex items-center space-x-2 border border-border rounded-lg px-3 py-2 hover:border-primary/50 transition-colors">
+                      <RadioGroupItem value={opt.value} id={`budget-${i}`} />
+                      <Label htmlFor={`budget-${i}`} className="cursor-pointer text-sm">
+                        <span className="font-semibold">{opt.value}</span> <span className="text-muted-foreground">{opt.detail}</span>
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+                {errors.budget && <p className="form-error">{errors.budget}</p>}
               </div>
 
               <div className="space-y-2">

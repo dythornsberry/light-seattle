@@ -34,6 +34,7 @@ export async function onRequestPost(context) {
       lead_state,
       lead_full_address,
       lead_timeline,
+      lead_budget,
       lead_lighting,
       lead_submitted_at,
     } = await context.request.json();
@@ -57,6 +58,7 @@ export async function onRequestPost(context) {
     );
     const safeLeadZip = escapeHtml(lead_zip || 'N/A');
     const safeLeadTimeline = escapeHtml(lead_timeline || 'N/A');
+    const safeLeadBudget = escapeHtml(lead_budget || 'N/A');
     const safeLeadLighting = escapeHtml(lead_lighting || 'Not specified');
     const safeSubmittedAt = escapeHtml(
       lead_submitted_at
@@ -99,6 +101,10 @@ export async function onRequestPost(context) {
           <tr style="background: #f8f9fa;">
             <td style="padding: 10px; font-weight: bold;">Timeline</td>
             <td style="padding: 10px;">${safeLeadTimeline}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold;">Budget</td>
+            <td style="padding: 10px;">${safeLeadBudget}</td>
           </tr>
           <tr>
             <td style="padding: 10px; font-weight: bold;">Wants lit</td>
