@@ -196,6 +196,32 @@ export const cities = [
       { q: 'Do you work with HOA rules?', a: 'Yes. Lights go up with clips that come off clean at takedown. If your HOA has dates, just let us know.' },
     ],
   },
+  {
+    name: 'Lynnwood',
+    path: 'lynnwood',
+    intro: 'We hang professional Christmas lights on homes across Lynnwood, from Meadowdale to Alderwood.',
+    sub: 'Meadowdale to Alderwood, with free fixes and takedown included.',
+    local: 'Lynnwood has a mix of ramblers, split levels and newer two story homes, and each one gets measured and quoted for its own roofline. Warm white along the front roofline and peaks is the most popular look, with trees and bushes added if you want more.',
+    reviewPicks: [0, 4, 2],
+    areas: ['Meadowdale', 'Alderwood', 'Lynndale', 'North Lynnwood'],
+    faqs: [
+      { q: 'Do you install in Lynnwood?', a: 'Yes. Lynnwood is part of our regular service area, along with Edmonds, Mountlake Terrace and Brier.' },
+      { q: 'Can you light just the front of the house?', a: 'Yes. A lot of homes do the front roofline and peaks only. We quote exactly what you want lit.' },
+    ],
+  },
+  {
+    name: 'Mountlake Terrace',
+    path: 'mountlake-terrace',
+    intro: 'We hang professional Christmas lights on homes across Mountlake Terrace, from Lake Ballinger to Cedar Way.',
+    sub: 'Lake Ballinger to Cedar Way, with free fixes and takedown included.',
+    local: 'A lot of Mountlake Terrace homes are single story ramblers with long, low rooflines, which look clean with a straight run of warm white. Trees, bushes and entry columns are easy to add to the same install.',
+    reviewPicks: [5, 1, 3],
+    areas: ['Lake Ballinger', 'Cedar Way', 'Melody Hill', 'Town Center'],
+    faqs: [
+      { q: 'Do you install in Mountlake Terrace?', a: 'Yes. Mountlake Terrace is a short drive from our base in Kenmore and part of our regular service area.' },
+      { q: 'Is a single story home cheaper to light?', a: 'Often, yes. Price depends on how many feet of roofline you want lit and what else you add.' },
+    ],
+  },
 ];
 
 export const serviceAreas = ['Seattle', 'Shoreline', 'Kenmore', 'Edmonds', 'Mukilteo', 'Lake Forest Park', 'Mountlake Terrace', 'Lynnwood', 'Brier', 'Woodway'];

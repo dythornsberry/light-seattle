@@ -34,4 +34,6 @@
 - Kenmore: https://lightseattle.com/service-areas/kenmore
 - Edmonds: https://lightseattle.com/service-areas/edmonds
 - Mukilteo: https://lightseattle.com/service-areas/mukilteo
+- Lynnwood: https://lightseattle.com/service-areas/lynnwood
+- Mountlake Terrace: https://lightseattle.com/service-areas/mountlake-terrace
 - Also: Lake Forest Park, Mountlake Terrace, Lynnwood, Brier, Woodway
