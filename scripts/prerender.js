@@ -34,9 +34,9 @@ const BRAND = 'Seattle Christmas Light Installers';
 const routes = [
   {
     path: '/',
-    title: 'Christmas Light Installation in Seattle and the Eastside',
-    description: 'Christmas and holiday light installation in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included. Installs from $800.',
-    ogTitle: 'Christmas Light Installation in Seattle and the Eastside',
+    title: 'Christmas Light Installation in Seattle, Shoreline and Edmonds',
+    description: 'Christmas and holiday light installation in Seattle, Shoreline, Kenmore, Edmonds and Mukilteo. Commercial grade lights, free fixes all season and takedown included. Installs from $800.',
+    ogTitle: 'Christmas Light Installation in Seattle, Shoreline and Edmonds',
   },
   ...cities.map((c) => ({
     path: `/service-areas/${c.path}`,

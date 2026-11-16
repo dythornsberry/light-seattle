@@ -145,34 +145,60 @@ export const cities = [
     ],
   },
   {
-    name: 'Kirkland',
-    path: 'kirkland',
-    intro: 'Kirkland is one of the busiest areas we hang Christmas lights. A lot of Kirkland homes have long rooflines, multiple gables and big trees, which makes for a great display when every line is straight and evenly spaced.',
-    sub: 'Close to home for our crews, so Kirkland gets fast installs and fast fixes.',
-    local: 'Our crews are based right next to Kirkland, so it is one of the quickest places for us to get to. That matters most in the middle of the season: if a section goes out, it usually gets fixed within a day or two, and nobody needs to be home for it.',
+    name: 'Shoreline',
+    path: 'shoreline',
+    intro: 'We hang professional Christmas lights on homes across Shoreline. A lot of Shoreline houses are ramblers and split levels on wooded lots, with long, low rooflines that look sharp with one clean line of warm white.',
+    sub: 'Just north of Seattle and close to our home base, so Shoreline gets fast installs and fast fixes.',
+    local: 'Shoreline is a few minutes west of our home base in Kenmore, so it is an easy stop for our crews all season. Big firs and cedars are common here and they drop needles on roofs and gutters all fall. Lights go up with clips made for gutters and shingles, so they stay put through the wind and rain.',
     reviewPicks: [0, 2, 4],
-    areas: ['Juanita', 'Totem Lake', 'Finn Hill', 'Rose Hill', 'Houghton', 'Bridle Trails', 'Market', 'Norkirk'],
+    areas: ['Richmond Beach', 'Innis Arden', 'Richmond Highlands', 'Hillwood', 'Echo Lake', 'Ballinger', 'North City', 'Ridgecrest', 'Parkwood'],
     faqs: [
-      { q: 'Do you install in all of Kirkland?', a: 'Yes. We cover all of Kirkland, plus nearby Bothell, Kenmore, Woodinville and Redmond.' },
-      { q: 'Can you wrap the big trees in my yard?', a: 'Yes. Wrapped trees and bushes can be added to any roofline install.' },
+      { q: 'Do you install in Richmond Beach and Innis Arden?', a: 'Yes. We install in Richmond Beach, Innis Arden and the rest of Shoreline, plus Lake Forest Park next door.' },
+      { q: 'My house sits under big trees. Is that a problem?', a: 'No. Tree cover is normal in Shoreline. The clips hold the lights in place, and if a branch knocks a section out we fix it at no charge.' },
     ],
   },
   {
-    name: 'Bellevue',
-    path: 'bellevue',
-    intro: 'We hang professional Christmas lights on homes across Bellevue and the neighborhoods around it. Bigger Bellevue homes look best with a full roofline, wrapped trees and a lit wreath at the entry, all on one flat price for the season.',
-    sub: 'Big homes, long rooflines and wrapped trees, on one flat price for the season.',
-    local: 'We light a handful of homes in Somerset, along with homes around the rest of Bellevue. A lot of them are bigger houses with long rooflines and tall trees, so the quote covers exactly what you want lit and nothing you do not. You pick the lines, we send one price.',
-    reviewPicks: [2, 5, 1],
-    areas: ['Medina', 'Clyde Hill', 'Yarrow Point', 'Beaux Arts', 'Somerset', 'Newport', 'Bridle Trails', 'Woodridge', 'Lake Hills'],
+    name: 'Kenmore',
+    path: 'kenmore',
+    intro: 'Kenmore is home for us. Seattle Christmas Light Installers is based here, so Kenmore homes get some of the fastest installs and fixes we do.',
+    sub: 'Our home base at the north end of Lake Washington.',
+    local: 'Kenmore has lake view homes on the hills, newer two story builds and older ramblers on big lots. Hillside houses often have a tall front side and a steep driveway, and our crews are set up for both. If a section goes out in the middle of the season, we are already close by.',
+    reviewPicks: [1, 4, 5],
+    areas: ['Arrowhead', 'Inglewood', 'Moorlands', 'Uplake', 'Northlake Terrace', 'Kenlake Vista'],
     faqs: [
-      { q: 'Do you install in Medina, Clyde Hill and Yarrow Point?', a: 'Yes. We install in Medina, Clyde Hill, Yarrow Point and Beaux Arts along with the rest of Bellevue.' },
+      { q: 'Are you based in Kenmore?', a: 'Yes. Kenmore is our home base, so it is one of the quickest places for us to get to.' },
+      { q: 'Do you also cover Lake Forest Park and Brier?', a: 'Yes. We install in Lake Forest Park and Brier along with all of Kenmore.' },
+    ],
+  },
+  {
+    name: 'Edmonds',
+    path: 'edmonds',
+    intro: 'We hang professional Christmas lights on homes across Edmonds, from the Bowl near the ferry up to Picnic Point. Water view homes with long rooflines and big decks look great outlined in lights.',
+    sub: 'Rooflines, decks and gates, lit and taken down for one flat price.',
+    local: 'A lot of Edmonds homes face the water, so they catch more wind than houses farther inland. Lights go up with clips made for gutters and shingles and the cords get tucked away, so the display holds through winter storms. Deck railings and driveway gates can be lit along with the roofline.',
+    reviewPicks: [3, 0, 5],
+    areas: ['The Bowl', 'Seaview', 'Perrinville', 'Westgate', 'Five Corners', 'Meadowdale', 'Picnic Point', 'Woodway'],
+    faqs: [
+      { q: 'Do you install in Woodway and Picnic Point?', a: 'Yes. We install in Woodway, Picnic Point and Meadowdale along with the rest of Edmonds.' },
+      { q: 'Can you light a deck or a driveway gate?', a: 'Yes. Deck railings, gates and fences can be added to any roofline install.' },
+    ],
+  },
+  {
+    name: 'Mukilteo',
+    path: 'mukilteo',
+    intro: 'We hang professional Christmas lights on homes across Mukilteo, from Old Town near the ferry to Harbour Pointe.',
+    sub: 'Old Town to Harbour Pointe, with free fixes and takedown included.',
+    local: 'Many Mukilteo homes are newer two story builds with clean rooflines and matching peaks, which look great outlined in warm white. If your HOA has rules about dates or colors, tell us and we plan the install around them.',
+    reviewPicks: [2, 3, 1],
+    areas: ['Old Town', 'Harbour Pointe', 'Chennault Beach', 'Olympus Terrace'],
+    faqs: [
+      { q: 'Do you come all the way up to Mukilteo?', a: 'Yes. We install in Mukilteo all season, along with Edmonds and Lynnwood.' },
       { q: 'Do you work with HOA rules?', a: 'Yes. Lights go up with clips that come off clean at takedown. If your HOA has dates, just let us know.' },
     ],
   },
 ];
 
-export const serviceAreas = ['Seattle', 'Kirkland', 'Bellevue', 'Bothell', 'Kenmore', 'Woodinville', 'Sammamish', 'Redmond', 'Issaquah', 'Mercer Island', 'Medina', 'Clyde Hill', 'Snohomish', 'Edmonds', 'Brier', 'Lynnwood', 'Shoreline', 'Lake Forest Park', 'Snoqualmie'];
+export const serviceAreas = ['Seattle', 'Shoreline', 'Kenmore', 'Edmonds', 'Mukilteo', 'Lake Forest Park', 'Mountlake Terrace', 'Lynnwood', 'Brier', 'Woodway'];
 
 export const businessSchema = {
   '@context': 'https://schema.org',
@@ -183,7 +209,7 @@ export const businessSchema = {
   url: SITE_URL,
   telephone: PHONE_TEL,
   image: `${SITE_URL}/images/og-image.jpg`,
-  description: 'Professional Christmas and holiday light installation for homes in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included.',
+  description: 'Professional Christmas and holiday light installation for homes in Seattle and the north end, from Shoreline and Kenmore up to Edmonds and Mukilteo. Commercial grade lights, free fixes all season and takedown included.',
   priceRange: '$800+',
   openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '07:00', closes: '19:00' }],
   address: {

@@ -1,6 +1,6 @@
 # Seattle Christmas Light Installers
 
-> Professional Christmas and holiday light installation for homes in Seattle and the Eastside. Based in Kenmore, WA. Licensed, bonded and insured. Website: https://lightseattle.com
+> Professional Christmas and holiday light installation for homes in Seattle and the north end, from Shoreline and Kenmore up to Edmonds and Mukilteo. Based in Kenmore, WA. Licensed, bonded and insured. Website: https://lightseattle.com
 
 ## Pricing
 - Installs start at $800, with one flat price for the whole season
@@ -30,6 +30,8 @@
 
 ## Service areas
 - Seattle: https://lightseattle.com/service-areas/seattle
-- Kirkland: https://lightseattle.com/service-areas/kirkland
-- Bellevue: https://lightseattle.com/service-areas/bellevue
-- Also: Bothell, Kenmore, Woodinville, Sammamish, Redmond, Issaquah, Mercer Island, Medina, Clyde Hill, Snohomish, Edmonds, Brier, Lynnwood, Shoreline, Lake Forest Park, Snoqualmie
+- Shoreline: https://lightseattle.com/service-areas/shoreline
+- Kenmore: https://lightseattle.com/service-areas/kenmore
+- Edmonds: https://lightseattle.com/service-areas/edmonds
+- Mukilteo: https://lightseattle.com/service-areas/mukilteo
+- Also: Lake Forest Park, Mountlake Terrace, Lynnwood, Brier, Woodway

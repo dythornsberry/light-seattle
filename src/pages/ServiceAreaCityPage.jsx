@@ -8,7 +8,8 @@ const ServiceAreaCityPage = ({ city }) => {
   const index = Math.max(0, cities.findIndex((c) => c.name === city));
   const current = cities[index];
   const others = cities.filter((c) => c.path !== current.path);
-  const start = (index * 4) % photos.length;
+  // Step of 5 keeps the photo sets mostly different across five city pages
+  const start = (index * 5) % photos.length;
   const cityPhotos = [0, 1, 2].map((i) => photos[(start + i) % photos.length]);
   // A different three reviews on each city page
   const cityReviews = current.reviewPicks.map((i) => reviews[i]);

@@ -14,7 +14,7 @@ const faqSchema = {
 };
 
 const homeServiceSchema = serviceSchema({
-  name: 'Christmas light installation in Seattle and the Eastside',
+  name: 'Christmas light installation in Seattle and the north end',
   url: `${SITE_URL}/`,
   areaServed: serviceAreas,
 });
@@ -28,15 +28,15 @@ const websiteSchema = {
   url: `${SITE_URL}/`,
 };
 
-const description = 'Christmas and holiday light installation in Seattle and the Eastside. Commercial grade lights, free fixes all season and takedown included. Installs from $800.';
+const description = 'Christmas and holiday light installation in Seattle, Shoreline, Kenmore, Edmonds and Mukilteo. Commercial grade lights, free fixes all season and takedown included. Installs from $800.';
 
 const HomePage = () => (
   <>
     <Helmet>
-      <title>Christmas Light Installation in Seattle and the Eastside</title>
+      <title>Christmas Light Installation in Seattle, Shoreline and Edmonds</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={`${SITE_URL}/`} />
-      <meta property="og:title" content="Christmas Light Installation in Seattle and the Eastside" />
+      <meta property="og:title" content="Christmas Light Installation in Seattle, Shoreline and Edmonds" />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={`${SITE_URL}/`} />
       <meta property="og:image" content={`${SITE_URL}/images/og-image.jpg`} />
@@ -46,7 +46,7 @@ const HomePage = () => (
     </Helmet>
 
     <Hero
-      title="Christmas light installation in Seattle and the Eastside"
+      title="Christmas light installation in Seattle and the north end"
       sub="The best looking house on the street this Christmas."
     />
 
@@ -54,7 +54,7 @@ const HomePage = () => (
       <Included />
     </Section>
 
-    <Section id="photos" title="Recent installs" intro="Real homes we lit up around Seattle and the Eastside." alt>
+    <Section id="photos" title="Recent installs" intro="Real homes we lit up around the Seattle area." alt>
       <PhotoGrid />
     </Section>
 
@@ -74,9 +74,9 @@ const HomePage = () => (
       <Faq />
     </Section>
 
-    <Section title="Serving Seattle and the Eastside since 2022">
+    <Section title="Serving Seattle and the north end since 2022">
       <p className="text-foreground/80 max-w-2xl mb-6">
-        Seattle Christmas Light Installers hangs professional Christmas lights on homes across Seattle and the Eastside. Call or text 7am to 7pm, every day.
+        Seattle Christmas Light Installers hangs professional Christmas lights on homes across Seattle and the north end, from Shoreline and Kenmore up to Edmonds and Mukilteo. Call or text 7am to 7pm, every day.
       </p>
       <AreasList />
     </Section>
